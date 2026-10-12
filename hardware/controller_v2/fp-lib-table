@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "RoboCoreV2") (type "KiCad") (uri "${KIPRJMOD}/lib/RoboCoreV2.pretty") (options "") (descr "RoboCore V2 custom footprints"))
+)

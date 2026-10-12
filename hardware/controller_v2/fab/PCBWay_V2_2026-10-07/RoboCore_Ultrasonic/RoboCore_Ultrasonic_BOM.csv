@@ -1,0 +1,12 @@
+Item #,Designator,Qty,Manufacturer,Mfg Part #,Description / Value,Package/Footprint,Mounting Type,LCSC Part #,Notes
+1,C1,1,Samsung,CL21A106KOQNNNE,Ceramic capacitor 10uF 16V X5R ±10% 0805 (10uF),C_0805_2012Metric,SMD,C1713,
+2,"C2,C3",2,Samsung,CL10B104KB8NNNC,Ceramic capacitor 100nF 50V X7R ±10% 0603 (0.1uF),C_0603_1608Metric,SMD,C1591,
+3,"C4,C5",2,Samsung,CL10C180JB8NNNC,Ceramic capacitor 18pF 50V C0G ±5% 0603 (18pF),C_0603_1608Metric,SMD,C1647,
+4,J1,1,JST,BM04B-SRSS-TB,JST SH 4-pin vertical header (ULTRASONIC),JST_SH_BM04B-SRSS-TB_1x04-1MP_P1.00mm_Vertical,SMD,C160390,
+5,LS1,1,HYDZ,HY40A16T12-1,"Ultrasonic transmitter 40 kHz, 16 mm, open type (TX 40kHz)",Ultrasonic_Transducer_D16.0mm_P10.00mm,THT,C17701106,TRANSMITTER: fit at LS1 only (not interchangeable with the receiver). Mounted on the bottom side; observe + polarity (square pad).
+6,LS2,1,HYDZ,HY40A16R12-1,"Ultrasonic receiver 40 kHz, 16 mm, open type (RX 40kHz)",Ultrasonic_Transducer_D16.0mm_P10.00mm,THT,C17701107,RECEIVER: fit at LS2 only. Mounted on the bottom side; observe + polarity (square pad).
+7,R1,1,YAGEO,RC0603FR-073R3L,Chip resistor 3.3Ω ±1% 0603 (3.3),R_0603_1608Metric,SMD,C137725,
+8,R2,1,UNI-ROYAL,0603WAF1505T5E,Chip resistor 15MΩ ±1% 0603 (15M),R_0603_1608Metric,SMD,C80615,
+9,R3,1,UNI-ROYAL,0603WAF1003T5E,Chip resistor 100kΩ ±1% 0603 (100k),R_0603_1608Metric,SMD,C25803,
+10,U1,1,Suzhou ShunGuiZhiLian (100sensor.com),CS100A,"Ultrasonic ranging IC, SOP-16 (CS100A)",SOIC-16_3.9x9.9mm_P1.27mm,SMD,,"Not stocked at LCSC. Please source in China (AliExpress / 1688 / Taobao, maker Suzhou ShunGuiZhiLian, 100sensor.com). If you cannot, tell us and we will consign it."
+11,Y1,1,HCI,XC32M4-8.000-F12LJDT,"Crystal 8 MHz 12 pF, 3225 (8MHz)",Crystal_SMD_3225-4Pin_3.2x2.5mm,SMD,C2842191,

@@ -1,0 +1,11 @@
+Item #,Designator,Qty,Manufacturer,Mfg Part #,Description / Value,Package/Footprint,Mounting Type,LCSC Part #,Notes
+1,C1,1,Samsung,CL21A106KOQNNNE,Ceramic capacitor 10uF 16V X5R ±10% 0805 (10uF),C_0805_2012Metric,SMD,C1713,
+2,"C2,C3,C4",3,Samsung,CL10B104KB8NNNC,Ceramic capacitor 100nF 50V X7R ±10% 0603 (0.1uF),C_0603_1608Metric,SMD,C1591,
+3,"D1,D2,D3",3,Lite-On,LTST-C191KGKT,LED green 0603 (GREEN),LED_0603_1608Metric,SMD,C125098,
+4,J1,1,JST,BM05B-SRSS-TB,JST SH 5-pin vertical header (LINE_SENSOR),JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vertical,SMD,C160391,
+5,"R1,R3,R5",3,UNI-ROYAL,0603WAF1500T5E,Chip resistor 150Ω ±1% 0603 (150),R_0603_1608Metric,SMD,C22808,
+6,"R2,R4,R6",3,YAGEO,RC0603FR-0710KL,Chip resistor 10kΩ ±1% 0603 (10k),R_0603_1608Metric,SMD,C98220,
+7,"R7,R8",2,UNI-ROYAL,0603WAF1003T5E,Chip resistor 100kΩ ±1% 0603 (100k),R_0603_1608Metric,SMD,C25803,
+8,"R9,R10,R11",3,UNI-ROYAL,0603WAF6800T5E,Chip resistor 680Ω ±1% 0603 (680),R_0603_1608Metric,SMD,C23228,
+9,"U1,U2,U3",3,Vishay,TCRT5000,Reflective optical sensor (IR LED + phototransistor) (TCRT5000),Vishay_TCRT5000,THT,C2984661,"Through-hole, inserted from the BOTTOM side (sensor faces the floor), body flat against the board, soldered on top. Pin 1 = square pad."
+10,U4,1,JSCJ,LM339,Quad comparator (LM339),SOIC-14_3.9x8.7mm_P1.27mm,SMD,C2829428,

@@ -1,0 +1,35 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01")
+	(paper "A4")
+	(title_block
+		(title "RoboCore Line Sensor")
+		(date "2026-10-05")
+		(rev "1.0")
+		(company "RoboCore Zambia / Plastal-Bot Builders")
+	)
+	(lib_symbols)
+	(sheet
+		(at 25.4 50.8)
+		(size 101.6 25.4)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02")
+		(property "Sheetname" "Line sensor" (at 25.4 50.09 0) (effects (font (size 1.8 1.8) (bold yes)) (justify left bottom)))
+		(property "Sheetfile" "line_sensor.kicad_sch" (at 25.4 76.8 0) (effects (font (size 1.27 1.27)) (justify left top)))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01" (page "2"))
+			)
+		)
+	)
+	(text "3x TCRT5000, analog outputs" (exclude_from_sim no) (at 27.94 55.88 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid "40d7abd6-b954-4919-95f6-68c347770ce9"))
+	(text "LM339 line indicator LEDs" (exclude_from_sim no) (at 27.94 59.18 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid "66db3328-c0d4-4e45-b136-902d3f2b883f"))
+	(text "RoboCore line sensor: 3x Vishay TCRT5000, analog outputs + LED indicators. JST SH 5 to RoboCore V2 J404." (exclude_from_sim no) (at 25.4 30.48 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "92fd64fb-a391-446e-82bf-4471ba8f5ef8"))
+	(sheet_instances
+		(path "/" (page "1"))
+	)
+)

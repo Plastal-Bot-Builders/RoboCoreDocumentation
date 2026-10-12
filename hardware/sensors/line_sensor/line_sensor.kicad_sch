@@ -1,0 +1,2942 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02")
+	(paper "A3")
+	(title_block
+		(title "RoboCore Line Sensor - Line sensor")
+		(date "2026-10-05")
+		(rev "1.0")
+		(company "RoboCore Zambia / Plastal-Bot Builders")
+	)
+	(lib_symbols
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "RoboCoreV2:TCRT5000"
+			(pin_names (offset 1.016))
+			(exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U" (at -5.08 5.08 0) (show_name no) (do_not_autoplace no) (effects (font (size 1.27 1.27))))
+			(property "Value" "TCRT5000" (at -5.08 -5.08 0) (show_name no) (do_not_autoplace no) (effects (font (size 1.27 1.27))))
+			(property "Footprint" "OptoDevice:Vishay_TCRT5000" (at 0 -7.62 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Datasheet" "https://www.vishay.com/docs/83760/tcrt5000.pdf" (at 0 -10.16 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Description" "Reflective optical sensor, IR LED + phototransistor, 2.5 mm peak distance (1 C, 2 E, 3 K, 4 A)" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "ki_keywords" "line follower reflective IR" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(symbol "TCRT5000_0_1"
+				(rectangle (start -5.08 3.81) (end 5.08 -3.81) (stroke (width 0.254) (type default)) (fill (type background)))
+			)
+			(symbol "TCRT5000_1_1"
+				(pin passive line (at -7.62 2.54 0) (length 2.54) (name "A" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+				(pin passive line (at -7.62 -2.54 0) (length 2.54) (name "K" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+				(pin passive line (at 7.62 2.54 180) (length 2.54) (name "C" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+				(pin passive line (at 7.62 -2.54 180) (length 2.54) (name "E" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector_Generic:Conn_01x05"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x05"
+				(at 0 -7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Conn_01x05_1_1"
+				(rectangle
+					(start -1.27 6.35)
+					(end 1.27 -6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 5.207)
+					(end 0 4.953)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:C"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C"
+				(at 0.635 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.9652 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Unpolarized capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:PWR_FLAG"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "RoboCoreV2:LM339_QUAD"
+			(pin_names (offset 1.016))
+			(exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U" (at -8.89 12.7 0) (show_name no) (do_not_autoplace no) (effects (font (size 1.27 1.27))))
+			(property "Value" "LM339" (at -8.89 -12.7 0) (show_name no) (do_not_autoplace no) (effects (font (size 1.27 1.27))))
+			(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" (at 0 -15.24 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm339.pdf" (at 0 -17.78 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "Description" "Quad comparator, open-collector outputs, all four in one unit" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(property "ki_keywords" "comparator quad" (at 0 0 0) (show_name no) (do_not_autoplace no) (hide yes) (effects (font (size 1.27 1.27))))
+			(symbol "LM339_QUAD_0_1"
+				(rectangle (start -8.89 11.43) (end 8.89 -11.43) (stroke (width 0.254) (type default)) (fill (type background)))
+			)
+			(symbol "LM339_QUAD_1_1"
+				(pin input line (at -11.43 8.89 0) (length 2.54) (name "IN1+" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 6.35 0) (length 2.54) (name "IN1-" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 3.81 0) (length 2.54) (name "IN2+" (effects (font (size 1.27 1.27)))) (number "7" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 1.27 0) (length 2.54) (name "IN2-" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 -1.27 0) (length 2.54) (name "IN3+" (effects (font (size 1.27 1.27)))) (number "9" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 -3.81 0) (length 2.54) (name "IN3-" (effects (font (size 1.27 1.27)))) (number "8" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 -6.35 0) (length 2.54) (name "IN4+" (effects (font (size 1.27 1.27)))) (number "11" (effects (font (size 1.27 1.27)))))
+				(pin input line (at -11.43 -8.89 0) (length 2.54) (name "IN4-" (effects (font (size 1.27 1.27)))) (number "10" (effects (font (size 1.27 1.27)))))
+				(pin open_collector line (at 11.43 7.62 180) (length 2.54) (name "OUT1" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+				(pin open_collector line (at 11.43 2.54 180) (length 2.54) (name "OUT2" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+				(pin open_collector line (at 11.43 -2.54 180) (length 2.54) (name "OUT3" (effects (font (size 1.27 1.27)))) (number "14" (effects (font (size 1.27 1.27)))))
+				(pin open_collector line (at 11.43 -7.62 180) (length 2.54) (name "OUT4" (effects (font (size 1.27 1.27)))) (number "13" (effects (font (size 1.27 1.27)))))
+				(pin power_in line (at 0 13.969999999999999 270) (length 2.54) (name "V+" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+				(pin power_in line (at 0 -13.969999999999999 90) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "12" (effects (font (size 1.27 1.27)))))
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:LED"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Sim.Pins" "1=K 2=A"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:+3V3"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+3V3"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+3V3\""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+3V3_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "power:GND"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(rectangle (start 20.32 20.32) (end 81.28 76.2) (stroke (width 0.3) (type dash) (color 72 72 72 1)) (fill (type none)) (uuid "ef2eb1fb-aa73-488e-bd6d-e2bd3b0d45be"))
+	(text "LEFT SENSOR" (exclude_from_sim no) (at 22.86 25.52 0) (effects (font (size 2.0 2.0) (bold yes)) (justify left)) (uuid "dd63ee27-8d57-4286-b93a-69d568552b3c"))
+	(text "IR LED ~14 mA (150 from 3.3 V). Output" (exclude_from_sim no) (at 22.86 29.72 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "5d5a01e2-9974-45c7-a0b2-e4b98845100f"))
+	(text "IR_L: low over white, high over the line." (exclude_from_sim no) (at 22.86 32.72 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "4aba00aa-28a7-4d93-b1ca-bc57e09081db"))
+	(rectangle (start 86.36 20.32) (end 147.32 76.2) (stroke (width 0.3) (type dash) (color 72 72 72 1)) (fill (type none)) (uuid "b3a263cb-9d32-417a-bad6-e3fa9b65c8ee"))
+	(text "CENTRE SENSOR" (exclude_from_sim no) (at 88.9 25.52 0) (effects (font (size 2.0 2.0) (bold yes)) (justify left)) (uuid "184c4337-8d12-4145-854d-78248b88ef98"))
+	(text "IR LED ~14 mA (150 from 3.3 V). Output" (exclude_from_sim no) (at 88.9 29.72 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "edf58c39-b012-4165-984d-579aac5c79e8"))
+	(text "IR_C: low over white, high over the line." (exclude_from_sim no) (at 88.9 32.72 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "2394974a-498c-468d-9724-2df8884265db"))
+	(rectangle (start 152.4 20.32) (end 213.36 76.2) (stroke (width 0.3) (type dash) (color 72 72 72 1)) (fill (type none)) (uuid "353d6e49-b4e9-4ebc-abf8-120445dbd9f7"))
+	(text "RIGHT SENSOR" (exclude_from_sim no) (at 154.94 25.52 0) (effects (font (size 2.0 2.0) (bold yes)) (justify left)) (uuid "59091c04-a6bf-4094-b0f4-3a063853436e"))
+	(text "IR LED ~14 mA (150 from 3.3 V). Output" (exclude_from_sim no) (at 154.94 29.72 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "8aa50707-4978-4f96-81ab-f2736b8ec4e7"))
+	(text "IR_R: low over white, high over the line." (exclude_from_sim no) (at 154.94 32.72 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "cffe416c-1a8e-4e0d-9ab0-81f3bb71973a"))
+	(rectangle (start 20.32 86.36) (end 81.28 162.56) (stroke (width 0.3) (type dash) (color 72 72 72 1)) (fill (type none)) (uuid "bbc42582-6c25-41d2-bbfb-b0271f820fc0"))
+	(text "CONNECTOR" (exclude_from_sim no) (at 22.86 91.56 0) (effects (font (size 2.0 2.0) (bold yes)) (justify left)) (uuid "a4c6c71c-3a46-4e08-acfc-417c271639e6"))
+	(text "JST SH 5-pin to the RoboCore V2 (J404):" (exclude_from_sim no) (at 22.86 95.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "8163f837-df2b-4609-a87a-097d16871dae"))
+	(text "GND, 3V3, L, C, R. Same pin order as the" (exclude_from_sim no) (at 22.86 98.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "ea9da674-7169-47ac-96b5-db573a97a2f8"))
+	(text "board's socket." (exclude_from_sim no) (at 22.86 101.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "90f86045-bd43-41ac-a8a6-1f4912d1288b"))
+	(rectangle (start 86.36 86.36) (end 213.36 162.56) (stroke (width 0.3) (type dash) (color 72 72 72 1)) (fill (type none)) (uuid "fb3b7058-6990-43c7-b7f7-e532898c0a5a"))
+	(text "LINE INDICATORS (LM339)" (exclude_from_sim no) (at 88.9 91.56 0) (effects (font (size 2.0 2.0) (bold yes)) (justify left)) (uuid "a7d55db6-daeb-472f-a8f5-c554417040a1"))
+	(text "Each comparator sinks its LED when the sensor voltage is above VREF (1.65 V), i.e. over the" (exclude_from_sim no) (at 88.9 95.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "5880f0fc-1037-428b-94ec-9f9531d6f717"))
+	(text "black line." (exclude_from_sim no) (at 88.9 98.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "e958bed5-d615-4093-800d-32092d8d86e1"))
+	(text "VREF = half of 3.3 V. The spare comparator has its inputs tied so its output stays low (pin" (exclude_from_sim no) (at 88.9 101.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "c2b08495-72ad-4255-bd5a-4c8e8d37a9f1"))
+	(text "13 unused)." (exclude_from_sim no) (at 88.9 104.76 0) (effects (font (size 1.5 1.5) (italic yes)) (justify left)) (uuid "2f857f1f-a277-45b5-a37c-91fd74853172"))
+	(text "lit = over the line" (exclude_from_sim no) (at 175.26 157.48 0) (effects (font (size 1.27 1.27) (italic yes)) (justify left)) (uuid "df6e6730-3ed8-4c2f-a08d-dc0ceb2409de"))
+	(symbol
+		(lib_id "power:+3V3")
+		(at 35.56 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "8abfa451-72bd-5514-b15d-d049d7173a6b")
+		(property "Reference" "#PWR1001" (at 35.56 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 35.56 38.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 35.56 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 35.56 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 35.56 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2dd9890c-3825-580f-ae69-21dc55541025"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 63.5 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "aa0b0999-004a-500f-8ef5-34e7d0c9462a")
+		(property "Reference" "#PWR1002" (at 63.5 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 63.5 38.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 63.5 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 63.5 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 63.5 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "ad6b32d7-893f-5ddd-a6a4-eb34515137b1"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1002")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 43.18 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "1722ee9e-78b2-52eb-bd86-61d92c4b0237")
+		(property "Reference" "#PWR1003" (at 43.18 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 43.18 69.85 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 43.18 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 43.18 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 43.18 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "ca1f2e39-ff86-58e4-9378-01c60ff7191d"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1003")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 58.42 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "a9cb8e41-a811-578e-917b-b7a9d063dd40")
+		(property "Reference" "#PWR1004" (at 58.42 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 58.42 69.85 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 58.42 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 58.42 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 58.42 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "69e8f1f0-6fd8-5921-9ed6-8336674e0528"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1004")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 101.6 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "5cedb2d1-e953-526d-ab2c-a0e1bde0427f")
+		(property "Reference" "#PWR1005" (at 101.6 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 101.6 38.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 101.6 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 101.6 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 101.6 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "7c70c6b8-7259-5410-884c-4c7adb68f2f5"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1005")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 129.54 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "213bb015-8f18-5139-b93b-680c3219ec1b")
+		(property "Reference" "#PWR1006" (at 129.54 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 129.54 38.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 129.54 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 129.54 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 129.54 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "104a9ac6-5a29-5475-a396-f3225664a1a5"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1006")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 109.22 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "2acc0e51-c293-5637-91ee-82228fea0533")
+		(property "Reference" "#PWR1007" (at 109.22 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 109.22 69.85 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 109.22 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 109.22 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 109.22 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "17097256-c1c6-5e9c-8985-60221f496c79"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1007")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 124.46 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "2949d273-9016-526b-90b9-ba7c18f16dfd")
+		(property "Reference" "#PWR1008" (at 124.46 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 124.46 69.85 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 124.46 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 124.46 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 124.46 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "304d8b08-1151-5168-b8ca-eb4f2be77bb0"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1008")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 167.64 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "1673b735-a930-58a9-801c-0e245457154d")
+		(property "Reference" "#PWR1009" (at 167.64 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 167.64 38.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 167.64 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 167.64 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 167.64 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "e5cb005e-175a-53be-95de-decb2c15617c"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1009")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 195.58 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "7c2ac705-455a-51de-968d-7bc2be532024")
+		(property "Reference" "#PWR1010" (at 195.58 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 195.58 38.1 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 195.58 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 195.58 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 195.58 41.91 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "07aa0b71-fdbb-5b06-9d3c-75149437577c"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 175.26 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "d21563f3-4f1e-5dfb-ab1c-cb5c34840aea")
+		(property "Reference" "#PWR1011" (at 175.26 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 175.26 69.85 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 175.26 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 175.26 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 175.26 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "8315783f-246d-5fe0-a6e4-25ff9e17a172"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 190.5 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "482fdbd7-b140-552a-af49-fae686b2371c")
+		(property "Reference" "#PWR1012" (at 190.5 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 190.5 69.85 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 190.5 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 190.5 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 190.5 66.04 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "c9a0e9b0-c524-5abe-8778-faef1edaa5ff"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 33.02 116.84 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "fe48d4f4-09e3-5d80-ad5e-236247b622d9")
+		(property "Reference" "#PWR1013" (at 33.02 116.84 90) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 33.02 116.84 90) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 33.02 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 33.02 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 33.02 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "a24cab75-db99-55ed-a537-57d0a8a344cc"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 33.02 119.38 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "93a55ad2-a761-575f-b47e-1f2f16320279")
+		(property "Reference" "#PWR1014" (at 33.02 119.38 90) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 29.72 119.38 90) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "" (at 33.02 119.38 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 33.02 119.38 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 33.02 119.38 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "d1611633-a786-54bc-848c-69fa2f0dbe20"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 60.96 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "38050580-708c-501e-b060-f6f6b8d295bc")
+		(property "Reference" "#PWR1015" (at 60.96 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 60.96 109.22 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 60.96 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 60.96 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 60.96 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "5e537434-5f32-5270-a9a8-4390d1b0c3b9"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 60.96 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "339b83c0-c239-5a67-bea2-8da07c291a6b")
+		(property "Reference" "#PWR1016" (at 60.96 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 60.96 124.46 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 60.96 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 60.96 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 60.96 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "33b82984-9dd7-5570-ba13-3f4364c6c111"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1016")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 71.12 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "e663bca4-836c-5c96-b513-3feeba73f247")
+		(property "Reference" "#PWR1017" (at 71.12 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 71.12 109.22 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 71.12 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 71.12 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 71.12 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "4871f71c-fcba-5361-9503-a93b8c889ad8"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 71.12 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "d9e64fc2-2c8f-5e31-b1df-504a639847fd")
+		(property "Reference" "#PWR1018" (at 71.12 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 71.12 124.46 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 71.12 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 71.12 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 71.12 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "5884b021-d1d2-5e85-ada7-2c045addbde9"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1018")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 66.04 134.62 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "63aadf18-c433-53aa-b043-8bd696dc2443")
+		(property "Reference" "#PWR1019" (at 66.04 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 66.04 130.81 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 66.04 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 66.04 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 66.04 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "0c889b17-fca4-5fee-a30a-e66aa5f3d358"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1019")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 71.12 137.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "c6b1abdf-f05f-54a2-8b1c-3e38da413e73")
+		(property "Reference" "#PWR1020" (at 71.12 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 71.12 140.97 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 71.12 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 71.12 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 71.12 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "cf0fc034-0d44-53e9-bd45-02760fd28c9c"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1020")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 128.27 143.51 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "b2b8e7f1-6d5c-5cc2-aafa-0f658992f72a")
+		(property "Reference" "#PWR1021" (at 128.27 143.51 90) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 128.27 143.51 90) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 128.27 143.51 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 128.27 143.51 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 128.27 143.51 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2dc1871b-295f-5dc9-ad4b-8d7251a9ad27"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1021")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 142.24 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "3184b02f-57da-5d0c-ba80-728cfe2ed702")
+		(property "Reference" "#PWR1022" (at 142.24 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 142.24 119.38 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 142.24 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 142.24 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 142.24 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2450075b-87c3-5a8e-9775-3fa74562e47a"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1022")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 142.24 151.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "910a9a90-99d4-526d-ad3e-efaf838769d2")
+		(property "Reference" "#PWR1023" (at 142.24 151.13 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 142.24 154.94 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 142.24 151.13 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 142.24 151.13 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 142.24 151.13 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "793b0669-7c74-5665-9f3e-a3802d3954ff"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1023")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 99.06 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "2f75e1d8-0e84-5873-a129-22cefaf4d73f")
+		(property "Reference" "#PWR1024" (at 99.06 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 99.06 119.38 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 99.06 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 99.06 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 99.06 123.19 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "13f4c453-9f45-5fab-a95e-e4a3dbd2d599"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1024")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 99.06 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "7b9236fd-2e57-5112-9c40-120e93c20d4e")
+		(property "Reference" "#PWR1025" (at 99.06 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 99.06 149.86 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 99.06 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 99.06 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 99.06 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "410ea559-7e5c-5882-9588-dfd8cee209ad"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 109.22 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "ea1fd7e8-5dfd-5110-9bde-a1eb37d715e7")
+		(property "Reference" "#PWR1026" (at 109.22 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 109.22 149.86 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 109.22 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 109.22 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 109.22 146.05 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "42228652-5bdc-5e23-952a-96f720d79985"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 121.92 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "1eb676f7-9775-52d4-aee1-2f10622964fd")
+		(property "Reference" "#PWR1027" (at 121.92 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 121.92 109.22 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 121.92 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 121.92 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 121.92 113.03 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "7c4a4834-e2aa-5fb7-b9ee-3a4ec072db27"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1027")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 121.92 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "43f4bedf-3554-541a-a849-9c2e5291d9de")
+		(property "Reference" "#PWR1028" (at 121.92 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "GND" (at 121.92 124.46 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 121.92 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 121.92 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 121.92 120.65 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "97fd3665-c4a9-5671-8f28-1ddc7c289b76"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1028")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 172.72 118.11 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "96b9f870-5ecd-5434-844e-8fc7d4051146")
+		(property "Reference" "#PWR1029" (at 172.72 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 172.72 114.3 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 172.72 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 172.72 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 172.72 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "511ae0f0-b5c6-54b7-a2f3-6888a9a20df8"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1029")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 185.42 118.11 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "7f5d3376-575f-5d70-8d1d-26e819bf656a")
+		(property "Reference" "#PWR1030" (at 185.42 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 185.42 114.3 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 185.42 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 185.42 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 185.42 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "7063bcf4-79bb-5971-8edc-1084a979c6d7"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1030")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 198.12 118.11 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "00e2eece-cc43-5a0d-aa03-f306798c6e5f")
+		(property "Reference" "#PWR1031" (at 198.12 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Value" "+3V3" (at 198.12 114.3 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "" (at 198.12 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 198.12 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 198.12 118.11 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "7d184cdb-5d67-5cdd-8faf-e09929098e04"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#PWR1031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "IR_L"
+		(shape passive)
+		(at 66.04 49.53 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "80e97510-784f-4287-b2bb-ace99b7ee7ea")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 66.04 49.53 0) (hide yes) (effects (font (size 1.27 1.27)) (justify left)))
+	)
+	(global_label "IR_C"
+		(shape passive)
+		(at 132.08 49.53 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "c6995f2a-d8cf-4fda-b32e-726e0e133de1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 132.08 49.53 0) (hide yes) (effects (font (size 1.27 1.27)) (justify left)))
+	)
+	(global_label "IR_R"
+		(shape passive)
+		(at 198.12 49.53 0)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify left))
+		(uuid "abd42f05-a7e8-4970-b09e-e1dfc6aa1479")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 198.12 49.53 0) (hide yes) (effects (font (size 1.27 1.27)) (justify left)))
+	)
+	(global_label "IR_L"
+		(shape passive)
+		(at 33.02 121.92 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "c6d59824-3517-4e93-91f4-882f6b32359b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 33.02 121.92 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+	)
+	(global_label "IR_C"
+		(shape passive)
+		(at 33.02 124.46 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "720b2476-6313-480b-8890-e05674322c7f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 33.02 124.46 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+	)
+	(global_label "IR_R"
+		(shape passive)
+		(at 33.02 127.0 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "284f7e9f-d911-423d-aa6e-88e023dcff2b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 33.02 127.0 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+	)
+	(global_label "IR_L"
+		(shape passive)
+		(at 128.27 130.81 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "b9c83ff1-e314-44c6-830c-d34bac5e4f27")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 130.81 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+	)
+	(global_label "IR_C"
+		(shape passive)
+		(at 128.27 135.89 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "15c48ebe-7ed4-41f9-a2f6-d7500055f16b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 135.89 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+	)
+	(global_label "IR_R"
+		(shape passive)
+		(at 128.27 140.97 180)
+		(fields_autoplaced yes)
+		(effects (font (size 1.27 1.27)) (justify right))
+		(uuid "6c04abf1-88a6-43b5-b4f5-55384e2b5f0d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}" (at 128.27 140.97 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+	)
+	(no_connect (at 153.67 144.78) (uuid "3e3f4e4e-f4ff-4131-90a7-41d9730f57b5"))
+	(symbol
+		(lib_id "Device:R")
+		(at 35.56 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "48132116-f7b1-5332-875e-bbb0ff3e355d")
+		(property "Reference" "R1" (at 37.58 44.45 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "150" (at 37.58 46.99 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 35.56 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 35.56 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 35.56 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 35.56 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF1500T5E" (at 35.56 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C22808" (at 35.56 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "cf9d36e7-2d22-5c2b-808d-b88e81149ad9"))
+		(pin "2" (uuid "6b89203a-da07-58f4-a0de-91ab4a07099d"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 63.5 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "702d743d-7beb-5749-8194-4b8d417858f6")
+		(property "Reference" "R2" (at 65.52 44.45 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "10k" (at 65.52 46.99 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 63.5 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 63.5 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 63.5 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "YAGEO" (at 63.5 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "RC0603FR-0710KL" (at 63.5 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C98220" (at 63.5 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "04ffe42e-3ee1-5019-86fd-0c846a99e1a5"))
+		(pin "2" (uuid "6e5b78fd-d3e9-582c-9737-126fd0acfb5c"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RoboCoreV2:TCRT5000")
+		(at 50.8 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ff980085-7f5c-51d2-8924-ab88624bbd36")
+		(property "Reference" "U1" (at 55.88 55.69 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "TCRT5000" (at 55.88 58.09 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "OptoDevice:Vishay_TCRT5000" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Vishay" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "TCRT5000" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "ALT" "TCRT5000L (long leads)" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C2984661" (at 50.8 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "4" (uuid "ef368d55-1867-5d0e-a67b-5814c33cb3d3"))
+		(pin "3" (uuid "75dfca63-8b3f-5956-8c46-cc1c6d1d8e90"))
+		(pin "1" (uuid "c08b75ed-79fb-5cdc-b8ae-9bedfc5b9d1d"))
+		(pin "2" (uuid "b81a8856-36c3-5741-9cdd-eeee7afa993c"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 101.6 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0a35a497-b82c-5112-bf78-f22a75743e74")
+		(property "Reference" "R3" (at 103.62 44.45 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "150" (at 103.62 46.99 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 101.6 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 101.6 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 101.6 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 101.6 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF1500T5E" (at 101.6 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C22808" (at 101.6 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "ca49abdc-d5e9-5399-b038-b302b14adca7"))
+		(pin "2" (uuid "cf0a446c-0494-5b0b-bd5e-1efcb7e047fa"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 129.54 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "03f62baa-3d66-5ec6-8d23-e316de258ba7")
+		(property "Reference" "R4" (at 131.56 44.45 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "10k" (at 131.56 46.99 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 129.54 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 129.54 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 129.54 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "YAGEO" (at 129.54 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "RC0603FR-0710KL" (at 129.54 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C98220" (at 129.54 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "4d6ca0af-2cab-5fcf-86e4-227b3af6cdd3"))
+		(pin "2" (uuid "8b96724a-9a63-551e-b8ac-6ff353f6044e"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RoboCoreV2:TCRT5000")
+		(at 116.84 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f3355c49-50a5-5852-a87b-8019ad35ffba")
+		(property "Reference" "U2" (at 121.92 55.69 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "TCRT5000" (at 121.92 58.09 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "OptoDevice:Vishay_TCRT5000" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Vishay" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "TCRT5000" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "ALT" "TCRT5000L (long leads)" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C2984661" (at 116.84 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "4" (uuid "1bf2b779-a915-56d4-9a83-611f8907814e"))
+		(pin "3" (uuid "88fc2f6f-c96f-59a3-a481-dbf830e647be"))
+		(pin "1" (uuid "e0a297d6-d2f0-5a0b-933a-e823d547e0d5"))
+		(pin "2" (uuid "0e1bded2-0f29-5d65-8fef-f569882129e1"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 167.64 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c6a37f00-6a15-5f8d-be3e-14c6ca6a8c78")
+		(property "Reference" "R5" (at 169.66 44.45 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "150" (at 169.66 46.99 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 167.64 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 167.64 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 167.64 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 167.64 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF1500T5E" (at 167.64 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C22808" (at 167.64 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "b3211780-493d-5b21-b926-a4715b532cf9"))
+		(pin "2" (uuid "73b2f625-d904-5b66-a8f8-45e87b205f45"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 195.58 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "949440ec-7f81-5107-9754-5f50d1822635")
+		(property "Reference" "R6" (at 197.6 44.45 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "10k" (at 197.6 46.99 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 195.58 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 195.58 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 195.58 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "YAGEO" (at 195.58 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "RC0603FR-0710KL" (at 195.58 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C98220" (at 195.58 45.72 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "646dd0a0-bfee-5429-839c-21bd0e79cfbf"))
+		(pin "2" (uuid "d848af25-f0a1-5d43-9264-2da6c541edb3"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RoboCoreV2:TCRT5000")
+		(at 182.88 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "018ee9e0-e94b-584e-88ed-6b2fa81b6dfe")
+		(property "Reference" "U3" (at 187.96 55.69 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "TCRT5000" (at 187.96 58.09 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "OptoDevice:Vishay_TCRT5000" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Vishay" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "TCRT5000" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "ALT" "TCRT5000L (long leads)" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C2984661" (at 182.88 63.5 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "4" (uuid "b0baeb5b-4542-55bd-b0d0-0edc34614b99"))
+		(pin "3" (uuid "f206ba7f-af2e-5ac4-bf43-fcd7933f3ad1"))
+		(pin "1" (uuid "082f83eb-6c5b-502c-8e7f-1a4b86709339"))
+		(pin "2" (uuid "1f08eb7e-5462-5b6f-9619-aa6963830b0b"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "U3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x05")
+		(at 40.64 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4c7748a7-ce21-5c2a-add9-e2a52c436ca7")
+		(property "Reference" "J1" (at 41.91 111.57 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "LINE_SENSOR" (at 41.91 113.97 0) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "Connector_JST:JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vertical" (at 40.64 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 40.64 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 40.64 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "JST" (at 40.64 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "BM05B-SRSS-TB" (at 40.64 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C160391" (at 40.64 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "1c4eb826-4acf-535e-922c-d8d61be747c0"))
+		(pin "2" (uuid "cce8214e-e89f-5a92-853d-258bbb1afdca"))
+		(pin "3" (uuid "39f3c57d-2745-5185-97a4-2f3462184963"))
+		(pin "4" (uuid "db82ccb2-f03b-5220-9fa1-2c31f578744d"))
+		(pin "5" (uuid "9516ec50-fdc4-55e6-88df-3cfaca27901d"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 60.96 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4fc10939-9999-55ec-9e94-7a3344b322bb")
+		(property "Reference" "C1" (at 63.99 115.57 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "10uF" (at 63.99 118.11 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 60.96 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 60.96 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "6.3 V X5R" (at 60.96 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Samsung" (at 60.96 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "CL21A106KOQNNNE" (at 60.96 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C1713" (at 60.96 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "169c3811-b8b7-5029-a49b-e8ad05246273"))
+		(pin "2" (uuid "ef37cb84-a061-54a2-bea9-47b4acde1344"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 71.12 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a7a81d62-78b6-5fec-be46-74295f9651d6")
+		(property "Reference" "C2" (at 74.15 115.57 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "0.1uF" (at 74.15 118.11 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 71.12 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 71.12 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 71.12 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Samsung" (at 71.12 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "CL10B104KB8NNNC" (at 71.12 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C1591" (at 71.12 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "1a098a97-9b40-582e-a69c-282d1cc40056"))
+		(pin "2" (uuid "0cd8b708-00a8-5a34-b56c-5d51d5a9f882"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 60.96 134.62 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "75a290ff-c45f-5419-a8a9-989cc3276916")
+		(property "Reference" "#FLG1" (at 58.94 133.35 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "PWR_FLAG" (at 58.94 135.89 0) (hide yes) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "" (at 60.96 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 60.96 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 60.96 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "5d29102e-1049-5580-b17d-5bc89fcd92e5"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#FLG1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 71.12 134.62 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "6574987c-4fe7-57da-a58d-fc45dfd2be1c")
+		(property "Reference" "#FLG2" (at 73.14 133.35 0) (hide yes) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "PWR_FLAG" (at 73.14 135.89 0) (hide yes) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "" (at 71.12 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 71.12 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 71.12 134.62 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "d0239626-8f24-54d8-931a-c4bcea97a570"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "#FLG2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 33.02 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "47f27753-00a9-5eb8-a0f7-01c3df4486e3")
+		(property "Reference" "H1" (at 33.02 139.37 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "M3" (at 33.02 145.11 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 33.02 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 33.02 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 33.02 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 45.72 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "ce881e9c-acac-58c4-8eac-5055da643637")
+		(property "Reference" "H2" (at 45.72 139.37 0) (effects (font (size 1.27 1.27))))
+		(property "Value" "M3" (at 45.72 145.11 0) (effects (font (size 1.27 1.27))))
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3" (at 45.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 45.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 45.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RoboCoreV2:LM339_QUAD")
+		(at 142.24 137.16 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6483c1d7-c804-5671-b4c0-1bae68c8aaf0")
+		(property "Reference" "U4" (at 154.94 121.59 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "LM339" (at 154.94 124.09 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "JSCJ" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "LM339" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "ALT" "TI LM339DR" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C2829428" (at 142.24 137.16 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "5" (uuid "91afb6d2-7aa0-5a08-bb8a-3d86cd3653ee"))
+		(pin "4" (uuid "7389affd-1065-5678-9c9a-7acc8061f54a"))
+		(pin "7" (uuid "a9eff8eb-ad9f-53d4-94e3-b7d0cef8edaa"))
+		(pin "6" (uuid "29d030a4-747e-524e-a08a-f67029980067"))
+		(pin "9" (uuid "e24c3257-84e1-5d38-aa0f-bd18045e8e51"))
+		(pin "8" (uuid "52e46ab1-78c8-571c-bf1b-c5d603a5c4a9"))
+		(pin "11" (uuid "8e212a18-62b6-59b7-b530-4b2fe7a5a5d5"))
+		(pin "10" (uuid "f619c0c4-824e-5dff-904d-3798e10f4367"))
+		(pin "2" (uuid "cbf115a5-ff90-5fe3-92d3-f4cc0a36f308"))
+		(pin "1" (uuid "32e0858f-b0e3-5515-8045-78c2d535d4a4"))
+		(pin "14" (uuid "6fdcc190-4000-52c9-8f46-56ee261028c8"))
+		(pin "13" (uuid "3b5df117-83ed-5245-b880-c639d4aa7a58"))
+		(pin "3" (uuid "6f1da933-7224-5efa-afef-797dd8bdfc1a"))
+		(pin "12" (uuid "293ce27b-d362-53fc-afd9-93ea3029b81a"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 99.06 127.0 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cbd57d95-dfd7-5d41-bd3d-b87775eca958")
+		(property "Reference" "R7" (at 101.08 125.73 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "100k" (at 101.08 128.27 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 99.06 127.0 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 99.06 127.0 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 99.06 127.0 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 99.06 127.0 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF1003T5E" (at 99.06 127.0 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C25803" (at 99.06 127.0 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "3b376347-ad14-5cd7-b0ec-3a71fffe8d69"))
+		(pin "2" (uuid "25113ed9-8f05-556e-87f9-fa3cdbd0974b"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 99.06 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "93aad15b-d7bb-571a-abdf-c375ac79b816")
+		(property "Reference" "R8" (at 101.08 140.97 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "100k" (at 101.08 143.51 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 99.06 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 99.06 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 99.06 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 99.06 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF1003T5E" (at 99.06 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C25803" (at 99.06 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "5fd51d79-e362-5940-a872-e927272bbed0"))
+		(pin "2" (uuid "f564b3c4-2b57-55bc-adda-50064e21153e"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 109.22 142.24 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aa48179c-b4e9-530d-88b4-f212ac9c1942")
+		(property "Reference" "C3" (at 112.25 140.97 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "0.1uF" (at 112.25 143.51 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 109.22 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 109.22 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 109.22 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Samsung" (at 109.22 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "CL10B104KB8NNNC" (at 109.22 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C1591" (at 109.22 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "eb60a4b9-202b-536a-b9cc-8b658eaddf2b"))
+		(pin "2" (uuid "8021fcbf-a976-583c-b912-69c610df25de"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 121.92 116.84 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee99dbe0-954e-5545-9b1c-f070b95936ea")
+		(property "Reference" "C4" (at 124.95 115.57 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "0.1uF" (at 124.95 118.11 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 121.92 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 121.92 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "LM339 supply" (at 121.92 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Samsung" (at 121.92 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "CL10B104KB8NNNC" (at 121.92 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C1591" (at 121.92 116.84 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "0a0c1efa-516c-5477-967b-cb861c2da008"))
+		(pin "2" (uuid "df568bd4-cdd3-5e75-9fed-44266a959aa3"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 172.72 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2934c39e-9296-59e4-878a-bc0f2917e6c2")
+		(property "Reference" "R9" (at 174.74 120.65 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "680" (at 174.74 123.19 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 172.72 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 172.72 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 172.72 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 172.72 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF6800T5E" (at 172.72 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C23228" (at 172.72 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "43721078-bb19-5345-8333-2dbc6862cfa6"))
+		(pin "2" (uuid "0b963509-2f9b-56f7-a42f-449b0542f14d"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 185.42 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "25dd7dc2-2d0e-5ceb-80ea-ea98fe25dc26")
+		(property "Reference" "R10" (at 187.44 120.65 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "680" (at 187.44 123.19 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 185.42 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 185.42 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 185.42 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 185.42 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF6800T5E" (at 185.42 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C23228" (at 185.42 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "aca95259-5a0c-53f3-bff2-a4e2eb25ba96"))
+		(pin "2" (uuid "85c7df9c-cff4-57aa-b4ff-445f9e8ccbf0"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 198.12 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "afa48681-7d5f-58ca-ad91-86ba5e272e7e")
+		(property "Reference" "R11" (at 200.14 120.65 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Value" "680" (at 200.14 123.19 0) (effects (font (size 1.27 1.27)) (justify left)))
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 198.12 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 198.12 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 198.12 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "UNI-ROYAL" (at 198.12 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "0603WAF6800T5E" (at 198.12 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C23228" (at 198.12 121.92 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "9096f0a2-8370-592b-a335-23886506daae"))
+		(pin "2" (uuid "79d607db-826c-54ac-b316-cc4e335f8a01"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 172.72 142.24 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c9e5d192-6ee3-5b49-afff-6384b3698230")
+		(property "Reference" "D1" (at 176.01 140.97 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "GREEN" (at 176.01 143.51 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric" (at 172.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 172.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 172.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Lite-On" (at 172.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "LTST-C191KGKT" (at 172.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C125098" (at 172.72 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "f0f45f89-0db4-52ff-a825-7f775d138ef3"))
+		(pin "2" (uuid "bf78a366-029e-5695-b274-4a0c147807ff"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 185.42 142.24 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bf86d492-aea0-58ac-b067-3fe5c2f673f8")
+		(property "Reference" "D2" (at 188.71 140.97 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "GREEN" (at 188.71 143.51 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric" (at 185.42 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 185.42 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 185.42 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Lite-On" (at 185.42 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "LTST-C191KGKT" (at 185.42 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C125098" (at 185.42 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "f03e8db0-5e39-5574-8cdc-29ccb978d6d9"))
+		(pin "2" (uuid "7ad6a175-ff36-5638-a20f-d2375195e6f4"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 198.12 142.24 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a12c94cf-b294-56e3-8ed8-e7279c7c5881")
+		(property "Reference" "D3" (at 201.41 140.97 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Value" "GREEN" (at 201.41 143.51 90) (effects (font (size 1.27 1.27)) (justify right)))
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric" (at 198.12 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Datasheet" "" (at 198.12 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "Description" "" (at 198.12 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MF" "Lite-On" (at 198.12 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "MP" "LTST-C191KGKT" (at 198.12 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(property "LCSC" "C125098" (at 198.12 142.24 0) (hide yes) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "9a7a5a3d-b505-59f5-9e24-bd5efb58026f"))
+		(pin "2" (uuid "f0e9da11-f046-51b4-852b-79f396f52679"))
+		(instances
+			(project "RoboCore_LineSensor"
+				(path "/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a01/4b6f3f0e-8d55-4a8c-9a3e-2f1d6c7b5a02"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire (pts (xy 35.56 116.84) (xy 33.02 116.84)) (stroke (width 0) (type default)) (uuid "99d8cd39-ebb1-4692-b837-e66cf011f331"))
+	(wire (pts (xy 35.56 119.38) (xy 33.02 119.38)) (stroke (width 0) (type default)) (uuid "4e2a752d-f540-4010-a727-0af5ee2c8574"))
+	(wire (pts (xy 60.96 134.62) (xy 66.04 134.62)) (stroke (width 0) (type default)) (uuid "2ba68360-2c3b-4316-8270-3dfc69d48aaf"))
+	(wire (pts (xy 71.12 134.62) (xy 71.12 137.16)) (stroke (width 0) (type default)) (uuid "21c76993-17a9-4411-981d-1fdef82c058e"))
+	(wire (pts (xy 130.81 143.51) (xy 128.27 143.51)) (stroke (width 0) (type default)) (uuid "c0595f99-d000-4605-9362-d186022b4ace"))
+	(wire (pts (xy 58.42 60.96) (xy 63.5 60.96)) (stroke (width 0) (type default)) (uuid "4808b5b6-3dc9-4162-be2a-40e2336cc07e"))
+	(wire (pts (xy 63.5 60.96) (xy 63.5 49.53)) (stroke (width 0) (type default)) (uuid "8d64fad7-938b-4310-a1c7-a66bc131a15b"))
+	(wire (pts (xy 43.18 60.96) (xy 35.56 60.96)) (stroke (width 0) (type default)) (uuid "34ee1e57-b751-4ac4-ad02-aa0e0f500590"))
+	(wire (pts (xy 35.56 60.96) (xy 35.56 49.53)) (stroke (width 0) (type default)) (uuid "409e7813-d07e-4901-b6cb-6015e8de1608"))
+	(wire (pts (xy 124.46 60.96) (xy 129.54 60.96)) (stroke (width 0) (type default)) (uuid "d4629036-2cd1-4959-8eff-596bdb9a12a5"))
+	(wire (pts (xy 129.54 60.96) (xy 129.54 49.53)) (stroke (width 0) (type default)) (uuid "1fd99b94-379e-4aed-92b8-1d2bbeab1b48"))
+	(wire (pts (xy 109.22 60.96) (xy 101.6 60.96)) (stroke (width 0) (type default)) (uuid "81d65a25-d656-44ae-b887-dee5047b3c92"))
+	(wire (pts (xy 101.6 60.96) (xy 101.6 49.53)) (stroke (width 0) (type default)) (uuid "e49a43cc-0dec-4777-a1b8-74364e0382e6"))
+	(wire (pts (xy 190.5 60.96) (xy 195.58 60.96)) (stroke (width 0) (type default)) (uuid "ffbff416-2187-46dd-8d41-b2d9c0dc78aa"))
+	(wire (pts (xy 195.58 60.96) (xy 195.58 49.53)) (stroke (width 0) (type default)) (uuid "45ce8df6-ca29-45d7-bf07-0774a3b40de9"))
+	(wire (pts (xy 175.26 60.96) (xy 167.64 60.96)) (stroke (width 0) (type default)) (uuid "49222b27-5952-42cc-be9a-8fb772e747b7"))
+	(wire (pts (xy 167.64 60.96) (xy 167.64 49.53)) (stroke (width 0) (type default)) (uuid "2b1792b1-5e6e-49a5-88c2-fd31b04b19c4"))
+	(wire (pts (xy 172.72 138.43) (xy 172.72 125.73)) (stroke (width 0) (type default)) (uuid "c22d5209-a69f-488b-af05-ede7cdf60ce3"))
+	(wire (pts (xy 185.42 138.43) (xy 185.42 125.73)) (stroke (width 0) (type default)) (uuid "b4c1eec5-1929-4114-a255-f85447547231"))
+	(wire (pts (xy 198.12 138.43) (xy 198.12 125.73)) (stroke (width 0) (type default)) (uuid "8079bb67-fd77-4fc1-9bb9-479e74c26baa"))
+	(wire (pts (xy 172.72 146.05) (xy 154.94 146.05)) (stroke (width 0) (type default)) (uuid "7ba4fc6c-ed35-4d25-a8c8-f1251e684274"))
+	(wire (pts (xy 154.94 146.05) (xy 154.94 129.54)) (stroke (width 0) (type default)) (uuid "391c0ad4-90cb-4f09-8653-32425eb9214f"))
+	(wire (pts (xy 154.94 129.54) (xy 153.67 129.54)) (stroke (width 0) (type default)) (uuid "41c72a7a-43b7-4390-9a53-febc3b8fca8d"))
+	(wire (pts (xy 185.42 146.05) (xy 185.42 148.59)) (stroke (width 0) (type default)) (uuid "1ba26e4d-e8f8-43dc-affe-88f794b17224"))
+	(wire (pts (xy 185.42 148.59) (xy 156.21 148.59)) (stroke (width 0) (type default)) (uuid "bcb75493-64bb-4074-98dc-4c5e22da134f"))
+	(wire (pts (xy 156.21 148.59) (xy 156.21 134.62)) (stroke (width 0) (type default)) (uuid "72cc4744-1b95-4ba8-87a6-01389d18c960"))
+	(wire (pts (xy 156.21 134.62) (xy 153.67 134.62)) (stroke (width 0) (type default)) (uuid "9ee1ea41-9df5-431e-bdaf-9d160056d67e"))
+	(wire (pts (xy 198.12 146.05) (xy 198.12 151.13)) (stroke (width 0) (type default)) (uuid "a2c44f2a-37c7-4975-bf1d-ce97a01ff6ae"))
+	(wire (pts (xy 198.12 151.13) (xy 158.75 151.13)) (stroke (width 0) (type default)) (uuid "2d6d3110-0e6d-4568-af63-84b1dda2a215"))
+	(wire (pts (xy 158.75 151.13) (xy 158.75 139.7)) (stroke (width 0) (type default)) (uuid "faf833d2-ef21-4fb4-bb8d-3b45cb537ffb"))
+	(wire (pts (xy 158.75 139.7) (xy 153.67 139.7)) (stroke (width 0) (type default)) (uuid "1ec99a94-94ce-4dea-be6d-163c4773b641"))
+	(wire (pts (xy 130.81 133.35) (xy 129.54 133.35)) (stroke (width 0) (type default)) (uuid "afa7de24-7d80-44ae-b286-a0322d62dc6a"))
+	(wire (pts (xy 129.54 133.35) (xy 129.54 128.27)) (stroke (width 0) (type default)) (uuid "6385d0cf-5f11-4792-a2fd-5bc950865003"))
+	(wire (pts (xy 129.54 128.27) (xy 130.81 128.27)) (stroke (width 0) (type default)) (uuid "89150d6c-7376-468d-a8ac-b9e73dc2ec46"))
+	(wire (pts (xy 130.81 138.43) (xy 129.54 138.43)) (stroke (width 0) (type default)) (uuid "e8f6e9b0-fb70-498d-ba42-614f03c1ce80"))
+	(wire (pts (xy 129.54 138.43) (xy 129.54 133.35)) (stroke (width 0) (type default)) (uuid "9ac10f7a-582c-44b7-b75c-6c95f7f6c828"))
+	(wire (pts (xy 129.54 133.35) (xy 130.81 133.35)) (stroke (width 0) (type default)) (uuid "3a86a9ff-48d3-4f2e-b2b8-1b498aa5c88c"))
+	(wire (pts (xy 109.22 138.43) (xy 130.81 138.43)) (stroke (width 0) (type default)) (uuid "853a1243-8a42-40a7-8494-2b6ce7e82920"))
+	(wire (pts (xy 99.06 138.43) (xy 109.22 138.43)) (stroke (width 0) (type default)) (uuid "f9f550d6-44bf-4da5-9be7-5c504012ce18"))
+	(wire (pts (xy 99.06 130.81) (xy 99.06 138.43)) (stroke (width 0) (type default)) (uuid "91b1b3ae-788e-4ab9-8701-21756720d99c"))
+	(wire (pts (xy 130.81 146.05) (xy 125.73 146.05)) (stroke (width 0) (type default)) (uuid "b871f83a-a816-4e22-aefc-7ebec8329a3a"))
+	(wire (pts (xy 125.73 146.05) (xy 125.73 138.43)) (stroke (width 0) (type default)) (uuid "a56f2ca3-bb28-4a62-8ae5-a1eeb0ff3ed0"))
+	(wire (pts (xy 125.73 138.43) (xy 130.81 138.43)) (stroke (width 0) (type default)) (uuid "ca59a58d-b764-47fb-85cb-91905aa78aea"))
+	(wire (pts (xy 63.5 49.53) (xy 66.04 49.53)) (stroke (width 0) (type default)) (uuid "ed295fff-1827-4884-8f8c-52970441798d"))
+	(wire (pts (xy 129.54 49.53) (xy 132.08 49.53)) (stroke (width 0) (type default)) (uuid "85ac24de-3426-4369-8622-86f24372ba3b"))
+	(wire (pts (xy 195.58 49.53) (xy 198.12 49.53)) (stroke (width 0) (type default)) (uuid "c026d257-fbb8-4ba0-97ac-0cdeea0f989c"))
+	(wire (pts (xy 35.56 121.92) (xy 33.02 121.92)) (stroke (width 0) (type default)) (uuid "f0548172-ff24-4f71-b121-57d4060fdd51"))
+	(wire (pts (xy 35.56 124.46) (xy 33.02 124.46)) (stroke (width 0) (type default)) (uuid "77934611-d3fd-468a-a7c5-26645a177356"))
+	(wire (pts (xy 35.56 127.0) (xy 33.02 127.0)) (stroke (width 0) (type default)) (uuid "74de3971-dcc1-43a0-a50e-ca2075975364"))
+	(wire (pts (xy 130.81 130.81) (xy 128.27 130.81)) (stroke (width 0) (type default)) (uuid "68b1f11d-a7d6-4734-b338-4a628c5c2854"))
+	(wire (pts (xy 130.81 135.89) (xy 128.27 135.89)) (stroke (width 0) (type default)) (uuid "06ffe9b5-256d-4090-9868-9d66c71e5957"))
+	(wire (pts (xy 130.81 140.97) (xy 128.27 140.97)) (stroke (width 0) (type default)) (uuid "c38f6004-61b4-479c-a3aa-d9c919ecdb80"))
+	(junction (at 63.5 49.53) (diameter 0) (color 0 0 0 0) (uuid "1e72a9b1-5b2f-4244-be85-d7c7bfe6c51a"))
+	(junction (at 129.54 49.53) (diameter 0) (color 0 0 0 0) (uuid "b9c48b34-f264-4ead-8390-8070259dc753"))
+	(junction (at 195.58 49.53) (diameter 0) (color 0 0 0 0) (uuid "1db9575f-b2c9-4f10-a5c8-4b8109bd0e70"))
+	(junction (at 130.81 133.35) (diameter 0) (color 0 0 0 0) (uuid "74aaa274-1029-4ef8-8d5c-3da69bde5503"))
+	(junction (at 129.54 133.35) (diameter 0) (color 0 0 0 0) (uuid "f3025f52-3659-46ed-8274-3201e7baf725"))
+	(junction (at 130.81 138.43) (diameter 0) (color 0 0 0 0) (uuid "c7a07eef-7532-455a-91bf-ca0a2d4423d7"))
+	(junction (at 129.54 138.43) (diameter 0) (color 0 0 0 0) (uuid "fe743b46-f91a-40d7-affa-7b9fe640eebb"))
+	(junction (at 109.22 138.43) (diameter 0) (color 0 0 0 0) (uuid "0a8cc5a0-743e-407c-a5a3-569d8c200453"))
+	(junction (at 99.06 138.43) (diameter 0) (color 0 0 0 0) (uuid "fa093cc5-5f2f-4283-bfa4-f0b2f1e03da8"))
+	(junction (at 125.73 138.43) (diameter 0) (color 0 0 0 0) (uuid "2482dd55-3385-4e29-ba1d-1175fba326b6"))
+)

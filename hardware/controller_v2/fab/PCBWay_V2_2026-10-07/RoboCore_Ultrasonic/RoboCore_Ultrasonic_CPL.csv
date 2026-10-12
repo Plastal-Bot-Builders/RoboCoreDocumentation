@@ -1,0 +1,14 @@
+Designator,Mid X,Mid Y,Layer,Rotation,Value,Package
+LS1,113.000mm,-105.000mm,Bottom,90.0,TX 40kHz,Ultrasonic_Transducer_D16.0mm_P10.00mm
+LS2,87.000mm,-105.000mm,Bottom,90.0,RX 40kHz,Ultrasonic_Transducer_D16.0mm_P10.00mm
+C1,99.600mm,-108.600mm,Top,0.0,10uF,C_0805_2012Metric
+C2,94.100mm,-99.400mm,Top,90.0,0.1uF,C_0603_1608Metric
+C3,101.000mm,-105.800mm,Top,0.0,0.1uF,C_0603_1608Metric
+C4,105.400mm,-93.400mm,Top,0.0,18pF,C_0603_1608Metric
+C5,108.000mm,-96.800mm,Top,90.0,18pF,C_0603_1608Metric
+J1,106.000mm,-106.600mm,Top,90.0,ULTRASONIC,JST_SH_BM04B-SRSS-TB_1x04-1MP_P1.00mm_Vertical
+R1,96.200mm,-108.800mm,Top,0.0,3.3,R_0603_1608Metric
+R2,94.100mm,-96.400mm,Top,90.0,15M,R_0603_1608Metric
+R3,92.800mm,-108.800mm,Top,0.0,100k,R_0603_1608Metric
+U1,99.000mm,-99.000mm,Top,0.0,CS100A,SOIC-16_3.9x9.9mm_P1.27mm
+Y1,105.400mm,-96.800mm,Top,90.0,8MHz,Crystal_SMD_3225-4Pin_3.2x2.5mm

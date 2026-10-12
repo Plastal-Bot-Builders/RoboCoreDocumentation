@@ -1,0 +1,35 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "7d2e5a90-3c4b-4f1e-8b6a-9e0c1d2f3a01")
+	(paper "A4")
+	(title_block
+		(title "RoboCore Ultrasonic")
+		(date "2026-10-05")
+		(rev "1.0")
+		(company "RoboCore Zambia / Plastal-Bot Builders")
+	)
+	(lib_symbols)
+	(sheet
+		(at 25.4 50.8)
+		(size 101.6 25.4)
+		(fields_autoplaced yes)
+		(stroke (width 0.1524) (type solid))
+		(fill (color 0 0 0 0.0000))
+		(uuid "7d2e5a90-3c4b-4f1e-8b6a-9e0c1d2f3a02")
+		(property "Sheetname" "Ultrasonic" (at 25.4 50.09 0) (effects (font (size 1.8 1.8) (bold yes)) (justify left bottom)))
+		(property "Sheetfile" "ultrasonic.kicad_sch" (at 25.4 76.8 0) (effects (font (size 1.27 1.27)) (justify left top)))
+		(instances
+			(project "RoboCore_Ultrasonic"
+				(path "/7d2e5a90-3c4b-4f1e-8b6a-9e0c1d2f3a01" (page "2"))
+			)
+		)
+	)
+	(text "CS100A single-chip ranger" (exclude_from_sim no) (at 27.94 55.88 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid "31d083a2-f52d-46f9-ac9f-7feeb9094cfd"))
+	(text "HC-SR04 TRIG/ECHO, 3.3 V" (exclude_from_sim no) (at 27.94 59.18 0) (effects (font (size 1.5 1.5)) (justify left)) (uuid "c50b950e-d9e0-4a90-90a1-79c4d191c652"))
+	(text "RoboCore ultrasonic sensor: CS100A + 40 kHz transducer pair, HC-SR04 timing. JST SH 4 to RoboCore V2 J403." (exclude_from_sim no) (at 25.4 30.48 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2b84e0d6-cd85-4c3e-aaee-178741b1070a"))
+	(sheet_instances
+		(path "/" (page "1"))
+	)
+)
