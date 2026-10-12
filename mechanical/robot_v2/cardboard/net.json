@@ -1,0 +1,1144 @@
+{
+ "shapes": {
+  "cut": [
+   {
+    "name": "outline",
+    "pts": [
+     [
+      40.5,
+      0.0
+     ],
+     [
+      124.0,
+      0.0
+     ],
+     [
+      124.0,
+      6.0
+     ],
+     [
+      138.0,
+      6.0
+     ],
+     [
+      138.0,
+      0.0
+     ],
+     [
+      159.5,
+      0.0
+     ],
+     [
+      159.5,
+      2.0
+     ],
+     [
+      171.5,
+      8.0
+     ],
+     [
+      171.5,
+      41.0
+     ],
+     [
+      162.5,
+      41.0
+     ],
+     [
+      162.5,
+      191.0
+     ],
+     [
+      159.5,
+      191.0
+     ],
+     [
+      171.5,
+      196.0
+     ],
+     [
+      171.5,
+      224.0
+     ],
+     [
+      159.5,
+      229.0
+     ],
+     [
+      197.5,
+      229.0
+     ],
+     [
+      197.5,
+      373.0
+     ],
+     [
+      159.5,
+      373.0
+     ],
+     [
+      135.0,
+      373.0
+     ],
+     [
+      135.0,
+      395.0
+     ],
+     [
+      127.0,
+      403.0
+     ],
+     [
+      73.0,
+      403.0
+     ],
+     [
+      65.0,
+      395.0
+     ],
+     [
+      65.0,
+      373.0
+     ],
+     [
+      40.5,
+      373.0
+     ],
+     [
+      2.5,
+      373.0
+     ],
+     [
+      2.5,
+      229.0
+     ],
+     [
+      40.5,
+      229.0
+     ],
+     [
+      28.5,
+      224.0
+     ],
+     [
+      28.5,
+      196.0
+     ],
+     [
+      40.5,
+      191.0
+     ],
+     [
+      37.5,
+      191.0
+     ],
+     [
+      37.5,
+      41.0
+     ],
+     [
+      40.5,
+      41.0
+     ],
+     [
+      28.5,
+      41.0
+     ],
+     [
+      28.5,
+      8.0
+     ],
+     [
+      40.5,
+      2.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "board M2",
+    "circle": [
+     69.5,
+     79.35,
+     2.4
+    ]
+   },
+   {
+    "name": "board M2",
+    "circle": [
+     130.6,
+     79.75,
+     2.4
+    ]
+   },
+   {
+    "name": "board M2",
+    "circle": [
+     69.05,
+     132.8,
+     2.4
+    ]
+   },
+   {
+    "name": "board M2",
+    "circle": [
+     130.85,
+     132.95,
+     2.4
+    ]
+   },
+   {
+    "name": "motor lead slot",
+    "pts": [
+     [
+      70.7,
+      71.0
+     ],
+     [
+      82.7,
+      71.0
+     ],
+     [
+      82.7,
+      75.0
+     ],
+     [
+      70.7,
+      75.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "motor lead slot",
+    "pts": [
+     [
+      117.3,
+      71.0
+     ],
+     [
+      129.3,
+      71.0
+     ],
+     [
+      129.3,
+      75.0
+     ],
+     [
+      117.3,
+      75.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "rear cable slot",
+    "pts": [
+     [
+      64.0,
+      135.0
+     ],
+     [
+      122.0,
+      135.0
+     ],
+     [
+      122.0,
+      147.0
+     ],
+     [
+      64.0,
+      147.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "battery opening",
+    "pts": [
+     [
+      68.0,
+      205.5
+     ],
+     [
+      132.0,
+      205.5
+     ],
+     [
+      132.0,
+      229.0
+     ],
+     [
+      68.0,
+      229.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "HC-SR04 can",
+    "circle": [
+     87.0,
+     12.0,
+     16.5
+    ]
+   },
+   {
+    "name": "HC-SR04 can",
+    "circle": [
+     113.0,
+     12.0,
+     16.5
+    ]
+   },
+   {
+    "name": "motor shaft",
+    "circle": [
+     26.5,
+     311.0,
+     6.5
+    ]
+   },
+   {
+    "name": "motor locating pin",
+    "circle": [
+     26.5,
+     300.0,
+     4.5
+    ]
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      36.25,
+      283.5
+     ],
+     [
+      38.75,
+      283.5
+     ],
+     [
+      38.75,
+      288.5
+     ],
+     [
+      36.25,
+      288.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      12.25,
+      283.5
+     ],
+     [
+      14.75,
+      283.5
+     ],
+     [
+      14.75,
+      288.5
+     ],
+     [
+      12.25,
+      288.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      36.25,
+      318.5
+     ],
+     [
+      38.75,
+      318.5
+     ],
+     [
+      38.75,
+      323.5
+     ],
+     [
+      36.25,
+      323.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      12.25,
+      318.5
+     ],
+     [
+      14.75,
+      318.5
+     ],
+     [
+      14.75,
+      323.5
+     ],
+     [
+      12.25,
+      323.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "motor shaft",
+    "circle": [
+     173.5,
+     311.0,
+     6.5
+    ]
+   },
+   {
+    "name": "motor locating pin",
+    "circle": [
+     173.5,
+     300.0,
+     4.5
+    ]
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      161.25,
+      283.5
+     ],
+     [
+      163.75,
+      283.5
+     ],
+     [
+      163.75,
+      288.5
+     ],
+     [
+      161.25,
+      288.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      185.25,
+      283.5
+     ],
+     [
+      187.75,
+      283.5
+     ],
+     [
+      187.75,
+      288.5
+     ],
+     [
+      185.25,
+      288.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      161.25,
+      318.5
+     ],
+     [
+      163.75,
+      318.5
+     ],
+     [
+      163.75,
+      323.5
+     ],
+     [
+      161.25,
+      323.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "zip-tie slot",
+    "pts": [
+     [
+      185.25,
+      318.5
+     ],
+     [
+      187.75,
+      318.5
+     ],
+     [
+      187.75,
+      323.5
+     ],
+     [
+      185.25,
+      323.5
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "caster screw",
+    "circle": [
+     45.0,
+     238.0,
+     3.2
+    ]
+   },
+   {
+    "name": "caster screw",
+    "circle": [
+     57.0,
+     238.0,
+     3.2
+    ]
+   },
+   {
+    "name": "caster screw",
+    "circle": [
+     143.0,
+     238.0,
+     3.2
+    ]
+   },
+   {
+    "name": "caster screw",
+    "circle": [
+     155.0,
+     238.0,
+     3.2
+    ]
+   },
+   {
+    "name": "line sensor M3",
+    "circle": [
+     74.2,
+     389.0,
+     3.2
+    ]
+   },
+   {
+    "name": "line sensor M3",
+    "circle": [
+     125.8,
+     389.0,
+     3.2
+    ]
+   }
+  ],
+  "crease": [
+   {
+    "name": "flap / deck",
+    "pts": [
+     [
+      40.5,
+      41.0
+     ],
+     [
+      159.5,
+      41.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "deck / rear wall",
+    "pts": [
+     [
+      40.5,
+      191.0
+     ],
+     [
+      159.5,
+      191.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "rear wall / floor",
+    "pts": [
+     [
+      40.5,
+      229.0
+     ],
+     [
+      68.0,
+      229.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "rear wall / floor",
+    "pts": [
+     [
+      132.0,
+      229.0
+     ],
+     [
+      159.5,
+      229.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "floor / left wall",
+    "pts": [
+     [
+      40.5,
+      229.0
+     ],
+     [
+      40.5,
+      373.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "floor / right wall",
+    "pts": [
+     [
+      159.5,
+      229.0
+     ],
+     [
+      159.5,
+      373.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "floor / nose shelf",
+    "pts": [
+     [
+      65.0,
+      373.0
+     ],
+     [
+      135.0,
+      373.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "flap tab",
+    "pts": [
+     [
+      40.5,
+      2.0
+     ],
+     [
+      40.5,
+      41.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "glue tab",
+    "pts": [
+     [
+      40.5,
+      191.0
+     ],
+     [
+      40.5,
+      229.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "flap tab",
+    "pts": [
+     [
+      159.5,
+      2.0
+     ],
+     [
+      159.5,
+      41.0
+     ]
+    ],
+    "closed": false
+   },
+   {
+    "name": "glue tab",
+    "pts": [
+     [
+      159.5,
+      191.0
+     ],
+     [
+      159.5,
+      229.0
+     ]
+    ],
+    "closed": false
+   }
+  ],
+  "zone": [
+   {
+    "name": "controller 68 x 60",
+    "pts": [
+     [
+      66.0,
+      76.0
+     ],
+     [
+      134.0,
+      76.0
+     ],
+     [
+      134.0,
+      136.0
+     ],
+     [
+      66.0,
+      136.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "antenna keep-out",
+    "pts": [
+     [
+      90.95,
+      76.2
+     ],
+     [
+      109.05,
+      76.2
+     ],
+     [
+      109.05,
+      82.7
+     ],
+     [
+      90.95,
+      82.7
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "battery holder",
+    "pts": [
+     [
+      69.2,
+      322.7
+     ],
+     [
+      130.8,
+      322.7
+     ],
+     [
+      130.8,
+      244.3
+     ],
+     [
+      69.2,
+      244.3
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "motor",
+    "pts": [
+     [
+      59.5,
+      333.0
+     ],
+     [
+      40.5,
+      333.0
+     ],
+     [
+      40.5,
+      256.0
+     ],
+     [
+      59.5,
+      256.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "caster",
+    "circle": [
+     51.0,
+     238.0,
+     16.0
+    ]
+   },
+   {
+    "name": "motor",
+    "pts": [
+     [
+      140.5,
+      333.0
+     ],
+     [
+      159.5,
+      333.0
+     ],
+     [
+      159.5,
+      256.0
+     ],
+     [
+      140.5,
+      256.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "caster",
+    "circle": [
+     149.0,
+     238.0,
+     16.0
+    ]
+   },
+   {
+    "name": "HC-SR04",
+    "pts": [
+     [
+      77.5,
+      2.0
+     ],
+     [
+      122.5,
+      2.0
+     ],
+     [
+      122.5,
+      22.0
+     ],
+     [
+      77.5,
+      22.0
+     ]
+    ],
+    "closed": true
+   },
+   {
+    "name": "line sensor",
+    "pts": [
+     [
+      70.0,
+      400.0
+     ],
+     [
+      130.0,
+      400.0
+     ],
+     [
+      130.0,
+      376.0
+     ],
+     [
+      70.0,
+      376.0
+     ]
+    ],
+    "closed": true
+   }
+  ],
+  "text": [
+   {
+    "x": 100.0,
+    "y": 36.0,
+    "s": "FRONT FLAP  (folds down from the deck; HC-SR04 behind it, cans through the holes, header up)",
+    "size": 2.6,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 30.5,
+    "s": "HC-SR04 45 x 20",
+    "size": 2.6,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 53.0,
+    "s": "DECK  150 x 125  (top; controller 68 x 60 screws here, 4 x M2)",
+    "size": 3.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 104.0,
+    "s": "RoboCore V2 board",
+    "size": 2.6,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 71.5,
+    "s": "antenna at the front edge: no metal within 15 mm",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 93.0,
+    "y": 150.0,
+    "s": "rear slot: battery lead, sensor leads, USB-C plug",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 64.5,
+    "s": "motor lead slots (under the MOTOR sockets)",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 183.0,
+    "s": "rear edge: folds over the rear wall",
+    "size": 2.4,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 201.0,
+    "s": "REAR WALL  119 x 38",
+    "size": 3.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 211.0,
+    "s": "battery slides in here (64 x 23.5 opening)",
+    "size": 2.4,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 241.0,
+    "s": "FLOOR  144 x 119  (inside)",
+    "size": 3.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 284.0,
+    "s": "BatteryHolder3S  61.6 x 78.4 x 21.6",
+    "size": 2.6,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 291.0,
+    "s": "3 x 18650, 1S3P, held with hook-and-loop tape",
+    "size": 2.2,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 351.0,
+    "s": "free area: wiring, spare",
+    "size": 2.2,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 47.0,
+    "y": 295.0,
+    "s": "MOTOR",
+    "size": 2.6,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 53.5,
+    "y": 295.0,
+    "s": "TT + encoder",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 51.0,
+    "y": 247.0,
+    "s": "caster",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 21.5,
+    "y": 249.0,
+    "s": "SIDE WALL 144 x 38",
+    "size": 2.8,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 16.5,
+    "y": 311.0,
+    "s": "shaft 6.5 / pin 4.5",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 7.5,
+    "y": 304.0,
+    "s": "zip-tie slots",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 153.0,
+    "y": 295.0,
+    "s": "MOTOR",
+    "size": 2.6,
+    "anchor": "middle",
+    "rot": 90
+   },
+   {
+    "x": 146.5,
+    "y": 295.0,
+    "s": "TT + encoder",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 90
+   },
+   {
+    "x": 149.0,
+    "y": 247.0,
+    "s": "caster",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 178.5,
+    "y": 249.0,
+    "s": "SIDE WALL 144 x 38",
+    "size": 2.8,
+    "anchor": "middle",
+    "rot": 90
+   },
+   {
+    "x": 183.5,
+    "y": 311.0,
+    "s": "shaft 6.5 / pin 4.5",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 90
+   },
+   {
+    "x": 192.5,
+    "y": 304.0,
+    "s": "zip-tie slots",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 90
+   },
+   {
+    "x": 100.0,
+    "y": 381.0,
+    "s": "NOSE SHELF: line sensor 60 x 24 under here, 2 x M3",
+    "size": 2.2,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 100.0,
+    "y": 397.0,
+    "s": "cable notch in the flap above",
+    "size": 1.8,
+    "anchor": "middle",
+    "rot": 0
+   },
+   {
+    "x": 34.5,
+    "y": 61.0,
+    "s": "tab",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 165.5,
+    "y": 61.0,
+    "s": "tab",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 90
+   },
+   {
+    "x": 34.5,
+    "y": 210.0,
+    "s": "glue",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": -90
+   },
+   {
+    "x": 165.5,
+    "y": 210.0,
+    "s": "glue",
+    "size": 2.0,
+    "anchor": "middle",
+    "rot": 90
+   }
+  ]
+ },
+ "net": [
+  0.0,
+  0,
+  200.0,
+  403.0
+ ]
+}
