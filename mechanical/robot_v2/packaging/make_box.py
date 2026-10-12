@@ -160,7 +160,8 @@ def insert_polygon():
 IMG = {k: os.path.join(ART, v) for k, v in {
     'logo': 'logo_robocore_navy.png', 'plastal': 'logo_plastal_navy.png', 'robot': 'robot_lineart.png', 'board': 'board_iso.png',
     'board_top': 'board_top.png', 'side': 'robot_side.png', 'side_f': 'robot_side_flipped.png', 'top': 'robot_top.png', 'rear': 'robot_rear.png',
-    'hcsr04': 'hcsr04_iso.png', 'hcsr04_f': 'hcsr04_front.png', 'servo': 'servo_iso.png', 'servo_s': 'servo_side.png', 'line': 'linesensor_iso.png'}.items()}
+    'hcsr04': 'hcsr04_iso.png', 'hcsr04_f': 'hcsr04_front.png', 'servo': 'servo_iso.png', 'servo_s': 'servo_side.png', 'line': 'linesensor_iso.png',
+    'chassis': 'chassis_iso.png', 'cable6': 'cable_6pin.png', 'battery': 'battery_holder.png', 'motor': 'motor_dg01d.png', 'wheel': 'wheel.png'}.items()}
 SITE = 'https://www.plastalbotbuilders.com'
 COPY = {
     'tag': 'Build. Code. Create.',
@@ -181,11 +182,12 @@ COPY = {
 FEATURES = ['ESP32-S3 with Wi-Fi and Bluetooth', 'Two encoder motors, four servo ports, IMU', 'Line and ultrasonic sensing', 'Arm module with gear-linked claw']
 SPECS_L = ['Controller  RoboCore V2, ESP32-S3, 68 x 60 mm', 'Power  1S Li-ion, 3 x 18650 in parallel, USB-C charging', 'Drive  2 x TT encoder motors, 56 mm wheels, 2 casters']
 SPECS_R = ['Sensing  3-channel line sensor, HC-SR04 ultrasonic, IMU', 'Robot  167 x 166 x 65 mm, about 540 g with the arm', 'Box  %d x %d x %d mm, E-flute card' % (Lo, Wo, Ho)]
-KIT = [  # (label, drawing or icon name, count text)
-    ('RoboCore V2 robot, assembled', 'robot', ''), ('RoboCore V2 controller', 'board_top', 'on the robot'), ('Ultrasonic sensor HC-SR04', 'hcsr04_f', 'on the robot'),
-    ('Line sensor, 3 channels', 'line', 'on the robot'), ('Micro servos', 'servo', '2'), ('Arm boom', 'icon:boom', ''),
-    ('Arm base', 'icon:base', ''), ('Claw jaws', 'icon:jaws', '2'), ('Ballast clips', 'icon:clips', '2'),
-    ('USB-C cable', 'icon:cable', ''), ('Screw and nut pack', 'icon:screws', ''), ('Quick-start card', 'icon:card', ''),
+KIT = [  # (label, drawing or icon name, count text): 4 x 4 grid on the floor inside
+    ('RoboCore V2 robot, assembled', 'robot', ''), ('RoboCore V2 controller', 'board_top', 'on the robot'), ('3D-printed chassis', 'chassis', 'on the robot'),
+    ('Encoder motors DG01D-E', 'motor', '2, on the robot'), ('Wheels 56 mm, TPU tyres', 'wheel', '2'), ('Battery holder, 3 x 18650', 'battery', 'on the robot'),
+    ('Ultrasonic sensor HC-SR04', 'hcsr04_f', 'on the robot'), ('Line sensor, 3 channels', 'line', 'on the robot'), ('Micro servos', 'servo', '2'),
+    ('Arm boom', 'icon:boom', ''), ('Arm base', 'icon:base', ''), ('Claw jaws', 'icon:jaws', '2'), ('Ballast clips', 'icon:clips', '2'),
+    ('Motor encoder cables', 'cable6', '2'), ('USB-C cable', 'icon:cable', ''), ('Screws, nuts and quick-start card', 'icon:screws', ''),
 ]
 
 
@@ -269,7 +271,7 @@ def underside(F):
         F.rect(16, vv - 2.6, 18.4, vv - 0.2, fill=NAVY)
         F.text(21, vv, s, 3.0, 'b')
     F.text(10, 91, "WHAT'S IN THE BOX", 6, 'h')
-    row = [('robot', 'ROBOT, ASSEMBLED'), ('board', 'ROBOCORE V2'), ('hcsr04', 'ULTRASONIC'), ('line', 'LINE SENSOR'), ('servo', '2 SERVOS + ARM')]
+    row = [('robot', 'ROBOT, ASSEMBLED'), ('board', 'ROBOCORE V2'), ('motor', '2 ENCODER MOTORS'), ('hcsr04', 'ULTRASONIC'), ('line', 'LINE SENSOR'), ('servo', '2 SERVOS + ARM')]
     cw = (w - 20) / len(row)
     for i, (k, lab) in enumerate(row):
         u0 = 10 + i * cw
@@ -332,8 +334,9 @@ def end_inside(F, which):
         F.image(78, 8, 128, h - 8, IMG['servo'])
         F.image(132, 6, w - 8, h - 6, IMG['board'])
     else:
-        F.image(8, 8, 110, h - 8, IMG['side_f'])
-        F.image(118, 6, w - 8, h - 6, IMG['line'])
+        F.image(6, 10, 78, h - 10, IMG['side_f'])
+        F.image(82, 8, 138, h - 8, IMG['motor'])
+        F.image(142, 8, w - 6, h - 8, IMG['wheel'])
 
 
 def lid_inside(F):
@@ -380,14 +383,14 @@ def floor_inside(F):
     w, h = F.w, F.h
     F.rrect(14, 12, w - 14, h - 12, r=4, fill=YEL)
     F.text(w / 2, 24, 'THIS KIT INCLUDES', 8, 'h', NAVY, 'center')
-    cols, rows = 4, 3
+    cols, rows = 4, 4
     gw, gh = (w - 40) / cols, (h - 52) / rows
     for i, (lab, key, cnt) in enumerate(KIT):
         c, r = i % cols, i // cols
         u0, v0 = 20 + c * gw, 30 + r * gh
-        F.text(u0 + 2, v0 + 4, lab + ('  (%s)' % cnt if cnt else ''), 2.9, 'b')
-        F.line(u0 + 2, v0 + 5.2, u0 + 2 + F.sh.width(lab + ('  (%s)' % cnt if cnt else ''), 'b', 2.9), v0 + 5.2, NAVY, 0.25)
-        part(F, key, u0 + 4, v0 + 8, u0 + gw - 6, v0 + gh - 4)
+        F.text(u0 + 2, v0 + 4, lab + ('  (%s)' % cnt if cnt else ''), 2.6, 'b')
+        F.line(u0 + 2, v0 + 5.0, u0 + 2 + F.sh.width(lab + ('  (%s)' % cnt if cnt else ''), 'b', 2.6), v0 + 5.0, NAVY, 0.25)
+        part(F, key, u0 + 4, v0 + 7, u0 + gw - 6, v0 + gh - 3)
     F.text(w / 2, h - 16, 'For replacement parts and the arm module visit plastalbotbuilders.com/robocore', 3.0, 'b', NAVY, 'center')
 
 
