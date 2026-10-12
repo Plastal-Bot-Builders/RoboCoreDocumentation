@@ -1,0 +1,134 @@
+{
+ "1": {
+  "file": "01_controller.jpg",
+  "comment": ""
+ },
+ "2": {
+  "file": "02_xrp_motor_pair.jpg",
+  "comment": ""
+ },
+ "3": {
+  "file": "03_ultrasonic_rcwl-1601.jpg",
+  "comment": "RCWL-1601 shown (3–5 V, HC-SR04 compatible). An HC-SR04P looks like the classic blue HC-SR04."
+ },
+ "4": {
+  "file": "04_line_sensor_3ch.jpg",
+  "comment": "Similar, not the same: our own 3-channel TCRT5000 board (same 60 × 24 mm size and sensors). Buy the module described in column D; it must have ANALOG outputs."
+ },
+ "5": {
+  "file": "05_servo_mg90.jpg",
+  "comment": "MG90D shown (Adafruit's metal-gear micro servo). The MG90S is the same size, horns and mounting."
+ },
+ "6": {
+  "file": "06_servo_sg90.jpg",
+  "comment": ""
+ },
+ "7": {
+  "file": "07_cell_18650.jpg",
+  "comment": ""
+ },
+ "8": {
+  "file": "08_holder_18650.jpg",
+  "comment": "Shown: 3- and 4-cell holders. Buy a 3 × 18650 holder (about 61.6 × 78.4 mm) and wire it in PARALLEL (1S3P)."
+ },
+ "9": {
+  "file": "09_bms_1s.jpg",
+  "comment": "Similar, not the same: a TP4056 charger board whose right half (DW01 + 8205A, B+/B−/OUT+/OUT−) is the protection circuit. Buy the protection-only board; the controller already charges the battery."
+ },
+ "10": {
+  "file": "10_xt30.jpg",
+  "comment": "Board side shown: the male XT30 on the controller. Buy the FEMALE XT30U-F with leads, which plugs into it."
+ },
+ "11": {
+  "file": "11_heat_shrink.jpg",
+  "comment": ""
+ },
+ "12": {
+  "file": "12_dupont_wires.jpg",
+  "comment": ""
+ },
+ "13": {
+  "file": "13_usb-c_cable.jpg",
+  "comment": ""
+ },
+ "14": {
+  "file": "14_usb_charger.jpg",
+  "comment": "Any 5 V, 2 A USB charger will do."
+ },
+ "15": {
+  "file": "15_insert_m2.jpg",
+  "comment": "M3 × 4 inserts shown; the M2 ones look the same, only smaller."
+ },
+ "16": {
+  "file": "16_insert_m3.jpg",
+  "comment": "M3 × 4 brass heat-set inserts (Adafruit 4255)."
+ },
+ "17": {
+  "file": "17_screw_m2x6_pan.jpg",
+  "comment": "Phillips pan head machine screw (not to scale)."
+ },
+ "18": {
+  "file": "18_screw_m2x6_self-tapping.jpg",
+  "comment": "Self-tapping screws (not to scale); pan head wanted."
+ },
+ "19": {
+  "file": "19_washer_m2.jpg",
+  "comment": "Flat washers (not to scale)."
+ },
+ "20": {
+  "file": "20_screw_m2x8_pan.jpg",
+  "comment": "Phillips pan head machine screw (not to scale)."
+ },
+ "21": {
+  "file": "21_screw_m2x5_pan.jpg",
+  "comment": "Phillips pan head machine screw (not to scale)."
+ },
+ "22": {
+  "file": "22_screw_m2x4_pan.jpg",
+  "comment": "Phillips pan head machine screw (not to scale)."
+ },
+ "23": {
+  "file": "23_screw_m3x10_socket.jpg",
+  "comment": "Socket head cap screw (not to scale)."
+ },
+ "24": {
+  "file": "24_screw_m3x8_self-tapping.jpg",
+  "comment": "Self-tapping screws (not to scale); pan head wanted."
+ },
+ "25": {
+  "file": "25_thumb_screw_m3.jpg",
+  "comment": "Star-knob thumb screw shown; the list asks for a knurled-head M3 × 8 thumb screw."
+ },
+ "26": {
+  "file": "26_nut_m8.jpg",
+  "comment": "Hex nuts on a bolt (not to scale): plain M8 hex nuts."
+ },
+ "27": {
+  "file": "27_steel_ball_12.7.jpg",
+  "comment": "Polished steel ball, shown much bigger than life: you need ½\" (12.7 mm) balls."
+ },
+ "28": {
+  "file": "28_petg_yellow.jpg",
+  "comment": "Filament spools (generic photo). Buy PETG in the colour on this line."
+ },
+ "29": {
+  "file": "29_petg_black.jpg",
+  "comment": "Filament spools (generic photo). Buy black PETG."
+ },
+ "30": {
+  "file": "30_petg_teal.jpg",
+  "comment": "Filament spools (generic photo). Buy dark teal PETG."
+ },
+ "31": {
+  "file": "31_tpu_black.jpg",
+  "comment": "Filament spools (generic photo). Buy black TPU 95A."
+ },
+ "32": {
+  "file": "32_mailer_box.jpg",
+  "comment": ""
+ },
+ "35": {
+  "file": "35_insert_tips.jpg",
+  "comment": "M3 heat-set insert tip shown; get the M2 tip as well, to fit your iron."
+ }
+}

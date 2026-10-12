@@ -1,0 +1,24 @@
+<!doctype html>
+<html><body style="margin:0;font:12px Inter,system-ui,sans-serif;color:#A7B1C2;background:#0A0E27;padding:8px">RoboCore IDE builder — review bridge
+<script>
+const SERVER = 'http://localhost:8765';
+const reply = (o) => parent.postMessage({ pluginMessage: o }, '*');
+window.onmessage = async (ev) => {
+  const m = ev.data && ev.data.pluginMessage;
+  if (!m) return;
+  try {
+    if (m.type === 'ping') {
+      const r = await fetch(SERVER + '/ping');
+      reply({ type: 'pong', ok: r.ok });
+    } else if (m.type === 'png') {
+      await fetch(SERVER + '/save?name=' + encodeURIComponent(m.name), { method: 'POST', body: m.bytes });
+      reply({ type: 'ack' });
+    } else if (m.type === 'report') {
+      await fetch(SERVER + '/save?name=report.json', { method: 'POST', body: JSON.stringify(m.report, null, 2) });
+      reply({ type: 'ack' });
+    }
+  } catch (e) {
+    reply({ type: m.type === 'ping' ? 'pong' : 'ack', ok: false, error: String(e) });
+  }
+};
+</script></body></html>

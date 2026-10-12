@@ -1,0 +1,33 @@
+{
+  "name": "RoboCore IDE Design Builder",
+  "id": "robocore-ide-design-builder",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": [
+    "figma"
+  ],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ],
+    "devAllowedDomains": [
+      "http://localhost:8765"
+    ],
+    "reasoning": "Development only: sends PNG previews of the generated screens to a local review server."
+  },
+  "menu": [
+    {
+      "name": "Build into empty file",
+      "command": "build"
+    },
+    {
+      "separator": true
+    },
+    {
+      "name": "Rebuild \u2014 replace the 5 generated pages",
+      "command": "rebuild"
+    }
+  ]
+}
