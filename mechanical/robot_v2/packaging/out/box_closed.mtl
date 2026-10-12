@@ -1,0 +1,20 @@
+newmtl print
+Kd 1 1 1
+Ks 0.05 0.05 0.05
+Ns 10
+map_Kd box_texture_outside.png
+
+newmtl inside
+Kd 1 1 1
+Ks 0.05 0.05 0.05
+Ns 10
+map_Kd box_texture_inside.png
+
+newmtl card
+Kd 0.80 0.70 0.52
+Ks 0.02 0.02 0.02
+Ns 5
+
+newmtl kraft
+Kd 0.77 0.67 0.50
+Ns 5
