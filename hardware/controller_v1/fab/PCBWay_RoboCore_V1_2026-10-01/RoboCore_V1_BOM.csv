@@ -1,0 +1,51 @@
+Item,Designators,Qty,Value,Package (KiCad footprint),Manufacturer,Manufacturer Part Number,Rating / sourcing note,Mount,Description
+1,"C1,C4,C6,C10,C13,C31,C32,C33",8,0.1µF,C_0805_2012Metric,,,"MLCC X7R ±10%, 50 V",SMD,"capacitor, non-polarized/bipolar"
+2,"C2,C8,C14,C20",4,1µF,C_0805_2012Metric,,,"MLCC X7R ±10%, 25 V (16 V min)",SMD,"capacitor, non-polarized/bipolar"
+3,"C5,C7,C11",3,10µF,1206 (3216 metric) MLCC on T491A pads,,,"CERAMIC (not tantalum): MLCC 1206 X5R ±10%, 16 V, e.g. Samsung CL31A106KOHNNNE; the T491A footprint pads fit a 1206 part",SMD,Ceramic capacitor (MLCC) 1206 X5R 16V; fits the tantalum A-case (3216) pads
+4,C9,1,4.7µF,1206 (3216 metric) MLCC on T491A pads,,,"CERAMIC (not tantalum): MLCC 1206 X5R ±10%, 16 V, e.g. Samsung CL31A475KOHNNNE; the T491A footprint pads fit a 1206 part",SMD,Ceramic capacitor (MLCC) 1206 X5R 16V; fits the tantalum A-case (3216) pads
+5,C12,1,4.7µF,C_0805_2012Metric,,,"MLCC X5R/X7R ±10%, 16 V (10 V min)",SMD,"capacitor, non-polarized/bipolar"
+6,C15,1,2.2nF,C_0805_2012Metric,,,"MLCC X7R ±10%, 50 V; MPU-6050 charge-pump capacitor, 50 V rating required by the datasheet",SMD,"capacitor, non-polarized/bipolar"
+7,"C16,C17",2,2.2µF,C_0805_2012Metric,,,"MLCC X5R/X7R ±10%, 16 V (10 V min)",SMD,"capacitor, non-polarized/bipolar"
+8,"C18,C19",2,22µF,C_0805_2012Metric,,,"MLCC X5R ±20%, 16 V; 6 V motor rail; e.g. Samsung CL21A226MOQNNNE",SMD,"capacitor, non-polarized/bipolar"
+9,"C22,C24,C25,C26",4,22µF 16V,C_1206_3216Metric,,,"MLCC X5R/X7R, 16 V or higher (25 V keeps more capacitance at 6 V)",SMD,capacitor
+10,"C23,C28",2,0.1µF,C_0603_1608Metric,,,"MLCC X7R ±10%, 25 V (16 V min)",SMD,capacitor
+11,C27,1,2.2µF,C_0603_1608Metric,,,"MLCC X5R/X7R ±10%, 16 V",SMD,capacitor
+12,C29,1,10nF,C_0603_1608Metric,,,"MLCC X7R ±10%, 50 V",SMD,capacitor
+13,C30,1,22pF,C_0603_1608Metric,,,"MLCC C0G/NP0 ±5%, 50 V",SMD,capacitor
+14,F2,1,Polyfuse,FUSSC324X455X250-2N,,,"PTC resettable fuse, 1812, I_hold 1.5 A, V_max ≥ 6 V, e.g. Bourns MF-MSMF150/24X-2 (MF-MSMF150-2 is obsolete)",SMD,"Resettable fuse, polymeric positive temperature coefficient"
+15,"IC1,IC2",2,DRV8245HQRXZRQ1,DRV8245HQRXZRQ1,Texas Instruments,DRV8245HQRXZRQ1,,SMD,"Motor / Motion / Ignition Controllers & Drivers Automotive 40-V, 32-A H-Bridge driver with integrated current sensing and feedback"
+16,J1,1,TYPE-C-31-M-12,USB_C_Receptacle_HRO_TYPE-C-31-M-12,Korean Hroparts Elec,TYPE-C-31-M-12,,SMD,"USB 2.0 Type-C receptacle, 16 pin, mid/top mount"
+17,J2,1,XT30UPB-M,AMASS_XT30UPB-M_1x02_P5.0mm_Vertical,AMASS,XT30UPB-M,,THT,"Battery input, XT30 male, vertical PCB mount, keyed"
+18,J3,1,MOTOR_A,JST_B2B-PH-SM4-TB,JST,B2B-PH-SM4-TB,,SMD,
+19,J4,1,MOTOR_B,JST_B2B-PH-SM4-TB,JST,B2B-PH-SM4-TB,,SMD,
+20,J5,1,POWER_SW,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,JST,B2B-PH-K-S,,THT,External ON/OFF switch (closed = ON); fit a jumper for always-on
+21,L1,1,2.2uH,L_Coilcraft_XAL5030-XXX,Coilcraft,XAL5030-222MEC,,SMD,"Boost inductor 2.2 uH, Isat 9.2 A, 14.5 mOhm max"
+22,"LED1,LED4,LED6",3,LTST-C170KRKT,LEDC2012X120N,Lite-On,LTST-C170KRKT,,SMD,Standard LEDs - SMD Red Clear 631nm
+23,"LED2,LED5",2,LTST-C170GKT,LEDC2012X120N,Lite-On,LTST-C170GKT,,SMD,"LED,SMD,0805,Green,6mcd,130deg Lite-On LTST-C170GKT, CHIPLED 0805 Series Green LED, 569 nm 2012 (0805), Rectangle Lens SMD package"
+24,LED3,1,LTST-C170TBKT,LEDC2012X120N,Lite-On,LTST-C170TBKT,,SMD,"LED,SMD,0805,Blue,28mcd,130deg"
+25,"Q1,Q2",2,BC817,SOT-23,Nexperia,BC817-40,any BC817 (-16/-25/-40) is fine,SMD,"0.8A Ic, 45V Vce, NPN Transistor, SOT-23"
+26,Q3,1,AO3401A,SOT-23,Alpha & Omega,AO3401A,,SMD,Power switch P-MOSFET
+27,"R1,R2",2,5.1K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+28,"R3,R4,R5,R10,R14,R15",6,470,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+29,"R6,R7,R9,R18,R21,R26,R27,R28,R29,R30,R31,R32,R33",13,10K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,"Boot-strap pull-up: GPIO2/DIR_A must read high at reset (DRV824x input pull-down),resistor"
+30,"R8,R13,R24,R25",4,1K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+31,R11,1,47K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+32,R12,1,22K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+33,R17,1,50,R_0805_2012Metric,,,"Thick film 1%, 1/8 W; 49.9 Ω acceptable",SMD,resistor
+34,"R19,R20",2,4.7K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+35,"R22,R23",2,8.2K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+36,R34,1,9.1K,R_0603_1608Metric,,,Thick film 1% (boost loop compensation),SMD,resistor
+37,"R35,R37",2,300K,R_0603_1608Metric,,,"Thick film 1% (sets boost output voltage, switching frequency and current limit; 1% required)",SMD,resistor
+38,R36,1,75K,R_0603_1608Metric,,,"Thick film 1% (sets boost output voltage, switching frequency and current limit; 1% required)",SMD,resistor
+39,R38,1,200K,R_0603_1608Metric,,,"Thick film 1% (sets boost output voltage, switching frequency and current limit; 1% required)",SMD,resistor
+40,"R39,R40,R41",3,100K,R_0805_2012Metric,,,"Thick film 1%, 1/8 W",SMD,resistor
+41,SW1,1,RESET,SW4-SMD-5.2X5.2X1.5MM,ALPS,SKQGADE010,,SMD,
+42,SW2,1,BOOT,SW4-SMD-5.2X5.2X1.5MM,ALPS,SKQGADE010,,SMD,
+43,U1,1,MCP73871,QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm,Microchip,MCP73871-2CCI/ML,-2 = 4.20 V charge voltage (standard Li-ion),SMD,"Single cell, Li-Ion/Li-Po charge management controller"
+44,U2,1,CP2102N-A02-GQFN24,QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm,Silicon Labs,CP2102N-A02-GQFN24,,SMD,"USB to UART bridge with DTR (auto-program), QFN-24"
+45,U3,1,USBLC6-2SC6,SOT-23-6,STMicroelectronics,USBLC6-2SC6,,SMD,"Very low capacitance ESD protection diode, 2 data-line, SOT-23-6"
+46,U4,1,ESP32-C3-WROOM-02-H4,MODULE_ESP32-C3-WROOM-02-H4,Espressif Systems,ESP32-C3-WROOM-02-H4,,SMD,
+47,U5,1,MPU-6050,InvenSense_QFN-24_4x4mm_P0.5mm,TDK InvenSense,MPU-6050,"Older part, so supply is uncertain: ask PCBWay to confirm genuine stock",SMD,"InvenSense 6-Axis Motion Sensor, Gyroscope, Accelerometer, I2C"
+48,U6,1,W25Q32JVSSIQ,SOIC127P790X216-8N,Winbond,W25Q32JVSSIQ,,SMD,
+49,U7,1,TPS61089RNRR,Texas_VQFN-RNR0011A-11,Texas Instruments,TPS61089RNRR,,SMD,"6 V motor supply boost, 2.7-12 V in, 7 A switch"
+50,VR1,1,TLV1117LV33DCYR,VREG_LM1117MPX-3.3_NOPB,Texas Instruments,TLV1117LV33DCYR,,SMD,"1-A low-dropout regulator, 3.3 V fixed, SOT-223 (pin-compatible with LM1117)"
