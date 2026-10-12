@@ -1,0 +1,5 @@
+SparkFun DG01D-E "Hobby Motor with Encoder" datasheet (the XRP kit motor; plastic-gear SKU ROB-31141, metal-gear ROB-16413).
+https://cdn.sparkfun.com/assets/4/b/4/5/4/DG01D-E-sparkfun_Datasheet.pdf, downloaded 2026-10-11. Dimension drawing on page 1; encoder board 26 x 22 x 1.2 mm, 6-pin cable.
+No vendor CAD exists; see mech/robot/fusion for the model built from this drawing.
+
+hobby-motor-with-encoder-v1.step: community model "Hobby Motor with Encoder (DG01D-E, XRP)" by BrendonBuilds, https://www.printables.com/model/1092933 (downloaded by Fred 2026-10-11; check the licence on that page before redistributing).

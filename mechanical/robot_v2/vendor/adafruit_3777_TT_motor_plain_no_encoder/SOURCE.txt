@@ -1,0 +1,3 @@
+Adafruit product 3777, "DC Gearbox Motor - TT Motor - 200RPM - 3 to 6VDC".
+Files from https://github.com/adafruit/Adafruit_CAD_Parts (folder "3777 TT Motor"), MIT licence, downloaded 2026-10-11.
+The plain plastic-gear TT motor with the dual shaft; the robot uses it with a magnetic encoder disc and the printed encoder cover.
