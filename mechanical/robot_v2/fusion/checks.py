@@ -18,7 +18,6 @@ PETG, TPU = 1.27, 1.21
 # name: (density, infill, print transform)  transform = rotation applied to component coords
 PRINT = {
     'Chassis': (PETG, 0.25, 'flip'),      # prints top (deck) down
-    'Line sled': (PETG, 0.30, 'flip'),
     'Wheel': (PETG, 0.30, 'id'),
     'Tyre': (TPU, 0.15, 'id'),
     'Arm base': (PETG, 0.30, 'id'),
@@ -29,19 +28,22 @@ PRINT = {
     'Bus clip': (PETG, 0.40, 'side'),
     'Ballast clip': (PETG, 0.40, 'side'),
     'Rail coupon': (PETG, 0.25, 'flip'),
+    'Fastener coupon': (PETG, 0.25, 'id'),
 }
 ARM_PARTS = ('Arm base', 'Arm', 'Jaw L', 'Jaw R', 'SG90', 'Assembly Micro Servo', 'Servo v', 'Ballast clip')
 HW_DENSITY = (('Insert', 8.5), ('SG90 horn', 1.42), ('Screw', 7.85), ('Thumb screw', 7.85), ('Washer', 7.85), ('Nut', 7.85))
-ALLOWED = (('Wheel', 'Tyre'), ('TT DC Gear Motor', 'Encoder cover'),   # stretch fit; reference cover over the motor model
+ALLOWED = (('Wheel', 'Tyre'), ('TT DC Gear Motor', 'Encoder cover'), ('Screw M2x6 pan', 'DG01D-E motor'),   # stretch fit; reference cover over the motor model
            # screws that thread into something modelled solid or self-tap into a smaller pilot:
            ('Screw M2x8 pan', 'SG90'), ('Screw M2x4 pan', 'SG90'), ('Screw M2x5 pan', 'SG90'),   # horn screws, spline/horn
            ('Screw M2x8 pan', 'Assembly Micro Servo'), ('Screw M2x8 pan', 'Servo v'), ('Screw M2x4 pan', 'Servo v'),
            ('SG90 horn', 'Assembly Micro Servo'), ('SG90 horn', 'Servo v'),   # the horn's bore on the modelled spline
-           ('Screw M2x4 pan', 'Jaw L'), ('Screw M2x6 pan', 'TT DC Gear Motor'), ('Screw M3x8 pan', 'Arm'))
-ACCESSORIES = ('Bus clip', 'Rail coupon')
+           ('Screw M2x4 pan', 'Jaw L'), ('Screw M2x6 pan', 'TT DC Gear Motor'), ('Screw M3x8 pan', 'Arm'),
+           # screws for plastic (thread-forming into pilots) and screws through captive nuts
+           ('Screw M2x6 pan', 'Chassis'), ('Screw M3x8 pan', 'Chassis'), ('Screw M3x10 socket', 'Nut M3'), ('Screw M3x8 socket', 'Nut M3'), ('Thumb screw M3x8', 'Nut M3'))
+ACCESSORIES = ('Bus clip', 'Rail coupon', 'Fastener coupon')
 SHELL_CM = 0.11          # ~3 perimeters / 4 top-bottom layers, as an average skin
 OTHER_MASS = {           # bought parts (g)
-    'TT DC Gear Motor': 33.0, 'RoboCore_V2': 25.0, 'RoboCore_Ultrasonic': 9.0, 'HCSR04': 9.0, 'RoboCore_LineSensor': 8.0,
+    'TT DC Gear Motor': 33.0, 'DG01D-E motor': 33.0, 'RoboCore_V2': 25.0, 'RoboCore_Ultrasonic': 9.0, 'HCSR04': 9.0, 'RoboCore_LineSensor': 8.0,
     'BatteryHolder3S': 157.0, 'Caster ball': 2.7, 'SG90': 9.0, 'Assembly Micro Servo': 13.4, 'Servo v': 9.0,   # MG90S 13.4 g, SG90 9 g
 }
 # screws, inserts, nuts and horns are modelled parts now (HW_DENSITY); only the cables are a lump
@@ -143,11 +145,15 @@ def _pairwise(des, a, others, log=None):
     return _Results(items)
 
 
-def interference(skip_prefixes=('Rail coupon',), subjects=None, log=None):
+def interference(skip_prefixes=('Rail coupon', 'Fastener coupon'), subjects=None, log=None):
     """Each part against the parts whose boxes overlap it (one big analysis is slow and hard to read).
     Parts that are instances of the same component (left/right wheel) share one owner name."""
     des = L.design()
-    occs = [o for o in des.rootComponent.occurrences if o.isLightBulbOn and not any(o.name.startswith(p) for p in skip_prefixes)]
+    def _grp(o):
+        a = o.attributes.itemByName('RoboCore', 'group')
+        return a.value if a else ''
+    # the 'noarm' hardware set (sonar bracket screws without the arm) shares holes with the arm set: not a clash
+    occs = [o for o in des.rootComponent.occurrences if o.isLightBulbOn and not any(o.name.startswith(p) for p in skip_prefixes) and _grp(o) != 'noarm']
     owners = _owner_map(occs)
     boxes = {o.name: _occ_box(o) for o in occs}
     found = {}
@@ -219,7 +225,7 @@ def antenna(limit=15.0):
         for y in (ant[2], (ant[2] + ant[3]) / 2, ant[3]):
             for z in (ant[4], ant[5]):
                 pts.append(L.P3(x, y, z))
-    metal_tops = ('TT DC Gear Motor', 'BatteryHolder3S', 'RoboCore_Ultrasonic', 'HCSR04', 'RoboCore_LineSensor', 'SG90 (reference)',
+    metal_tops = ('TT DC Gear Motor', 'DG01D-E motor', 'BatteryHolder3S', 'RoboCore_Ultrasonic', 'HCSR04', 'RoboCore_LineSensor', 'SG90 (reference)',
                   'Assembly Micro Servo', 'Servo v',
                   'Screw', 'Thumb screw', 'Insert', 'Washer', 'Nut')
     best = {}

@@ -114,10 +114,10 @@ CABLE_PORT_X, CABLE_PORT_Y = (35.0, 40.3), (-78.5, -66.0)  # rear corners, behin
 
 # --- motor cradle -------------------------------------------------------------------
 WALL_T = 3.0            # inner wall |X| 37.3 .. 40.3
-WALL_Y = (-30.4, 31.0)  # ends where the motor's can and encoder cover start
+WALL_Y = (-29.8, 31.0)  # ends 0.4 mm short of the DG01D-E's can flange (rev 5 had -30.4)
 CRADLE_END_Y = (18.0, 20.0)                # front end wall of the cradle
 SHAFT_WALL = (MOTOR_OUT + 0.2, MOTOR_OUT + 1.8)  # 59.5 .. 61.1: 0.2 mm motor clearance, 1.3 mm to the wheel
-SHAFT_WALL_Y = (-30.5, 30.5)
+SHAFT_WALL_Y = (-29.8, 30.5)   # rear end 0.4 mm short of the DG01D-E's can flange (rev 5 had -30.5)
 SHAFT_SLOT = 6.4        # slot for the 5.4 shaft, open at the BOTTOM (motors go in from below)
 BOSS_GROOVE = (7.6, 0.4)
 PIN_SLOT = 4.4
@@ -161,19 +161,19 @@ CASTER_LIP_Z = 3.7               # socket bottom: the opening (d 12.0) is 0.7 sm
 CASTER_CLEAR = 0.2               # ball cavity radial clearance
 CASTER_VENT_D = 4.0              # push the ball out from the top with a pin
 
-# --- nose: line-sensor sled -------------------------------------------------------
+# --- nose: line-sensor pocket (rev 6: open pocket, board screwed straight to the chassis, no sled) ----
 LINE_C = (0.0, 41.0)
-LINE_UNDER_Z = 10.5     # underside of the line-sensor board; print the sled at 9.5 / 10.5 / 11.5
+LINE_UNDER_Z = 10.5     # underside of the line-sensor board (TCRT5000 faces about 3.4 mm off the floor)
 LINE_BOARD = (60.0, 24.0, 1.6)
-NOSE_HALF = 37.5        # front block (ceiling over the sled pocket), joins the inner walls
-NOSE_Y = (24.5, 59.1)   # a cross wall at the rear end and a rib down the middle carry its top when printed upside down
-NOSE_TOP = 18.0
-NOSE_POCKET = (33.0, 28.0, 56.5, 15.0)   # half width, y0, y1, ceiling z
-SLED_GROOVE = 1.4                        # PCB edge engagement each side
-SLED_SKID_DZ = 7.5       # skid bottom = board underside - 7.5 (always below the TCRT5000 faces)
-SLED_BUMP_Y = (30.0, 36.0)   # snap bumps on the rail rear ends, into grooves in the pocket walls
-LINE_PLUG = (10.0, -7.2, 7.0, 9.0)   # window over the JST SH: x, dy, w, h
-SLED_RAIL = (28.6, 32.7)   # |X| of the sled side rails (pocket wall at 33)
+LINE_HOLES = ((-25.8, 40.0), (25.8, 40.0))   # the board's two M3 holes (KiCad: 51.6 mm pitch, 1 mm behind the centre line)
+LINE_BOSS_D = 6.5       # screw bosses hanging from the deck down to the board's top face; M3 self-tapping pilots
+NOSE_HALF = 37.5        # outer face of the pocket side walls, joins the inner walls
+NOSE_Y = (24.5, 59.1)   # pocket rear wall starts / pocket front wall ends (at the skin)
+NOSE_TOP = 18.0         # dock towers hang from the deck down to here
+NOSE_POCKET = (33.0, 28.0, 56.5, 15.0)   # half width, y0, y1 of the open pocket (last value unused)
+POCKET_WALL_T = 4.5     # pocket side walls 33 .. 37.5
+SLED_SKID_DZ = 7.5      # skid bottom = board underside - 7.5 (always below the TCRT5000 faces)
+SKID = (30.0, 54.0)     # skid half width, rear end y (runs forward to the nose; 45-degree chamfers both ends)
 
 # --- ultrasonic + front dock ----------------------------------------------------------
 # Ultrasonic: the HC-SR04 model Fred added (2026-10-08) replaces the custom RoboCore_Ultrasonic. Its 4-pin right-angle
@@ -254,6 +254,7 @@ DEBOSS = 0.6
 ART_DIR = '/Users/fred/Projects/Gypul_The_Balancing_Robot/PCB-Design/RoboCoreDesign/RoboCore_V2/lib/art'
 
 INSERT_M3_D, INSERT_M3_DEPTH = 4.0, 5.5
+PILOT_M3 = (2.5, 8.0)            # M3 self-tapping pilot (line-sensor bosses): diameter, depth
 INSERT_M2_D, INSERT_M2_DEPTH = 3.2, 5.0
 
 # --- sonar bracket (Fred, 2026-10-07: the old slide-in grooves were impractical; modern look) -----------
@@ -290,3 +291,13 @@ TYRE_EDGE_R = 26.8               # crown edge radius (crown peaks at TYRE_OD / 2
 TYRE_BEADS = (2.6, 0.7, 2.0)     # from each side, height, base width: lock into rim grooves
 RIM_GROOVE = (0.9, 2.4)          # depth, width (45-degree sides)
 TREAD = (24, 1.6, 26.0)          # grooves per half, width, groove floor radius (staggered half a pitch)
+
+# --- hand edits ported from Fusion v30 (Fred, 2026-10-13): keep them through rebuilds ---------------------------
+HAND_EDITS = True
+WHEEL_SKIN_CUT = 1.0     # v30 Extrude142/143: 1 mm cut off both wheel-section outer wall faces (x +-81.1, y -30..30, z 10.5..51.5)
+# --- fasteners (Task A, 2026-10-14): 'inserts' = rev 5 heat-set inserts; 'plastic' = screws for plastic + captive nuts
+FASTENERS = 'plastic'
+PILOT_M2 = (1.7, 6.0)            # M2 thread-forming screw pilot in the board bosses: diameter, depth
+NUT_M3 = (5.5, 2.4)              # M3 hex nut across flats, thickness (DIN 934); pockets get +0.2 on the flats
+CASTER_VENT_D_PROPOSED = 5.5     # Task C: fits a 3 mm flat screwdriver's shank; not applied until Fred says so
+BALLAST_CLIP_X_PROPOSED = [-40.0, 40.0]   # Task C: tabs end at |x| 48, clear of the vents at |x| 47..51

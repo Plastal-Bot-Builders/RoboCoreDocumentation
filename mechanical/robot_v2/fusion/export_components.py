@@ -23,9 +23,9 @@ F3D_FOLDER = 'Components'
 PARTS = [
     ('Chassis', 'RoboCore_V2_Chassis', True), ('Wheel', 'RoboCore_V2_Wheel', True), ('Tyre', 'RoboCore_V2_Tyre_TPU', True),
     ('Arm base', 'RoboCore_V2_Arm_base', True), ('Arm', 'RoboCore_V2_Arm', True), ('Jaw L', 'RoboCore_V2_Jaw_L_driven', True),
-    ('Jaw R', 'RoboCore_V2_Jaw_R_idle', True), ('Sonar bracket', 'RoboCore_V2_Sonar_bracket', True), ('Line sled', 'RoboCore_V2_Line_sled', True),
+    ('Jaw R', 'RoboCore_V2_Jaw_R_idle', True), ('Sonar bracket', 'RoboCore_V2_Sonar_bracket', True),
     ('Bus clip', 'RoboCore_V2_Bus_clip', True), ('Ballast clip', 'RoboCore_V2_Ballast_clip', True), ('Rail coupon', 'RoboCore_V2_Rail_coupon', True),
-    ('Caster ball', 'Caster_ball_12.7', False), ('Encoder cover', 'TT_motor_encoder_cover', True), ('DG01D-E motor', 'DG01D-E_motor_with_encoder', False), ('TT DC Gear Motor', 'TT_motor_with_encoder', False),
+    ('Caster ball', 'Caster_ball_12.7', False), ('DG01D-E motor', 'DG01D-E_motor_with_encoder', False), ('TT DC Gear Motor', 'TT_motor_with_encoder', False),
     ('RoboCore_V2 v', 'RoboCore_V2_controller_board', False), ('BatteryHolder', 'Battery_holder_3x18650', False),
     ('HCSR04', 'HC-SR04_ultrasonic', False), ('RoboCore_LineSensor', 'RoboCore_line_sensor_board', False),
     ('Assembly Micro Servo MG90S', 'Micro_servo_MG90S', False), ('Servo v', 'Micro_servo_SG90', False), ('SG90 horn', 'SG90_horn', False),

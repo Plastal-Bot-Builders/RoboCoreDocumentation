@@ -13,7 +13,6 @@ the hole row and the front dock are the expansion bus.
 
 Printed parts and their print orientation:
     Chassis        deck (top) down         PETG, body colour, no supports (flush bus groove, no lip)
-    Line sled      upside down             PETG, dark (line-sensor carrier + skid; 9.5/10.5/11.5 variants)
     Wheel x2       flat inner face down    PETG, parts colour (RoboCore gear on the hub)
     Tyre x2        flat                    TPU 95A
     Arm base       plate down              PETG, parts colour (arm module)
@@ -47,7 +46,7 @@ SCHEMES = {
     'orange': {'body': (242, 140, 40), 'accent': (40, 40, 44), 'parts': (85, 85, 92), 'dark': (28, 30, 32), 'tyre': (44, 44, 46),
                'arm': (250, 204, 40)},
 }
-ROLES = {'Chassis': 'body', 'Line sled': 'dark', 'Wheel': 'parts', 'Tyre': 'tyre', 'Ballast clip': 'accent', 'Arm base': 'arm', 'Arm': 'arm', 'Jaw L': 'dark',
+ROLES = {'Chassis': 'body', 'Wheel': 'parts', 'Tyre': 'tyre', 'Ballast clip': 'accent', 'Arm base': 'arm', 'Arm': 'arm', 'Jaw L': 'dark',
          'Jaw R': 'dark', 'Sonar bracket': 'parts', 'Bus clip': 'accent', 'Rail coupon': 'body'}
 
 H, Y0, Y1 = P.BODY_HALF, P.BODY_Y0, P.BODY_Y1
@@ -315,50 +314,62 @@ def chassis_cradle():
     return occ
 
 
+def hex_pocket_z(c, B, x, y, af, z0, z1, name):
+    """Hexagonal pocket (across flats af) cut from z0 to z1 along z, flats parallel to x."""
+    sk = L.sketch(c, L.plane_xy(c, z0), name + ' sk')
+    rc = af / math.sqrt(3)
+    L.poly(sk, [(x + rc * math.cos(math.radians(60 * k + 30)), y + rc * math.sin(math.radians(60 * k + 30)), z0) for k in range(6)])
+    L.done(sk)
+    L.extrude(c, sk, L.all_profiles(sk), abs(z1 - z0), L.CUT, (0, 0, 1 if z1 > z0 else -1), B, name)
+
+
 def chassis_front():
-    """Nose: front block over the sled pocket (a cross wall and a middle rib carry its top when printed upside
-    down), dock towers, sonar cable slot, bracket arm slots."""
+    """Nose (rev 6): an open pocket for the line-sensor board, walls standing from the deck with nothing bridged,
+    two screw bosses at the board's M3 holes, the skid in front of the sensors, dock towers, cable slots."""
     occ, c, B = chassis()
+    L.delete_component('Line sled')                       # the board screws straight to the chassis now
+    for o in list(L.design().rootComponent.occurrences):
+        if o.name.startswith('Encoder cover'):            # the DG01D-E model has its own cover
+            o.deleteMe()
     z0, zd = P.FLOOR_Z0, DECK_Z + 0.1
     ny0, ny1 = P.NOSE_Y
-    hf = P.HALF_FRONT - P.SKIN_T + 0.1
-    L.box(c, -P.NOSE_HALF, ny0, z0, P.NOSE_HALF, P.WHEEL_SEC_Y + 1.0, P.NOSE_TOP, L.JOIN, B, 'Front block')
-    L.box(c, -hf, P.WHEEL_SEC_Y, z0, hf, ny1, P.NOSE_TOP, L.JOIN, B, 'Front block')
-    xw = inner_wall_x()[0] + 0.1
-    L.box(c, -xw, ny0, P.NOSE_TOP - 0.1, xw, ny0 + 2.0, zd, L.JOIN, B, 'Nose cross wall')
-    L.box(c, -0.8, ny0 + 1.9, P.NOSE_TOP - 0.1, 0.8, ny1, zd, L.JOIN, B, 'Nose rib')
-    # second cross wall between the dock towers keeps the bridges short; a notch lets the sonar cable through
-    ty0 = P.TOWER_Y[0]
-    L.box(c, -hf, ty0, P.NOSE_TOP - 0.1, hf, ty0 + 1.6, zd, L.JOIN, B, 'Nose cross wall')
-    L.box(c, P.SONAR_SLOT[0] - 0.1, ty0 - 0.1, P.NOSE_TOP + 2.0, P.SONAR_SLOT[1] + 0.5, ty0 + 1.7, P.SONAR_SLOT[3] + 1.0, L.CUT, B, 'Sonar cable notch')
+    ph, py0, py1, _ = P.NOSE_POCKET
+    wt = P.POCKET_WALL_T
+    for s, _ in S(1):
+        x0, x1 = xs(s, ph, ph + wt)
+        L.box(c, x0, ny0, z0, x1, ny1, zd, L.JOIN, B, 'Pocket side wall')
+    L.box(c, -(ph + wt), ny0, z0, ph + wt, py0, zd, L.JOIN, B, 'Pocket rear wall')
+    L.box(c, -(ph + wt), py1, z0, ph + wt, ny1 + 0.1, zd, L.JOIN, B, 'Pocket front wall')
+    # skid: the front wall carried on below the floor line, chamfered front and back so it rides over bumps
+    sx, sy0 = P.SKID
+    zs = P.LINE_UNDER_Z - P.SLED_SKID_DZ
+    L.box(c, -sx, sy0, zs, sx, Y1, z0 + 0.1, L.JOIN, B, 'Skid')
+    e = L.edges_where(B[0], lambda x, y, z: abs(z - zs) < 0.05 and (abs(y - Y1) < 0.05 or abs(y - sy0) < 0.05) and abs(x) < sx + 0.05)
+    L.chamfer(c, e, 2.5, 'Skid chamfer')
+    # dock towers (sonar bracket, arm base) hang from the deck into the open pocket, well above the board
     for s, _ in S(1):
         x0, x1 = xs(s, *P.TOWER_X)
         L.box(c, x0, P.TOWER_Y[0], P.NOSE_TOP - 0.1, x1, P.TOWER_Y[1], P.BODY_TOP, L.JOIN, B, 'Dock tower')
-    # line-sensor pocket, open below only
-    ph, py0, py1, pz = P.NOSE_POCKET
-    L.box(c, -ph, py0, z0 - 1, ph, py1, pz, L.CUT, B, 'Sled pocket')
-    by0, by1 = P.SLED_BUMP_Y
-    for s, _ in S(1):
-        x0, x1 = xs(s, ph - 0.5, ph + 0.8)
-        L.box(c, x0, by0 - 1.0, 12.2, x1, by1 + 1.0, 13.9, L.CUT, B, 'Sled snap groove')
-    # JST SH pass-through over the line sensor's plug (the cable goes up to the front cable slot in the deck)
-    lx, ly = P.LINE_C
-    px, pdy, pw, phh = P.LINE_PLUG
-    yp = ly + pdy
-    zc = pz - 0.5
-    sk = L.sketch(c, L.plane_xy(c, zc), 'Plug window')
-    L.rounded_poly(sk, [(px - pw / 2, yp - phh / 2), (px + pw / 2, yp - phh / 2), (px + pw / 2, yp + phh / 2), (px - pw / 2, yp + phh / 2)], 1.5, zc)
-    L.done(sk)
-    L.extrude(c, sk, L.all_profiles(sk), P.NOSE_TOP - zc + 1, L.CUT, (0, 0, 1), B, 'Plug window')
-    # M3 inserts in the tower tops (sonar bracket, with the arm base stacked on it)
-    L.cyl_z(c, P.DOCK_INSERTS, P.INSERT_M3_D, P.BODY_TOP, P.BODY_TOP - P.INSERT_M3_DEPTH, L.CUT, B, 'Dock inserts')
-    # slot in the front wall: the ultrasonic's JST SH plug goes straight back through it
+    # screw bosses at the board's holes, from the deck down to the board's top face, with M3 self-tapping pilots
+    zb = P.LINE_UNDER_Z + P.LINE_BOARD[2] + 0.1
+    L.cyl_z(c, list(P.LINE_HOLES), P.LINE_BOSS_D, zd, zb, L.JOIN, B, 'Line sensor boss')
+    L.cyl_z(c, list(P.LINE_HOLES), P.PILOT_M3[0], zb - 0.1, zb + P.PILOT_M3[1], L.CUT, B, 'Line sensor pilots')
+    if P.FASTENERS == 'plastic':
+        # captive M3 nuts: hex pocket in the deck top (under the bracket plate), clearance hole on down into the tower
+        af, nt = P.NUT_M3
+        for (x, y) in P.DOCK_INSERTS:
+            hex_pocket_z(c, B, x, y, af + 0.2, P.BODY_TOP + 0.1, P.BODY_TOP - nt - 0.2, 'Dock nut pocket')
+        L.cyl_z(c, P.DOCK_INSERTS, 3.4, P.BODY_TOP - nt, P.BODY_TOP - nt - 12.0, L.CUT, B, 'Dock screw clearance')
+    else:
+        # M3 heat-set inserts in the tower tops (sonar bracket, with the arm base stacked on it), as in rev 5
+        L.cyl_z(c, P.DOCK_INSERTS, P.INSERT_M3_D, P.BODY_TOP + 0.1, P.BODY_TOP - P.INSERT_M3_DEPTH, L.CUT, B, 'Dock inserts')
+    # slot through the front wall (skin + pocket front wall): the ultrasonic's 4 Dupont wires come in here
     x0, x1, z0_, z1_ = P.SONAR_SLOT
     sk = L.sketch(c, L.plane_xz(c, Y1 + 0.5), 'Sonar cable slot')
     L.rounded_poly(sk, [(x0, z0_), (x1, z0_), (x1, z1_), (x0, z1_)], 1.5, plane='xz', fixed=Y1 + 0.5)
     L.done(sk)
-    L.extrude(c, sk, L.all_profiles(sk), P.SKIN_T + 1.5, L.CUT, (0, -1, 0), B, 'Sonar cable slot')
-    return 'nose + dock'
+    L.extrude(c, sk, L.all_profiles(sk), Y1 + 0.5 - py1 + 1.0, L.CUT, (0, -1, 0), B, 'Sonar cable slot')
+    return 'nose + dock (open pocket)'
 
 
 def u_slot_down(sk, xf, yc, zc, w, zbot):
@@ -393,7 +404,10 @@ def chassis_holes():
     L.extrude(c, sk, L.all_profiles(sk), P.DECK_T + 1.0, L.CUT, (0, 0, 1), B, 'Deck openings')
     # the board sits on the deck: M2 heat-set inserts in bosses under it
     L.cyl_z(c, P.BOARD_HOLES, P.BOARD_BOSS_D, P.BODY_TOP - P.INSERT_M2_DEPTH - 1.5, P.BODY_TOP, L.JOIN, B, 'Board boss')
-    L.cyl_z(c, P.BOARD_HOLES, P.INSERT_M2_D, P.BODY_TOP + 0.1, P.BODY_TOP - P.INSERT_M2_DEPTH, L.CUT, B, 'Board inserts')
+    if P.FASTENERS == 'plastic':
+        L.cyl_z(c, P.BOARD_HOLES, P.PILOT_M2[0], P.BODY_TOP + 0.1, P.BODY_TOP - P.PILOT_M2[1], L.CUT, B, 'Board screw pilots')
+    else:
+        L.cyl_z(c, P.BOARD_HOLES, P.INSERT_M2_D, P.BODY_TOP + 0.1, P.BODY_TOP - P.INSERT_M2_DEPTH, L.CUT, B, 'Board inserts')
     wi0, wi1 = inner_wall_x()
     for s, _ in S(1):
         # snap latches: tongues hang from the inner wall; the hook at the bottom catches the gearbox's
@@ -768,43 +782,19 @@ def chassis_tread():
 
 
 # ================================================================ line sled
-def build_sled(under=None, name='Line sled'):
-    """Carrier for the line-sensor board: pushed up into the nose pocket, clicks in with two bumps.
-    The board slides into the rail grooves from the open rear end; the skid runs forward under the nose."""
-    under = P.LINE_UNDER_Z if under is None else under
-    L.delete_component(name)
-    occ = L.new_component(name)
-    c = occ.component
-    ph, py0, py1, pz = P.NOSE_POCKET
-    ri, ro = P.SLED_RAIL
-    ztop = pz - 0.3
-    zb = under - 1.6
-    zs = under - P.SLED_SKID_DZ
-    yb0, yb1 = py1 - 2.5, py1 - 0.3            # front bar inside the pocket
-    # front bar + skid (the skid runs on under the front block to the robot's nose)
-    body = L.box(c, -ro, yb0, zb, ro, yb1, ztop, L.NEW, None, 'Front bar').bodies.item(0)
-    body.name = name
-    B = [body]
-    L.box(c, -ro, yb0, zs, ro, Y1, P.FLOOR_Z0 - 0.3, L.JOIN, B, 'Skid')
+
+def chassis_hand_edits():
+    """Fred's hand edits from Fusion v30, replayed so a rebuild keeps them: 1 mm off both wheel-section outer wall
+    faces between the corner chamfers (Extrude142/143, a face cut of -1 mm)."""
+    if not P.HAND_EDITS:
+        return 'hand edits off'
+    occ, c, B = chassis()
+    cutd = P.WHEEL_SKIN_CUT
+    y0, y1 = -(P.WHEEL_SEC_Y - P.C_WHEEL), P.WHEEL_SEC_Y - P.C_WHEEL
     for s, _ in S(1):
-        x0, x1 = xs(s, ri, ro)
-        L.box(c, x0, py0 + 1.5, zb, x1, yb0, ztop, L.JOIN, B, 'Rail')
-    # board grooves (open at the rear), stop just in front of the board
-    for s, _ in S(1):
-        x0, x1 = xs(s, ri - 0.1, P.LINE_BOARD[0] / 2 + 0.4)
-        L.box(c, x0, py0, under - 0.1, x1, P.LINE_C[1] + P.LINE_BOARD[1] / 2 + 0.1, under + P.LINE_BOARD[2] + 0.15, L.CUT, B, 'Board groove')
-    # snap bumps (45-degree faces) on the rail rear ends
-    by0, by1 = P.SLED_BUMP_Y
-    for s, _ in S(1):
-        sk = L.sketch(c, L.plane_xz(c, by0), 'Snap bump')
-        L.poly(sk, [(s * ro, by0, 12.4), (s * (ro + 0.7), by0, 13.1), (s * (ro + 0.7), by0, 13.3), (s * ro, by0, 14.0)])
-        L.done(sk)
-        L.extrude(c, sk, L.all_profiles(sk), by1 - by0, L.JOIN, (0, 1, 0), B, 'Snap bump')
-    # skid: 45-degree chamfers front and back so it slides over bumps
-    e = L.edges_where(body, lambda x, y, z: abs(z - zs) < 0.05 and (abs(y - Y1) < 0.05 or abs(y - yb0) < 0.05))
-    L.chamfer(c, e, 2.5, 'Skid chamfer')
-    L.bed_chamfer(c, body, 'z', ztop, 1, 0.4, 'Bed chamfer')
-    return occ
+        x0, x1 = xs(s, H - cutd, H + 1.0)
+        L.box(c, x0, y0, P.FLOOR_Z0 - 0.1, x1, y1, P.BODY_TOP - 0.5, L.CUT, B, 'Wheel skin cut (v30 hand edit)')
+    return 'wheel skins cut %.1f mm' % cutd
 
 
 # ================================================================= wheel
@@ -1455,7 +1445,13 @@ def _clip_core(c, xo, yc, name, bump_dy=0.0):
     L.extrude(c, sk, L.all_profiles(sk), 1.6, L.JOIN, (0, 0, 1), B, 'Detent bump')
     xsc = clip_screw_x(xo)
     ztop = P.BODY_TOP + P.CLIP_GAP + P.CLIP_TAB[1]
-    L.cyl_z(c, [(xsc, yc)], P.INSERT_M3_D, ztop + 0.1, ztop - P.INSERT_M3_DEPTH, L.CUT, B, 'Thumb screw insert')
+    if P.FASTENERS == 'plastic':
+        # captive M3 nut: a slot into the tab from its +y side, centred on the screw, leaving 1.9 mm above and below
+        af, nt = P.NUT_M3
+        zmid = (ztop + P.BODY_TOP + P.CLIP_GAP) / 2
+        L.box(c, xsc - (af + 0.2) / 2, yc - af / math.sqrt(3) - 0.15, zmid - (nt + 0.2) / 2, xsc + (af + 0.2) / 2, y1 + 1.0, zmid + (nt + 0.2) / 2, L.CUT, B, 'Nut slot')
+    else:
+        L.cyl_z(c, [(xsc, yc)], P.INSERT_M3_D, ztop + 0.1, ztop - P.INSERT_M3_DEPTH, L.CUT, B, 'Thumb screw insert')
     L.cyl_z(c, [(xsc, yc)], 3.4, ztop, P.BODY_TOP - 0.1, L.CUT, B, 'Thumb screw hole')
     return body, xout0 + P.CLIP_T
 
@@ -1473,10 +1469,22 @@ def build_clip():
     zb = P.CLIP_LEG_Z0
     L.box(c, xout1 - 0.1, yc - 5.0, zb, xout1 + 5.0, yc + 5.0, P.BODY_TOP + P.CLIP_GAP + P.CLIP_T, L.JOIN, B, 'Accessory boss')
     zm = (zb + P.BODY_TOP) / 2
-    sk = L.sketch(c, L.plane_yz(c, xout1 + 5.0), 'Accessory insert')
-    L.circle(sk, xout1 + 5.0, yc, zm, P.INSERT_M3_D)
-    L.done(sk)
-    L.extrude(c, sk, L.all_profiles(sk), P.INSERT_M3_DEPTH, L.CUT, (-1, 0, 0), B, 'Accessory insert')
+    if P.FASTENERS == 'plastic':
+        af, nt = P.NUT_M3
+        rc = (af + 0.2) / math.sqrt(3)
+        sk = L.sketch(c, L.plane_yz(c, xout1 + 5.0), 'Accessory nut pocket')
+        L.poly(sk, [(xout1 + 5.0, yc + rc * math.cos(math.radians(60 * k + 30)), zm + rc * math.sin(math.radians(60 * k + 30))) for k in range(6)])
+        L.done(sk)
+        L.extrude(c, sk, L.all_profiles(sk), nt + 0.2, L.CUT, (-1, 0, 0), B, 'Accessory nut pocket')
+        sk = L.sketch(c, L.plane_yz(c, xout1 + 5.0), 'Accessory screw hole')
+        L.circle(sk, xout1 + 5.0, yc, zm, 3.4)
+        L.done(sk)
+        L.extrude(c, sk, L.all_profiles(sk), 8.0, L.CUT, (-1, 0, 0), B, 'Accessory screw hole')
+    else:
+        sk = L.sketch(c, L.plane_yz(c, xout1 + 5.0), 'Accessory insert')
+        L.circle(sk, xout1 + 5.0, yc, zm, P.INSERT_M3_D)
+        L.done(sk)
+        L.extrude(c, sk, L.all_profiles(sk), P.INSERT_M3_DEPTH, L.CUT, (-1, 0, 0), B, 'Accessory insert')
     return occ
 
 
@@ -1540,6 +1548,37 @@ def build_coupon():
     return occ
 
 
+def build_fastener_coupon():
+    """Test coupon for the Task A joints, printed flat: (1) a boss with the M2 thread-forming pilot, as under the deck;
+    (2) a deck-top hex pocket for a captive M3 nut with the clearance hole; (3) a clip-tab piece on edge with the
+    side nut slot. Assemble and remove 10 times, then check the hold (see the README)."""
+    L.delete_component('Fastener coupon')
+    m = L.matrix([(1, 0, 0), (0, 1, 0), (0, 0, 1)], (-110.0, -150.0, 0.0))
+    occ = L.new_component('Fastener coupon', m=m)
+    c = occ.component
+    af, nt = P.NUT_M3
+    body = L.box(c, 0, 0, 0, 44.0, 20.0, 6.0, L.NEW, None, 'Base').bodies.item(0)
+    body.name = 'Fastener coupon'
+    B = [body]
+    # (1) board boss: column with the M2 pilot
+    L.cyl_z(c, [(8.0, 10.0)], P.BOARD_BOSS_D, 5.9, 16.0, L.JOIN, B, 'Boss')
+    L.cyl_z(c, [(8.0, 10.0)], P.PILOT_M2[0], 16.1, 16.0 - P.PILOT_M2[1], L.CUT, B, 'M2 pilot')
+    # (2) deck-top nut pocket with the clearance hole through the base
+    hex_pocket_z(c, B, 22.0, 10.0, af + 0.2, 6.1, 6.0 - nt - 0.2, 'M3 nut pocket')
+    L.cyl_z(c, [(22.0, 10.0)], 3.4, 6.1, -0.1, L.CUT, B, 'M3 clearance')
+    # (3) clip tab on edge: 6.5 thick (x), 16 wide (y), 13 tall; nut slot in from the top, screw hole along x
+    tw = P.CLIP_TAB[1]
+    L.box(c, 32.0, 2.0, 5.9, 32.0 + tw, 18.0, 19.0, L.JOIN, B, 'Tab')
+    L.box(c, 32.0 + tw / 2 - (nt + 0.2) / 2, 10.0 - (af + 0.2) / 2, 15.0 - af / math.sqrt(3) - 0.15, 32.0 + tw / 2 + (nt + 0.2) / 2, 10.0 + (af + 0.2) / 2, 19.5, L.CUT, B, 'Tab nut slot')
+    sk = L.sketch(c, L.plane_yz(c, 31.5), 'Tab screw hole')
+    L.circle(sk, 31.5, 10.0, 15.0, 3.4)
+    L.done(sk)
+    L.extrude(c, sk, L.all_profiles(sk), tw + 1.0, L.CUT, (1, 0, 0), B, 'Tab screw hole')
+    L.bed_chamfer(c, body, 'z', 0.0, -1, 0.5, 'Bed chamfer')
+    occ.isLightBulbOn = False
+    return occ
+
+
 # ===================================================================== hardware
 # Every screw, insert, washer, nut and servo horn, modelled and placed (Fred, 2026-10-07). Each part is built in
 # its own frame: axis = local z, bearing face (under the head / top of an insert) at z 0, shank along -z.
@@ -1549,13 +1588,13 @@ SCREWS = {
     'Screw M2x5 pan': ('pan', 2.0, 5.0, 3.8, 1.3),        # shoulder horn arm to the right boom plate (2)
     'Screw M2x6 pan': ('pan', 2.0, 6.0, 3.8, 1.3),        # board (4), wheels (2, self-tapping into the shaft)
     'Screw M2x8 pan': ('pan', 2.0, 8.0, 3.8, 1.3),        # servo tabs (4, come with the SG90s), shoulder horn centre
-    'Screw M3x8 pan': ('pan', 3.0, 8.0, 5.6, 1.8),        # idle jaw pivot (self-taps into the deck)
+    'Screw M3x8 pan': ('pan', 3.0, 8.0, 5.6, 1.8),        # idle jaw pivot (self-taps into the deck), line sensor (2, into the nose bosses)
     'Screw M3x8 socket': ('socket', 3.0, 8.0, 5.5, 3.0),  # sonar bracket into the dock (without the arm)
     'Screw M3x10 socket': ('socket', 3.0, 10.0, 5.5, 3.0),  # arm base + sonar bracket into the dock
     'Thumb screw M3x8': ('thumb', 3.0, 8.0, 7.0, 3.5),    # bus and ballast clips (presses on the deck)
 }
 INSERTS = {'Insert M2': (3.15, 2.0, 4.0), 'Insert M3': (3.95, 3.0, 5.0)}   # od, id, length (holes 3.2 / 4.0)
-HW_NAMES = tuple(SCREWS) + tuple(INSERTS) + ('Washer M2', 'Nut M8', 'SG90 horn')
+HW_NAMES = tuple(SCREWS) + tuple(INSERTS) + ('Washer M2', 'Nut M8', 'Nut M3', 'SG90 horn')
 HW_COLOURS = {'pan': (190, 190, 196), 'socket': (34, 34, 38), 'thumb': (34, 34, 38), 'Insert': (206, 162, 64),
               'Washer': (190, 190, 196), 'Nut': (190, 190, 196), 'SG90 horn': (238, 238, 232)}
 
@@ -1630,6 +1669,21 @@ def _hw_nut():
     return c
 
 
+def _hw_nut_m3():
+    """M3 hex nut (DIN 934: 5.5 across flats, 2.4 thick), bottom face at z 0, flats parallel to local x."""
+    L.delete_component('Nut M3')
+    occ = L.new_component('Nut M3')
+    c = occ.component
+    af, nt = P.NUT_M3
+    sk = L.sketch(c, L.plane_xy(c, 0.0), 'Nut')
+    L.poly(sk, [(x, y, 0.0) for (x, y) in _hex_pts(0, 0, af, 30.0)])
+    L.circle(sk, 0, 0, 0, 2.5)
+    L.done(sk)
+    body = L.extrude(c, sk, L.profiles_at(sk, [(af / 2 - 0.3, 0, 0)]), nt, L.NEW, (0, 0, 1), name='Nut').bodies.item(0)
+    body.name = 'Nut M3'
+    return c
+
+
 def _hw_horn():
     """SG90 single-arm horn: hub on the spline (bore from z 0), arm flush with the hub top along +y."""
     L.delete_component('SG90 horn')
@@ -1691,12 +1745,21 @@ def hardware_placements():
         out.append((name, compose(parent, m) if parent is not None else m, group, moves))
     PX, NX, PZ, NZ = (1, 0, 0), (-1, 0, 0), (0, 0, 1), (0, 0, -1)
     # board on the deck: 4 x M2 insert + M2 x 6
+    plastic = P.FASTENERS == 'plastic'
+    af, nt = P.NUT_M3
     for (x, y) in P.BOARD_HOLES:
-        add('Insert M2', (x, y, P.BODY_TOP), PZ)
+        if not plastic:
+            add('Insert M2', (x, y, P.BODY_TOP), PZ)
         add('Screw M2x6 pan', (x, y, P.BOARD_Z + 0.02 + 1.53), PZ)
+    # line sensor: 2 x M3 x 8 self-tapping up through the board into the nose bosses (rev 6)
+    for (x, y) in P.LINE_HOLES:
+        add('Screw M3x8 pan', (x, y, P.LINE_UNDER_Z), NZ)
     # dock: inserts in the towers; M3 x 10 through the arm base and the sonar bracket (M3 x 8 without the arm)
     for (x, y) in P.DOCK_INSERTS:
-        add('Insert M3', (x, y, P.BODY_TOP), PZ)
+        if plastic:
+            add('Nut M3', (x, y, P.BODY_TOP - nt - 0.2 + 0.05), PZ)      # in the hex pocket under the bracket plate
+        else:
+            add('Insert M3', (x, y, P.BODY_TOP), PZ)
         add('Screw M3x10 socket', (x, y, P.BODY_TOP + P.DOCK_STACK + 3.0), PZ, group='arm')
         add('Screw M3x8 socket', (x, y, P.BODY_TOP + P.DOCK_STACK), PZ, group='noarm')
     # shoulder servo: tab screws along -X into the base posts
@@ -1733,16 +1796,26 @@ def hardware_placements():
     ycl = detent_near(P.HALF_REAR, P.CLIP_Y)[1]
     xsc = clip_screw_x(P.HALF_REAR)
     ztab = P.BODY_TOP + P.CLIP_GAP + P.CLIP_TAB[1]
-    add('Insert M3', (xsc, ycl, ztab), PZ)
+    zmid = (ztab + P.BODY_TOP + P.CLIP_GAP) / 2
+    if plastic:
+        add('Nut M3', (xsc, ycl, zmid - nt / 2), PZ)                     # in the tab's side slot
+    else:
+        add('Insert M3', (xsc, ycl, ztab), PZ)
     add('Thumb screw M3x8', (xsc, ycl, P.BODY_TOP + 0.05 + 8.0), PZ)
     xout1 = P.HALF_REAR + P.CLIP_GAP + P.CLIP_T
-    add('Insert M3', (xout1 + 5.0, ycl, (P.CLIP_LEG_Z0 + P.BODY_TOP) / 2), PX)
+    if plastic:
+        add('Nut M3', (xout1 + 5.0 - nt - 0.2 + 0.05, ycl, (P.CLIP_LEG_Z0 + P.BODY_TOP) / 2), PX)   # in the boss's end pocket
+    else:
+        add('Insert M3', (xout1 + 5.0, ycl, (P.CLIP_LEG_Z0 + P.BODY_TOP) / 2), PX)
     # ballast clips: insert + thumb screw, 3 x M8 nuts in the pocket
     xc = P.CLIP_GAP + P.CLIP_T - 0.1 + 13.0 / math.sqrt(3) + 1.2
     zp = P.BUS_GROOVE[1] + 1.0 + 0.5 - (3 * 6.5 + 1.0)
     for x in P.BALLAST_CLIP_X:
         cm = L.matrix([(0, -1, 0), (1, 0, 0), (0, 0, 1)], (x, Y0, 0))
-        add('Insert M3', (clip_screw_x(0.0), 0, ztab), PZ, parent=cm, group='ballast')
+        if plastic:
+            add('Nut M3', (clip_screw_x(0.0), 0, zmid - nt / 2), PZ, parent=cm, group='ballast')
+        else:
+            add('Insert M3', (clip_screw_x(0.0), 0, ztab), PZ, parent=cm, group='ballast')
         add('Thumb screw M3x8', (clip_screw_x(0.0), 0, P.BODY_TOP + 0.05 + 8.0), PZ, parent=cm, group='ballast')
         for k in range(3):
             add('Nut M8', (xc, 0, zp + 0.05 + 6.5 * k), PZ, (0, 1, 0), cm, 'ballast')
@@ -1755,10 +1828,15 @@ def build_hardware():
     comps = {}
     for name, spec in SCREWS.items():
         comps[name] = _hw_screw(name, *spec)
-    for name, spec in INSERTS.items():
-        comps[name] = _hw_insert(name, *spec)
+    if P.FASTENERS == 'plastic':
+        for name in INSERTS:
+            L.delete_component(name)
+    else:
+        for name, spec in INSERTS.items():
+            comps[name] = _hw_insert(name, *spec)
     comps['Washer M2'] = _hw_washer()
     comps['Nut M8'] = _hw_nut()
+    comps['Nut M3'] = _hw_nut_m3()
     comps['SG90 horn'] = _hw_horn()
     pl = hardware_placements()
     counts = {}
@@ -1768,7 +1846,14 @@ def build_hardware():
         for o, p in zip(occs, mine):
             tag(o, p[2], p[3])
         counts[name] = len(mine)
-    return ', '.join('%d x %s' % (n, k) for k, n in counts.items())
+    # stale hardware from earlier builds: a deleted name stays reserved, so Fusion suffixes the new component's name
+    current = {L.base_name(c.name): c.name for c in comps.values()}
+    stale = 0
+    for o in list(L.design().rootComponent.occurrences):
+        b = L.base_name(o.component.name)
+        if b in current and o.component.name != current[b]:
+            o.deleteMe(); stale += 1
+    return ', '.join('%d x %s' % (n, k) for k, n in counts.items()) + ('; %d stale removed' % stale if stale else '')
 
 
 # ===================================================================== joints
@@ -1791,7 +1876,7 @@ def pose(theta=None, open_deg=None, battery_out=0.0, sled_down=0.0, wheel_deg=0.
     theta = P.ARM_RAISED if theta is None else theta
     open_deg = P.ARM_OPEN if open_deg is None else open_deg
     vals = {'Shoulder': math.radians(theta), 'Jaw L': math.radians(open_deg), 'Wheel L': math.radians(wheel_deg),
-            'Wheel R': math.radians(wheel_deg), 'Battery': battery_out / 10.0, 'Line sled': sled_down / 10.0}
+            'Wheel R': math.radians(wheel_deg), 'Battery': battery_out / 10.0}
     for name, v in vals.items():
         j = find_joint(name)
         if j is None:
@@ -1927,9 +2012,16 @@ def build_joints():
     xpos = lambda o: _axes(o)[0][0] > 0
     wl, wr = first('Wheel', lambda o: not xpos(o)), first('Wheel', xpos)
     tl, tr = first('Tyre', lambda o: not xpos(o)), first('Tyre', xpos)
-    ml, mr = first('TT DC Gear Motor', lambda o: not xpos(o)), first('TT DC Gear Motor', xpos)
-    chassis, holder, sled, sensor = first('Chassis'), first('BatteryHolder3S'), first('Line sled'), first('RoboCore_LineSensor')
-    groups = {'Arm': [arm], 'Jaw L': [jl], 'Wheel L': [wl, tl], 'Wheel R': [wr, tr], 'Line sled': [sled, sensor]}
+    def motor(pred):
+        for key in ('DG01D-E motor', 'TT DC Gear Motor'):
+            try:
+                return first(key, pred)
+            except RuntimeError:
+                pass
+        raise RuntimeError('no motor occurrence')
+    ml, mr = motor(lambda o: not xpos(o)), motor(xpos)
+    chassis, holder = first('Chassis'), first('BatteryHolder3S')
+    groups = {'Arm': [arm], 'Jaw L': [jl], 'Wheel L': [wl, tl], 'Wheel R': [wr, tr]}
     for o in root.occurrences:
         mv = tag_of(o, 'moves')
         if mv in groups and o not in groups[mv]:
@@ -1976,13 +2068,10 @@ def build_joints():
         e = _circle_edge(w, P.HUB_D / 2, (sgn * (P.HUB_FACE_X + P.HUB_LEN), 0, P.AXLE_Z))
         jw = _as_built(w, mo, adsk.fusion.JointGeometry.createByCurve(e, adsk.fusion.JointKeyPointTypes.CenterKeyPoint), 'revolute', nm)
         _calibrate(jw, 0.2, lambda w=w: _axes(w)[1][2] * sgn, None, None)
-    # battery out of the back, sled out of the bottom
+    # battery out of the back (the line sensor is screwed to the chassis and stays grounded)
     f = _plane_face(holder, (0, 1, 0), 'BatteryCasePlastic')
     jb = _as_built(holder, chassis, adsk.fusion.JointGeometry.createByPlanarFace(f, None, adsk.fusion.JointKeyPointTypes.CenterKeyPoint), 'slider', 'Battery')
     _calibrate(jb, 0.5, lambda: -_axes(holder)[0][1], 0.0, 110.0)
-    f = _plane_face(sled, (0, 0, 1))
-    js = _as_built(sled, chassis, adsk.fusion.JointGeometry.createByPlanarFace(f, None, adsk.fusion.JointKeyPointTypes.CenterKeyPoint), 'slider', 'Line sled')
-    _calibrate(js, 0.5, lambda: -_axes(sled)[0][2], 0.0, 40.0)
     out.append('%d joints, %d rigid groups, %d grounded' % (root.asBuiltJoints.count, root.rigidGroups.count,
                                                             sum(1 for o in root.occurrences if o.isGrounded)))
     return '; '.join(out)
@@ -2025,7 +2114,7 @@ def place_board():
 
 
 def place_line_sensor():
-    # STEP origin = board centre, underside at z 0; it sits against the sled's front stop
+    # STEP origin = board centre, underside at z 0; it hangs from the two bosses on 2 x M3
     x, y = P.LINE_C
     y = y + 0.1
     return _insert(LINE_FILE_ID, L.matrix([(1, 0, 0), (0, 1, 0), (0, 0, 1)], (x, y, P.LINE_UNDER_Z)), 'RoboCore_LineSensor')
@@ -2095,7 +2184,7 @@ STEPS = {
     'chassis_finish': chassis_finish,
     'chassis_style': chassis_style,
     'chassis_tread': chassis_tread,
-    'sled': build_sled,
+    'chassis_hand_edits': chassis_hand_edits,
     'caster': build_caster,
     'wheel': build_wheel,
     'tyre': build_tyre,
@@ -2109,6 +2198,7 @@ STEPS = {
     'sonar': build_sonar_bracket,
     'clip': build_clip,
     'coupon': build_coupon,
+    'fastener_coupon': build_fastener_coupon,
     'hardware': build_hardware,
     'joints': build_joints,
     'pose': pose,
@@ -2116,9 +2206,9 @@ STEPS = {
     'orange': lambda: apply_scheme('orange'),
     'construction': lambda: apply_scheme('construction'),
 }
-ALL = ['motor_import', 'motors', 'cover', 'board', 'line', 'ultrasonic', 'battery', 'chassis_shell', 'chassis_cradle', 'chassis_front',
-       'chassis_holes', 'chassis_bus', 'chassis_detents', 'chassis_finish', 'chassis_style', 'chassis_tread', 'sled', 'caster', 'wheel', 'tyre', 'wheels',
-       'servos', 'sonar', 'arm_base', 'arm', 'jaw_l', 'jaw_r', 'arm_pose', 'clip', 'ballast_clip', 'coupon', 'hardware', 'joints',
+ALL = ['motor_import', 'motors', 'board', 'line', 'ultrasonic', 'battery', 'chassis_shell', 'chassis_cradle', 'chassis_front',
+       'chassis_holes', 'chassis_bus', 'chassis_detents', 'chassis_finish', 'chassis_style', 'chassis_tread', 'chassis_hand_edits', 'caster', 'wheel', 'tyre', 'wheels',
+       'servos', 'sonar', 'arm_base', 'arm', 'jaw_l', 'jaw_r', 'arm_pose', 'clip', 'ballast_clip', 'coupon', 'fastener_coupon', 'hardware', 'joints',
        'pose', 'teal']
 
 

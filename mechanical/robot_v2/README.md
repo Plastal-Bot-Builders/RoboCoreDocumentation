@@ -21,8 +21,8 @@ Second round, same day, after the toy excavator photo:
   - claw jaws with bucket teeth;
   - a cab-style base with louvre vents;
   - excavator yellow with black jaws.
-- **Joints, so you can move the model in Fusion:** shoulder, the two gear-linked jaws, both wheels, the battery sliding out of the back, and the line-sensor sled dropping out.
-- **Every screw, insert, washer, nut and servo horn** is modelled and in place.
+- **Joints, so you can move the model in Fusion:** shoulder, the two gear-linked jaws, both wheels, and the battery sliding out of the back.
+- **Every screw, washer, nut and servo horn** is modelled and in place (rev 6 has no inserts).
 - **Fred's own chassis edits are kept:**
   - the side windows are filled;
   - a Ø16 hole in each wheel-section side reaches the wheel screw;
@@ -42,7 +42,7 @@ Fourth round, same day, after Fred's side-profile notes:
 Fifth round (2026-10-08/09), Fred's off-the-shelf parts:
 - **Ultrasonic:** the custom RoboCore_Ultrasonic is replaced by the **HC-SR04** model Fred added (45 × 20 mm, Ø16 cans 26 mm apart, 4-pin right-angle header). It is mounted **header up**, so its Dupont plugs sit inside the pod under the plate.
 - **Servos:** the built SG90 reference bodies are replaced by Fred's models: the **MG90S** assembly on the shoulder and the **SG90** (with cable) on the gripper. The arm base, posts, horns and screws fit both without change (the real cases match the design frame within 0.3 mm).
-- **Line sensor:** still the RoboCore_LineSensor. The Faduino IR board Fred mentioned is not in the project folder yet; when it is, the sled stays (same board size) and only the deck's plug slot moves (see open items).
+- **Line sensor:** still the RoboCore_LineSensor. The Faduino IR board Fred mentioned is not in the project folder yet; when it is, the two bosses move to its holes and the cable slot in the deck to its header (see open items).
 
 Rev 1–4 are archived in `fusion/rev1…4/`, `renders/rev1…4/` and `print/rev2…4/`.
 
@@ -69,7 +69,7 @@ Rev 1–4 are archived in `fusion/rev1…4/`, `renders/rev1…4/` and `print/rev
 |---|---|
 | Fusion 360 design (cloud) | **RoboCore V2 Robot** in UniPod Project → RoboCore V2. Rev 5 is the latest version. The main board, line sensor, ultrasonic and **BatteryHolder3S** are linked from their own files |
 | Offline copy | `RoboCore_V2_Robot.f3d` (8 MB) and `RoboCore_V2_Robot.step` (whole robot with the boards, 28 MB) |
-| Print files | `print/RoboCore_V2_<part>.stl` / `.3mf`. **Every file is already in its print orientation** (the chassis lies on its deck). The line sled comes in three heights: `Line_sled_9.5/10.5/11.5` |
+| Print files | `print/RoboCore_V2_<part>.stl` / `.3mf`. **Every file is already in its print orientation** (the chassis lies on its deck) |
 | Generator | `fusion/build_robot.py`, with every dimension in `fusion/rc_params.py`. Also `rc_lib.py`, `checks.py`, `export.py`, `view.py`, and `bus_drawing.py` (bus drawing, runs outside Fusion) |
 
 ## What changed (rev 4 → rev 5), point by point against Fred's notes
@@ -109,9 +109,9 @@ Rev 1–4 are archived in `fusion/rev1…4/`, `renders/rev1…4/` and `print/rev
      - walls;
      - motor stops;
      - latch tongues;
-     - the nose ceiling over the line-sensor pocket, carried by two cross walls and a middle rib (longest bridge about 18 mm).
+     - the line-sensor pocket walls and the two screw bosses (rev 6: the pocket is open from the floor line to the deck, so nothing is bridged).
 6. **Board on the deck:**
-   - The board sits flat on the deck (z 52, 6 mm higher than before), held by 4 × M2 into heat-set inserts in bosses under the deck. This is the XRP layout.
+   - The board sits flat on the deck (z 52, 6 mm higher than before), held by 4 × M2 × 6 thread-forming screws into pilots in bosses under the deck (rev 6; rev 5 had heat-set inserts). This is the XRP layout.
    - Its IMU is still right above the axle.
    - The battery is underneath, as asked.
 7. **Twin rear ball casters, printed in:**
@@ -129,7 +129,6 @@ Rev 1–4 are archived in `fusion/rev1…4/`, `renders/rev1…4/` and `print/rev
 10. **Arm ballast:** two **ballast clips** on the rear wall at x ±44, each holding 3 × M8 nuts, replace rev 4's internal rack.
 11. **Kept from rev 4:**
     - the sonar on a bracket on the front dock (now the pod, see below);
-    - the snap-in line-sensor sled;
     - the 2-servo arm on the bracket;
     - the RoboCore logo on the bracket and the Plastal-Bot logo on the rear wall.
 
@@ -162,6 +161,46 @@ Fred found the 3 mm rail lip made the body look stepped and bulky. It is gone:
 - The robot is 6 mm narrower and shorter over all: **162 × 166 mm**.
 
 See [`EXPANSION_BUS.md`](EXPANSION_BUS.md).
+
+## Fasteners, rev 6 (Task A, 2026-10-14): no heat-set inserts
+Community feedback (EO, alexchunlin on the Every Flavor Robotics Discord): heat-set inserts are too fiddly for a school.
+Rev 5 had 10 per robot. Rev 6 replaces every one of them, chosen per location:
+- **Board (4 × M2):** thread-forming screws for plastic into Ø1.7 × 6 pilots in the Ø6.4 bosses (`PILOT_M2`). The screw
+  axis is the print's Z, the strong direction for threads in a boss. A board comes off rarely, so 10 cycles is plenty.
+- **Dock towers (2 × M3):** a captive M3 nut in a 5.7 mm hex pocket, 2.6 mm deep, in the deck top under the sonar plate,
+  with a Ø3.4 clearance hole on down into the tower (`NUT_M3`). The plate holds the nut; the M3 × 10 (or × 8) comes down
+  through the arm base and plate as before. Unlimited cycles for the joint students undo most.
+- **Clip tabs (3 × M3 thumb screw):** a slot into the side of each 6.5 mm tab takes a captive M3 nut (1.9 mm of material
+  above and below it); the thumb screw threads through the nut and presses on the deck as before.
+- **Bus clip accessory boss (1 × M3):** a hex pocket at the end of the boss.
+Why not screw-in inserts: they work (and are the fallback if the pilots strip), but cost about $0.30 each; nuts cost pennies
+and last. Why not snap fits: the chassis prints deck-down, so nothing can stand above the deck to hook the board or the plate.
+`FASTENERS = 'inserts'` in `rc_params.py` rebuilds the rev 5 insert version.
+
+**Fastener coupon** (`print/RoboCore_V2_Fastener_coupon`, flat, 10 min): a boss with the M2 pilot, a deck-top nut pocket
+with its clearance hole, and a clip-tab piece on edge with the side nut slot. Test: fit each fastener and remove it
+10 times with the normal screwdriver, then (a) the M2 must still take 0.15 N·m without spinning, (b) the nuts must still
+sit flat in their pockets and not turn when the screw is driven, (c) the tab slot must still hold its nut by friction
+when the piece is turned upside down. If (a) fails, print the coupon with `PILOT_M2 = (1.6, 6.0)` or go to screw-in inserts.
+
+## Nose, rev 6 (2026-10-12): open pocket, no sled
+Fred's review found two things under the line sensor: a sealed cavity between the front block and the deck (its ceiling
+printed as bridges, and auto-supports would fill it where nothing can reach), and a separate black sled whose only jobs
+were to hold the board by its edges, set its height and carry a skid. Rev 6 removes both:
+- The front block is gone. The pocket is open from the floor line straight up to the deck underside, bounded by 4.5 mm
+  side walls at x ±33, a rear wall at y 24.5–28 and the front wall. In print orientation these are plain walls standing
+  on the bed: no bridge, no cavity, no support anywhere in the nose. The centre rib, the second cross wall and the
+  plug window went with it.
+- The board hangs from **two Ø6.5 bosses** at its own M3 holes (x ±25.8, y 40; 51.6 mm pitch), from the deck down to the
+  board's top face, with Ø2.5 × 8 self-tapping pilots: 2 × M3 × 8 from below. Height stays 10.5 mm (`LINE_UNDER_Z`);
+  printed washers adjust it. The bosses merge into the dock towers, which still hang from the deck to z 18 above the board.
+- The **skid** is now part of the chassis: the pocket's front wall continues 7.5 mm below the floor line (x ±30, from
+  y 54 to the nose), chamfered 2.5 mm at both ends, so a nose-dive still lands on plastic before the sensors.
+- The JST plug points up into the open pocket; the cable goes straight to the existing front cable slot in the deck.
+  The ultrasonic's wires come through the same slot in the front wall as before, now cut through both wall layers.
+- Also in this round: the `Encoder cover (reference)` body is dropped (the DG01D-E motor model has its own cover) and
+  the generator's joints and checks recognise the DG01D-E motor name.
+Parts removed: the sled and its three height variants, the snap grooves, the plug window. Added: 2 × M3 × 8 self-tapping.
 
 ## Sonar pod (fourth round)
 Fred found the slide-in bracket impractical and wanted a more modern look. The new mount:
@@ -200,13 +239,12 @@ Open **RoboCore V2 Robot** and drag a part, or right-click a joint in the browse
 | Jaw L / Jaw R | the jaws; the **Gripper gears** motion link makes them open together, like their gears | 0° (closed) … 35° each |
 | Wheel L / Wheel R | each wheel with its tyre, screw and washer | free |
 | Battery | the BatteryHolder3S sliding out of the back | 0 … 110 mm |
-| Line sled | the sled and the line sensor dropping out of the bottom | 0 … 40 mm |
 
 - Everything else is grounded.
 - Screws, horns and the gripper servo ride along with their parts in rigid groups.
 - From a script:
   ```python
-  build_robot.pose(arm_deg, jaw_deg, battery_out_mm, sled_down_mm, wheel_deg)
+  build_robot.pose(arm_deg, jaw_deg, battery_out_mm, 0, wheel_deg)
   ```
 
 There were no clashes in three poses: floor with the jaws closed, carry (+30°, jaws 12°) and up (+85°, jaws 35°), screws included.
@@ -214,9 +252,9 @@ There were no clashes in three poses: floor with the jaws closed, carry (+30°, 
 ## Hardware (modelled and placed)
 | Qty | Part | Where |
 |---|---|---|
-| 4 + 4 | M2 heat-set insert (Ø3.2 hole) + M2 × 6 pan head | board on the deck |
+| 4 | M2 × 6 thread-forming (plastic) screw into a Ø1.7 × 6 pilot in each boss | board on the deck |
 | 2 | M2 × 6 pan head (self-tapping) + M2 washer | wheels, into the shaft's centre hole (reach it through the Ø16 hole in the side wall) |
-| 2 | M3 heat-set insert | dock towers |
+| 2 | M3 nut, captive in a hex pocket in the deck top under the bracket plate | dock towers |
 | 2 | M3 × 8 socket head (no arm) **or** M3 × 10 socket head (with the arm base stacked on the bracket) | sonar bracket (+ arm base) into the dock |
 | 4 | M2 × 8 pan head (self-tapping, come with the servos) | servo tabs, 2 per servo |
 | 2 | SG90 single-arm horn (come with the servos) | shoulder (against the right boom plate), gripper (in a slot under the driven jaw) |
@@ -224,28 +262,27 @@ There were no clashes in three poses: floor with the jaws closed, carry (+30°, 
 | 2 | M2 × 5 pan head | through the right boom plate into the shoulder horn's arm |
 | 3 | M2 × 4 pan head | gripper horn: centre screw + 2 through the horn arm into the jaw |
 | 1 | M3 × 8 pan head (self-taps into the deck) | idle jaw pivot |
-| 3 + 3 | M3 heat-set insert + M3 × 8 thumb screw | bus clip and the two ballast clips (the screw presses on the deck) |
-| 1 | M3 heat-set insert | bus clip accessory boss |
+| 3 + 3 | M3 nut in a side slot in the tab + M3 × 8 thumb screw | bus clip and the two ballast clips (the screw presses on the deck) |
+| 1 | M3 nut in a hex pocket at the end of the boss | bus clip accessory boss |
 | 6 | M8 hex nut | ballast clips, 3 each |
 
 ## Checks (rev 5, run with `fusion/checks.py`, last run 2026-10-07)
 | Check | Result |
 |---|---|
 | Interference: each part against its neighbours, boards, motors and every screw included | **0 clashes** in the carry, floor and up poses, except a 0.08 mm³ graze between the right snap hook and the HC-SR04's edge (the next pod rebuild widens the pod 0.2 mm). Allowed on purpose: the tyre's stretch fit, and screws that self-tap into a smaller pilot or thread into the servo spline. Fusion cannot analyse the linked servo assemblies against the parts round them, so those pairs are checked by eye |
-| Antenna (metal within 15 mm of the ESP32 antenna end) | Closest metal: the front board screws at **19.6 mm** (now the real screws and inserts). Then shoulder servo 20.8, dock screws 25.5, battery holder 26.5, ultrasonic 41.2 mm. **Pass** |
+| Antenna (metal within 15 mm of the ESP32 antenna end) | Closest metal: the front board screws at **19.6 mm** (rev 6: screws and captive nuts, no inserts). Then shoulder servo 20.8, dock screws 25.5, battery holder 26.5, ultrasonic 41.2 mm. **Pass** |
 | CG / casters / tipping, glass balls, no arm | 457 g, CG (0.2, −10.6, 29.4) mm. The **two casters carry 14 %**. Tips forward only above 0.36 g of braking, sideways above 2.3 g |
 | Same, ½" steel balls | 471 g, casters 16 % |
 | **Arm fitted + 6 × M8 in the ballast clips** | 542 g (the MG90S is 4 g heavier than an SG90), CG (−0.1, −7.3, 35.0). **Casters 10 %** (steel: 12 %). Tips forward above 0.21 g |
 | Arm fitted, no nuts | 515 g, casters **4 %**. Tips forward above 0.08 g. **Fit the nuts** |
-| Line sensor | Underside 10.5 mm (allowed 9–13). TCRT5000 faces 3.4 mm off the floor. The skid touches first on a nose-dive (2.9° vs 3.7°) |
+| Line sensor | Underside 10.5 mm (allowed 9–13). TCRT5000 faces 3.4 mm off the floor. The skid under the nose touches first on a nose-dive (2.9° vs 3.7°) |
 | Bed fit (A1 mini, 180 mm cube) | Every part fits. The largest is the chassis: **167.2 × 166.0 × 48.3 mm** over the hubs, lying on its deck |
-| Overhangs in print orientation (chassis top-down) | **No unsupported overhangs in any part.** The only flat ceilings are short bridges (nose ceiling about 18 mm; the 2 mm motor-hook catches) |
+| Overhangs in print orientation (chassis top-down) | **No unsupported overhangs in any part.** The only flat ceilings are the 2 mm motor-hook catches; the nose has no bridges and no enclosed cavity (rev 6) |
 
 ## Printed parts (masses from the shell/infill model in checks.py)
 | Part | Qty | Material / colour (A) | Print orientation (as exported) | Mass |
 |---|---|---|---|---|
 | Chassis | 1 | PETG yellow (construction) or teal | **deck (top) down** | 133 g |
-| Line sled (10.5; 9.5 / 11.5 to taste) | 1 | PETG black | upside down | 3.6 g |
 | Wheel | 2 | PETG dark teal | flat inner face down | 7.9 g each |
 | Tyre | 2 | TPU 95A black | flat | 4.6 g each |
 | Sonar bracket (pod) | 1 | PETG yellow | plate top face down (pod up) | 9.0 g |
@@ -257,7 +294,7 @@ There were no clashes in three poses: floor with the jaws closed, carry (+30°, 
 
 Print settings:
 - 0.2 mm layers, 3 walls, 25 % gyroid (wheels and arm 30 %, jaws and clips 40 %).
-- **No supports.** Turn on bridge detection; the slicer's defaults are fine for the 18 mm nose ceiling.
+- **No supports** and no bridges to speak of: every wall in the nose stands straight up from the deck.
 - PETG at 240–250 °C; TPU slow (≤ 25 mm/s).
 - The chassis's deck is a big flat area on the bed (about 150 cm²). Use a clean textured PEI sheet and a 5 mm brim if the corners lift.
 - The tread-plate grooves are in the face that lies on the bed (1 mm wide, 0.6 mm deep). If your first layer squashes them shut, turn on elephant-foot compensation (about 0.15 mm).
@@ -276,8 +313,8 @@ The chassis is roughly 9–11 h on an A1 mini at standard PETG speeds (an estima
 | 2 | **½" (12.7 mm) steel balls** (bearing balls or slingshot ammo, 8.4 g) or 12.7 mm glass marbles | rear casters |
 | 4 | Dupont jumper wires, female-female, 200 mm (or a JST SH 4-pin to Dupont lead) | HC-SR04 header → J403 |
 | 1 | JST SH 5-pin cable, 200 mm, straight-through | line sensor → J404 |
-| 4 | M2 heat-set insert (Ø3.2 hole) + 4 × M2 × 6 | board on the deck |
-| 2 | M3 heat-set insert, short (Ø4.0 hole) | dock towers |
+| 4 | M2 × 6 thread-forming screw for plastic (Ø1.7 pilot) | board on the deck |
+| 2 | M3 hex nut (DIN 934), captive in the deck top | dock towers |
 | 2 | M2 × 6 self-tapping + M2 washer | wheels to shaft centre holes |
 | 2 | M3 × 8 socket head | sonar bracket into the dock (M3 × 10 when the arm base stacks on it) |
 | **Arm module** | | |
@@ -285,28 +322,29 @@ The chassis is roughly 9–11 h on an A1 mini at standard PETG speeds (an estima
 | 1 | M3 × 8 pan head (self-taps into the deck) | idle jaw pivot |
 | 2 | M3 × 10 socket head | arm base + sonar bracket into the dock (instead of the 2 × M3 × 8) |
 | 1 + 2 + 3 | M2 × 8 pan head + 2 × M2 × 5 + 3 × M2 × 4 | shoulder horn centre screw, shoulder horn arm to the boom plate, gripper horn (the servos' own screws are too short for the shoulder) |
-| 2 | Ballast clips (printed) + 2 × M3 insert + 2 × M3 × 8 thumb screw | rear rail |
+| 2 | Ballast clips (printed) + 2 × M3 nut + 2 × M3 × 8 thumb screw | rear rail |
 | 6 | M8 hex nut (about 5.2 g each) | 3 in each ballast clip |
 | **Each bus clip** | | |
-| 2 | M3 heat-set insert + 1 × M3 × 8 thumb screw | clamp (screw onto the deck) + accessory mount |
+| 2 | M3 nut (one in the tab slot, one in the accessory boss) + 1 × M3 × 8 thumb screw | clamp (screw onto the deck) + accessory mount |
 
-The base robot needs **8 screws and 6 inserts**. There is no battery screw any more.
+The base robot needs **8 screws and 2 nuts, no inserts**. There is no battery screw any more.
 
 ## Assembly
-1. **Inserts:** 4 × M2 into the deck at the board holes, 2 × M3 into the tops of the dock towers.
+1. **Nuts:** drop an M3 nut into each hex pocket on the deck top at the dock (they stay captive once the sonar plate is on). No inserts anywhere; no soldering iron needed.
 2. **Wheels onto motors:**
    - Stretch each tyre over its rim until both beads drop into the rim grooves.
    - Push each wheel onto its shaft and fit an M2 × 6 + washer.
 3. **Casters:** with the chassis upside down, press a ½" ball up into each rear socket until the lip clicks over it.
+   - **To take a ball out again** (to reuse it or clean the socket): turn the robot over, find the Ø4 vent hole in the deck straight above the ball, near each rear corner, and push the ball out with a 3 mm pin, a 3 mm hex key or a precision screwdriver. If the arm module is fitted, undo that side's ballast clip thumb screw first: the clip's tab sits over the vent.
 4. **Motors (chassis upside down, battery out):**
    - Plug the encoder cable into the motor first.
      - On the **left** motor the socket faces down. Its cable comes out under the robot and goes up through the **rear-left cable port**.
      - On the right motor the socket faces up, under the **plug slot** in the deck.
    - Push each motor + wheel straight in: shaft outward, encoder cover to the back. The shaft and pin slide up their slots and the wheel goes into its well. Keep pushing until the gearbox meets the stops and **both hooks click** under it.
-5. **Line sensor:**
-   - Slide the board into the sled grooves from the open rear end: TCRT5000s down, JST socket toward the right.
-   - Push the sled up into the nose pocket until both bumps click.
-   - Plug in the 5-pin cable and lead it up through the **front cable slot**.
+5. **Line sensor (chassis upside down):**
+   - Plug the 5-pin cable into the board's socket first and lead it up through the **front cable slot** in the deck.
+   - Offer the board up into the nose pocket, TCRT5000s down, JST socket toward the right, holes on the two bosses.
+   - 2 × M3 × 8 self-tapping screws from below into the bosses. Printed 1 mm washers between the board and the bosses lower it if you want more sensor clearance.
 6. **Ultrasonic:**
    - Plug the 4-pin cable into the board's socket.
    - Push the HC-SR04 into the pod from the back, cans first, header pins up, until both snap strips click behind it.
@@ -357,16 +395,16 @@ The base robot needs **8 screws and 6 inserts**. There is no battery screw any m
 10. **No clips over the wheels** (−35 < y < 35 on the wheel sides): there is no groove there.
 11. **Horns:** the shoulder horn sits against the right boom plate (no recess) and is held by 3 screws. Check one real SG90 horn against the model: hub Ø7 × 4 mm, arm 16 mm, holes at 9 and 13 mm.
 12. **Battery joint in screenshots:** driving the Battery joint does move the holder (I checked its position: 75 mm out puts its rear end 64 mm behind the rear wall). Fusion's viewport didn't redraw the linked holder in my scripted screenshots, though, so there is no picture of it.
-13. **Faduino line sensor:** not in the project folder yet (only the RoboCore_LineSensor, the HC-SR04, the servos and the battery holder are there). Add it to the RoboCore V2 folder and I will swap it in: the sled grooves stay, the deck's plug window moves over its upward header, and the JST window closes.
+13. **Faduino line sensor:** not in the project folder yet (only the RoboCore_LineSensor, the HC-SR04, the servos and the battery holder are there). Add it to the RoboCore V2 folder and I will swap it in: `LINE_HOLES` moves the two bosses to its holes and the deck's cable slot moves over its header.
 
 ## Regenerating
 In Fusion, with **RoboCore V2 Robot** open, run from the Scripts dialog or through Claude:
 ```python
 import sys; sys.path.insert(0, '<this folder>/fusion')
 import build_robot; print(build_robot.main())        # all steps, or main(['chassis_shell', 'chassis_cradle', ...])
-build_robot.pose(-35.7, 0)                           # drive the joints: arm (deg), jaws (deg), battery out, sled down (mm)
+build_robot.pose(-35.7, 0)                           # drive the joints: arm (deg), jaws (deg), battery out (mm)
 import checks; print(checks.interference()); print(checks.antenna()); print(checks.all_checks()); print(checks.overhangs())
-import export; export.print_files(); export.sled_variants(); export.assembly_files(); export.renders(); export.hero()
+import export; export.print_files(); export.assembly_files(); export.renders(); export.hero()
 build_robot.apply_scheme('construction')               # or 'teal', 'orange'
 ```
 - **The last steps are `hardware`** (screws, inserts, nuts and horns, placed with the arm level), **`joints`** (grounding, rigid groups, joints and the jaw motion link) **and `pose`**. Rebuilding a part removes the joints that use it, so run `hardware`, `joints` and `pose` again afterwards.

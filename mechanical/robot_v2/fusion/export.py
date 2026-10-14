@@ -11,7 +11,6 @@ OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # part -> (file name, print orientation: images of the part's X, Y, Z axes)
 PRINTED = {
     'Chassis': ('Chassis', ((1, 0, 0), (0, -1, 0), (0, 0, -1))),       # top (deck) down, no supports
-    'Line sled': ('Line_sled_10.5', ((1, 0, 0), (0, -1, 0), (0, 0, -1))),   # upside down
     'Wheel': ('Wheel', ((1, 0, 0), (0, 1, 0), (0, 0, 1))),               # print 2
     'Tyre': ('Tyre_TPU', ((1, 0, 0), (0, 1, 0), (0, 0, 1))),             # print 2
     'Arm base': ('Arm_base', ((1, 0, 0), (0, 1, 0), (0, 0, 1))),
@@ -22,6 +21,7 @@ PRINTED = {
     'Bus clip': ('Bus_clip', ((1, 0, 0), (0, 0, 1), (0, -1, 0))),        # on its side
     'Ballast clip': ('Ballast_clip', ((1, 0, 0), (0, 0, 1), (0, -1, 0))),  # on its side (print 2)
     'Rail coupon': ('Rail_coupon', ((1, 0, 0), (0, -1, 0), (0, 0, -1))),   # deck down
+    'Fastener coupon': ('Fastener_coupon', ((1, 0, 0), (0, 1, 0), (0, 0, 1))),   # flat
 }
 
 
@@ -113,22 +113,9 @@ def print_files():
     return '\n'.join(out)
 
 
-def sled_variants(heights=(9.5, 11.5)):
-    """Line-sensor sled for other board heights (the skid follows), built, exported and removed again."""
-    import build_robot
-    d = os.path.join(OUT, 'print')
-    out = []
-    for h in heights:
-        name = 'Line sled %.1f' % h
-        occ = build_robot.build_sled(h, name)
-        c = occ.component
-        verts, tris = _mesh(c, PRINTED['Line sled'][1])
-        fname = 'Line_sled_%.1f' % h
-        _write_stl(os.path.join(d, 'RoboCore_V2_%s.stl' % fname), verts, tris)
-        _write_3mf(os.path.join(d, 'RoboCore_V2_%s.3mf' % fname), 'RoboCore V2 ' + name, verts, tris)
-        out.append('%s: %d triangles' % (name, len(tris)))
-        L.delete_component(name)
-    return '\n'.join(out)
+def sled_variants(heights=()):
+    """Rev 6 has no sled: the line sensor screws straight to the chassis."""
+    return 'no sled in rev 6'
 
 
 def assembly_files(tag='rev5'):
