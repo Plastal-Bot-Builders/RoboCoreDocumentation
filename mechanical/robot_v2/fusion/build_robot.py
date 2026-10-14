@@ -307,6 +307,10 @@ def chassis_cradle():
         # rail wall beside the battery's rear half; its rear end becomes the snap flap
         x0, x1 = xs(s, P.BATT_RAIL_X, P.BATT_RAIL_X + P.BATT_RAIL_T)
         L.box(c, x0, P.FLAP_Y[0], z0, x1, P.WALL_Y[0] + 0.1, zd, L.JOIN, B, 'Battery rail wall')
+        # window for the DG01D-E's encoder end and magnet disc (rev 6): they reach 1.3 mm into this wall
+        ry0, ry1, rz0, rz1 = P.RAIL_WINDOW
+        x0, x1 = xs(s, P.BATT_RAIL_X - 0.5, P.BATT_RAIL_X + P.BATT_RAIL_T + 0.5)
+        L.box(c, x0, ry0, rz0, x1, ry1, rz1, L.CUT, B, 'Rail wall window')
         # front stop at the holder's plastic corners (clear of its springs), 45-degree top joins the inner wall
         y0_, y1_, xa, zt = P.BATT_STOP
         xw = wi0 + 0.1
@@ -657,6 +661,17 @@ def _area(pts):
     return abs(sum(pts[i - 1][0] * pts[i][1] - pts[i][0] * pts[i - 1][1] for i in range(len(pts)))) / 2
 
 
+def fender_band():
+    """(y, z) outline of the fender arch band on the wheel-section wall (shared by the style and the hand-edit replay)."""
+    a, rise, bw, fh, zb = P.FENDER
+    za = P.AXLE_Z
+
+    def arch(ry, rz, n=24):
+        return [(-ry * math.cos(math.pi * k / n), za + rz * math.sin(math.pi * k / n)) for k in range(n + 1)]
+    return ([(-(a + bw / 2), zb)] + arch(a + bw / 2, rise + bw / 2) + [(a + bw / 2, zb), (a - bw / 2, zb)]
+            + list(reversed(arch(a - bw / 2, rise - bw / 2))) + [(-(a - bw / 2), zb)])
+
+
 def chassis_style():
     """Earth-mover details (Fred, 2026-10-07, after photos of a CAT 797F haul truck, a JCB backhoe and loaders):
     wheel hubs with bolt heads round the wheel-screw access holes, fender arches over the wheels, engine louvres on
@@ -685,11 +700,7 @@ def chassis_style():
         _yz_extrude(c, B, xf + s * (hh - 0.05), xf + s * (hh + bh), bolts, 'Hub bolts')
     # fender arch over each wheel: an inverted-U band from z FENDER[4] up and over the hub
     a, rise, bw, fh, zb = P.FENDER
-
-    def arch(ry, rz, n=24):
-        return [(-ry * math.cos(math.pi * k / n), za + rz * math.sin(math.pi * k / n)) for k in range(n + 1)]
-    band = ([(-(a + bw / 2), zb)] + arch(a + bw / 2, rise + bw / 2) + [(a + bw / 2, zb), (a - bw / 2, zb)]
-            + list(reversed(arch(a - bw / 2, rise - bw / 2))) + [(-(a - bw / 2), zb)])
+    band = fender_band()
     for s, _ in S(1):
         xf = s * H
         _yz_extrude(c, B, xf - s * 0.05, xf + s * fh, lambda sk, x_: L.poly(sk, [(x_, y, z) for (y, z) in band]), 'Fender arch')
@@ -791,10 +802,32 @@ def chassis_hand_edits():
     occ, c, B = chassis()
     cutd = P.WHEEL_SKIN_CUT
     y0, y1 = -(P.WHEEL_SEC_Y - P.C_WHEEL), P.WHEEL_SEC_Y - P.C_WHEEL
+    od, id_ = P.HUB_RING[0], P.HUB_RING[1]
+    za = P.AXLE_Z
+    band = fender_band()
     for s, _ in S(1):
-        x0, x1 = xs(s, H - cutd, H + 1.0)
+        x0, x1 = xs(s, H - cutd, H + 0.05)
         L.box(c, x0, y0, P.FLOOR_Z0 - 0.1, x1, y1, P.BODY_TOP - 0.5, L.CUT, B, 'Wheel skin cut (v30 hand edit)')
-    return 'wheel skins cut %.1f mm' % cutd
+        # a face cut leaves the hub ring and the fender arch standing on the uncut material: put those pedestals back
+        xa, xb = s * (H - cutd - 0.05), s * (H + 0.35)
+        sk = L.sketch(c, L.plane_yz(c, xa), 'Hub pedestal')
+        L.circle(sk, xa, 0, za, od)
+        L.circle(sk, xa, 0, za, id_)
+        L.done(sk)
+        L.extrude(c, sk, L.profiles_at(sk, [(xa, 0, za + (od + id_) / 4)]), abs(xb - xa), L.JOIN, (s, 0, 0), B, 'Hub pedestal')
+        _yz_extrude(c, B, xa, xb, lambda sk_, x_: L.poly(sk_, [(x_, y, z) for (y, z) in band]), 'Fender pedestal')
+    # the cut detaches the ring and the fender; the pedestals overlap them again, so combine the pieces back in
+    main = B[0]
+    tools = adsk.core.ObjectCollection.create()
+    for b in c.bRepBodies:
+        if b is not main and b.name.startswith('Chassis') and b.volume * 1000 > 50:
+            tools.add(b)
+    if tools.count:
+        ci = c.features.combineFeatures.createInput(main, tools)
+        ci.operation = adsk.fusion.FeatureOperations.JoinFeatureOperation
+        ci.isKeepToolBodies = False
+        c.features.combineFeatures.add(ci)
+    return 'wheel skins cut %.1f mm, hub and fender pedestals kept (%d pieces combined)' % (cutd, tools.count)
 
 
 # ================================================================= wheel
@@ -1856,6 +1889,25 @@ def build_hardware():
     return ', '.join('%d x %s' % (n, k) for k, n in counts.items()) + ('; %d stale removed' % stale if stale else '')
 
 
+
+def hardware_dedupe():
+    """Remove hardware left over from an earlier build: same part at the same place, keep the newest component."""
+    root = L.design().rootComponent
+    seen, dup = {}, 0
+    for o in list(root.occurrences):
+        b = L.base_name(o.component.name)
+        if b not in HW_NAMES:
+            continue
+        key = (b, tuple(round(v, 2) for v in o.transform.asArray()))
+        if key in seen:
+            older, newer = (seen[key], o) if seen[key].component.name < o.component.name else (o, seen[key])
+            older.deleteMe(); dup += 1
+            seen[key] = newer
+        else:
+            seen[key] = o
+    return '%d duplicate hardware parts removed' % dup
+
+
 # ===================================================================== joints
 def find_joint(name):
     root = L.design().rootComponent
@@ -2201,6 +2253,7 @@ STEPS = {
     'fastener_coupon': build_fastener_coupon,
     'hardware': build_hardware,
     'joints': build_joints,
+    'hw_dedupe': hardware_dedupe,
     'pose': pose,
     'teal': lambda: apply_scheme('teal'),
     'orange': lambda: apply_scheme('orange'),
@@ -2208,7 +2261,7 @@ STEPS = {
 }
 ALL = ['motor_import', 'motors', 'board', 'line', 'ultrasonic', 'battery', 'chassis_shell', 'chassis_cradle', 'chassis_front',
        'chassis_holes', 'chassis_bus', 'chassis_detents', 'chassis_finish', 'chassis_style', 'chassis_tread', 'chassis_hand_edits', 'caster', 'wheel', 'tyre', 'wheels',
-       'servos', 'sonar', 'arm_base', 'arm', 'jaw_l', 'jaw_r', 'arm_pose', 'clip', 'ballast_clip', 'coupon', 'fastener_coupon', 'hardware', 'joints',
+       'servos', 'sonar', 'arm_base', 'arm', 'jaw_l', 'jaw_r', 'arm_pose', 'clip', 'ballast_clip', 'coupon', 'fastener_coupon', 'hardware', 'joints', 'hw_dedupe',
        'pose', 'teal']
 
 

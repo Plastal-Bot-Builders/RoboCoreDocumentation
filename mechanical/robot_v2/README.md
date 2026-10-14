@@ -162,6 +162,21 @@ Fred found the 3 mm rail lip made the body look stepped and bulky. It is gone:
 
 See [`EXPANSION_BUS.md`](EXPANSION_BUS.md).
 
+## Caster vent and the DG01D-E motor fit (Task C, 2026-10-14)
+- **Caster vent Ø5.5** (was Ø4): the hole through the deck above each ball now takes a normal small screwdriver's shank,
+  not just a pin. The ball is held by the lip at the bottom of the socket, so a bigger vent at the top changes nothing
+  about retention. The ballast clip tabs sit over the vents when the arm module is fitted: undo that side's thumb
+  screw first (the clips stay at x ±44; moving them inward was offered and not taken).
+- **Rail-wall windows** for the DG01D-E motor (swapped in on 11 Oct): its encoder end reaches |x| 32.6 and its magnet
+  disc |x| 31.6, 1.3 mm into the 1.6 mm battery rail walls. Each rail wall now has a window at y −65.5 to −49,
+  z 18 to 37.5 (`RAIL_WINDOW`), which clears both with 1 mm. The battery holder is still guided by the rest of the wall
+  and latched by the rear snap flap; the V-rails underneath are untouched. In print orientation the window's lower edge
+  is a 16.5 mm bridge in a 1.6 mm wall, which the slicer bridges without support.
+- The inner walls and shaft walls now end at y −29.8 (was −30.4 / −30.5) to clear the motor's can flange.
+- **Your hand edits are replayed by the generator** (`chassis_hand_edits`, `WHEEL_SKIN_CUT`): the 1 mm cut on both
+  wheel-section outer walls from Fusion v30, applied the way a face cut behaves, so the hub rings and fender arches
+  keep standing on the uncut material. Set `HAND_EDITS = False` to drop it.
+
 ## Fasteners, rev 6 (Task A, 2026-10-14): no heat-set inserts
 Community feedback (EO, alexchunlin on the Every Flavor Robotics Discord): heat-set inserts are too fiddly for a school.
 Rev 5 had 10 per robot. Rev 6 replaces every one of them, chosen per location:
@@ -335,7 +350,7 @@ The base robot needs **8 screws and 2 nuts, no inserts**. There is no battery sc
    - Stretch each tyre over its rim until both beads drop into the rim grooves.
    - Push each wheel onto its shaft and fit an M2 × 6 + washer.
 3. **Casters:** with the chassis upside down, press a ½" ball up into each rear socket until the lip clicks over it.
-   - **To take a ball out again** (to reuse it or clean the socket): turn the robot over, find the Ø4 vent hole in the deck straight above the ball, near each rear corner, and push the ball out with a 3 mm pin, a 3 mm hex key or a precision screwdriver. If the arm module is fitted, undo that side's ballast clip thumb screw first: the clip's tab sits over the vent.
+   - **To take a ball out again** (to reuse it or clean the socket): turn the robot over, find the Ø5.5 vent hole in the deck straight above the ball, near each rear corner, and push the ball out with a small flat screwdriver (3 mm blade) or a 4 mm hex key. If the arm module is fitted, undo that side's ballast clip thumb screw first: the clip's tab sits over the vent.
 4. **Motors (chassis upside down, battery out):**
    - Plug the encoder cable into the motor first.
      - On the **left** motor the socket faces down. Its cable comes out under the robot and goes up through the **rear-left cable port**.

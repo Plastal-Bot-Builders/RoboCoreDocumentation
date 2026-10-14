@@ -159,7 +159,7 @@ CASTER_X, CASTER_Y = 49.0, -73.0
 CASTER_TUBE_D = 16.0
 CASTER_LIP_Z = 3.7               # socket bottom: the opening (d 12.0) is 0.7 smaller than the ball
 CASTER_CLEAR = 0.2               # ball cavity radial clearance
-CASTER_VENT_D = 4.0              # push the ball out from the top with a pin
+CASTER_VENT_D = 5.5              # push the ball out from the top with a 3 mm screwdriver or a pin (rev 6; rev 5 had 4.0)
 
 # --- nose: line-sensor pocket (rev 6: open pocket, board screwed straight to the chassis, no sled) ----
 LINE_C = (0.0, 41.0)
@@ -299,5 +299,6 @@ WHEEL_SKIN_CUT = 1.0     # v30 Extrude142/143: 1 mm cut off both wheel-section o
 FASTENERS = 'plastic'
 PILOT_M2 = (1.7, 6.0)            # M2 thread-forming screw pilot in the board bosses: diameter, depth
 NUT_M3 = (5.5, 2.4)              # M3 hex nut across flats, thickness (DIN 934); pockets get +0.2 on the flats
-CASTER_VENT_D_PROPOSED = 5.5     # Task C: fits a 3 mm flat screwdriver's shank; not applied until Fred says so
 BALLAST_CLIP_X_PROPOSED = [-40.0, 40.0]   # Task C: tabs end at |x| 48, clear of the vents at |x| 47..51
+# --- DG01D-E fit (2026-10-14): window in each battery rail wall where the motor's encoder end and magnet disc sit
+RAIL_WINDOW = (-65.5, -49.0, 18.0, 37.5)   # y0, y1, z0, z1 (the clash was y -64..-50.5, z 19.6..36.4); bridge 16.5 mm in a 1.6 mm wall

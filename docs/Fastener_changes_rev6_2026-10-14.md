@@ -26,6 +26,6 @@ M3 × 8 / × 10 socket screws (dock), 3 × M3 × 8 thumb screws (clips), M2 × 6
 ## New test part
 `print/RoboCore_V2_Fastener_coupon` (PETG, flat, ~10 min): pilot boss, deck-top nut pocket, clip-tab nut slot. Print and cycle 10 times before the first classroom batch; see mech/robot/README.md "Fasteners, rev 6".
 
-## Still to decide (not in the list yet)
-- Caster vent Ø5.5 and ballast clips at x ±40 (Task C proposal).
-- DG01D-E motor fit: rail-wall window or motors 2 mm further out.
+## Decided 2026-10-14 (no list change)
+- Caster vent Ø5.5 (done, Fusion v32). Ballast clips stay at x ±44.
+- DG01D-E motor fit: windows in the battery rail walls (done, Fusion v32). Track and wheels unchanged.
