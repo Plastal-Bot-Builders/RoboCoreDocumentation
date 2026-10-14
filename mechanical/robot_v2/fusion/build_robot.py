@@ -1158,7 +1158,24 @@ def build_arm_base():
         L.circle(sk, 0.0, y, sz, 2.0)
     L.done(sk)
     L.extrude(c, sk, L.profiles_at(sk, [(0.0, y, sz) for y in tab_y]), 8.0, L.CUT, (-1, 0, 0), B, 'Tab pilots')
+    # 3b (14 Oct): the step down to the sonar plate reads as a slope: a 45-degree chamfer along the plate's front
+    # top edge (the tongue's side edges, which run along y, are left alone), and the socket heads sit in counterbores
+    e = adsk.core.ObjectCollection.create()
+    for ed in body.edges:
+        try:
+            a, b = L._vtx(ed)
+        except Exception:
+            continue
+        pa, pb = (a.x * 10, a.y * 10, a.z * 10), (b.x * 10, b.y * 10, b.z * 10)
+        if abs(pa[2] - zp1) > 0.05 or abs(pb[2] - zp1) > 0.05 or min(pa[1], pb[1]) < by1 - 11.2:
+            continue
+        if abs(pa[0] - pb[0]) < 0.05 and abs(pa[1] - pb[1]) > 0.3:
+            continue
+        e.add(ed)
+    L.chamfer(c, e, P.ARM_BASE_FRONT_CHAMFER, 'Front edge chamfer')
+    cb_d, cb_h = P.ARM_BASE_CBORE
     L.cyl_z(c, P.DOCK_INSERTS, 3.4, zp0 - 0.5, zp1 + 0.5, L.CUT, B, 'Dock screw holes')
+    L.cyl_z(c, P.DOCK_INSERTS, cb_d, zp1 - cb_h, zp1 + 0.5, L.CUT, B, 'Dock screw counterbores')
     L.bed_chamfer(c, body, 'z', zp0, -1, 0.4, 'Bed chamfer')
     return occ
 
@@ -1352,23 +1369,28 @@ def build_sonar_bracket():
     z0 = P.BODY_TOP
     z1 = z0 + P.DOCK_STACK
     py0, py1 = P.SONAR_PLATE_Y
-    ch = P.SONAR_PLATE_CHAMFER
+    ch, chf = P.SONAR_PLATE_CHAMFER, P.SONAR_PLATE_CHAMFER_F
     sk = L.sketch(c, L.plane_xy(c, z0), 'Bracket plate')
     L.poly(sk, [(-31.0, py0 + ch, z0), (-31.0 + ch, py0, z0), (31.0 - ch, py0, z0), (31.0, py0 + ch, z0),
-                (31.0, py1 - ch, z0), (31.0 - ch, py1, z0), (-31.0 + ch, py1, z0), (-31.0, py1 - ch, z0)])
+                (31.0, py1 - chf, z0), (31.0 - chf, py1, z0), (-31.0 + chf, py1, z0), (-31.0, py1 - chf, z0)])
     L.done(sk)
     body = L.extrude(c, sk, L.all_profiles(sk), P.DOCK_STACK, L.NEW, (0, 0, 1), name='Plate').bodies.item(0)
     body.name = 'Sonar bracket'
     B = [body]
     hx, w = P.POD_HALF, P.POD_WALL
+    hxf, cf = P.POD_FRONT
     py_0, py_1 = P.POD_Y
     zb = P.POD_Z0
     ft = P.POD_FACE_T
-    # faceplate, side walls (their rear parts become the snap strips)
-    L.box(c, -hx, py_1 - ft, zb, hx, py_1, z0 + 0.1, L.JOIN, B, 'Faceplate')
+    yf = P.POD_SNAP[1]                              # the front block starts at the slit's front edge
+    # faceplate across the full front block, side walls (their rear parts become the snap strips), and the thicker
+    # front block outside the walls (1a, 14 Oct: room for 4 mm corner chamfers beside the bezels)
+    L.box(c, -hxf, py_1 - ft, zb, hxf, py_1, z0 + 0.1, L.JOIN, B, 'Faceplate')
     for s_, _ in S(1):
         x0, x1 = xs(s_, hx - w, hx)
         L.box(c, x0, py_0, zb, x1, py_1 - ft + 0.1, z0 + 0.1, L.JOIN, B, 'Pod side wall')
+        x0, x1 = xs(s_, hx - 0.1, hxf)
+        L.box(c, x0, yf, zb, x1, py_1 - ft + 0.1, z0 + 0.1, L.JOIN, B, 'Front block side')
     # eyes: round openings for the cans, with raised bezels on the front
     eye_d = P.EYE_D + P.EYE_CLEAR
     bz_od, bz_h = P.EYE_BEZEL
@@ -1383,6 +1405,9 @@ def build_sonar_bracket():
         L.circle(sk, xe, py_1 + bz_h + 0.5, ze, eye_d)
         L.done(sk)
         L.extrude(c, sk, L.all_profiles(sk), ft + bz_h + 1.0, L.CUT, (0, -1, 0), B, 'Eye')
+        # the opening sits back behind a 45-degree bezel (1a): a chamfer on the bore's front edge
+        e = L.edges_where(body, lambda x, y, z, xe=xe: abs(y - (py_1 + bz_h)) < 0.05 and abs(math.hypot(x - xe, z - ze) - eye_d / 2) < 0.05)
+        L.chamfer(c, e, P.EYE_RECESS, 'Eye recess')
     # window for the crystal on the board's front face (it stands 3 mm proud, more than the faceplate is thick)
     wx, wz0, wz1 = P.POD_WINDOW
     sk = L.sketch(c, L.plane_xz(c, py_1 - 0.02), 'Crystal window')
@@ -1391,10 +1416,10 @@ def build_sonar_bracket():
     L.extrude(c, sk, L.all_profiles(sk), ft + 0.5, L.CUT, (0, -1, 0), B, 'Crystal window')
     # brow over the eyes (its top slopes 47 degrees so it prints plate-down)
     reach, bz0, bz1 = P.POD_BROW
-    sk = L.sketch(c, L.plane_yz(c, -hx), 'Brow')
-    L.poly(sk, [(-hx, py_1 - 0.1, bz0), (-hx, py_1 + reach, bz0), (-hx, py_1 + reach, bz0 + 1.0), (-hx, py_1 - 0.1, bz1)])
+    sk = L.sketch(c, L.plane_yz(c, -hxf), 'Brow')
+    L.poly(sk, [(-hxf, py_1 - 0.1, bz0), (-hxf, py_1 + reach, bz0), (-hxf, py_1 + reach, bz0 + 1.0), (-hxf, py_1 - 0.1, bz1)])
     L.done(sk)
-    L.extrude(c, sk, L.all_profiles(sk), 2 * hx, L.JOIN, (1, 0, 0), B, 'Brow')
+    L.extrude(c, sk, L.all_profiles(sk), 2 * hxf, L.JOIN, (1, 0, 0), B, 'Brow')
     # snap strips: a slit through each side wall makes its rear part a strip hanging from the plate; a hook on
     # the strip's inner face (45-degree lead-in at the back) clicks in behind the PCB
     sy0, sy1, hy, hr, hz0, hz1 = P.POD_SNAP
@@ -1414,11 +1439,26 @@ def build_sonar_bracket():
     d = json.load(open(P.ART_DIR + '/robocore.json'))
     hh = d['height'] * wl / d['width']
     L.logo(c, P.ART_DIR + '/robocore.json', lambda u, v: (u - wl / 2, yc + hh / 2 - v, z1), wl, P.DEBOSS, (0, 0, -1), B, 'Bracket logo')
-    # modern edges: chamfer the pod's vertical front corners and its bottom edges
-    e = L.edges_where(body, lambda x, y, z: abs(abs(x) - hx) < 0.05 and abs(y - py_1) < 0.05)
-    L.chamfer(c, e, P.POD_CHAMFER, 'Pod corner chamfer')
-    e = L.edges_where(body, lambda x, y, z: abs(z - zb) < 0.05 and (abs(abs(x) - hx) < 0.05 or abs(y - py_1) < 0.05 or abs(y - py_0) < 0.05))
-    L.chamfer(c, e, 0.8, 'Pod bottom chamfer')
+    # front corners (1a, 14 Oct): a 45-degree cut through the front block, the faceplate and the brow ends, and a
+    # chamfered step where the block meets the thinner strips; then the bottom edges (front block 1.2, strips 0.8)
+    zc = zb - 1.0
+    for s_, _ in S(1):
+        sk = L.sketch(c, L.plane_xy(c, zc), 'Pod corner chamfer')
+        L.poly(sk, [(s_ * (hxf - cf - 6.0), py_1 + 6.0, zc), (s_ * (hxf + 6.0), py_1 - cf - 6.0, zc), (s_ * (hxf + 6.0), py_1 + 6.0, zc)])
+        L.done(sk)
+        L.extrude(c, sk, L.all_profiles(sk), z0 - zc, L.CUT, (0, 0, 1), B, 'Pod corner chamfer')
+        sk = L.sketch(c, L.plane_xy(c, zc), 'Pod step chamfer')
+        L.poly(sk, [(s_ * (hxf - 2.0), yf - 0.05, zc), (s_ * (hxf + 0.5), yf + 2.5, zc), (s_ * (hxf + 0.5), yf - 0.05, zc)])
+        L.done(sk)
+        L.extrude(c, sk, L.all_profiles(sk), z0 - zc, L.CUT, (0, 0, 1), B, 'Pod step chamfer')
+    k = hxf + py_1 - cf
+    e = L.edges_where(body, lambda x, y, z: abs(z - zb) < 0.05 and y > yf + 0.5 and (abs(abs(x) - hxf) < 0.05 or abs(y - py_1) < 0.05 or abs(abs(x) + y - k) < 0.1))
+    L.chamfer(c, e, 1.2, 'Pod bottom chamfer')
+    e = L.edges_where(body, lambda x, y, z: abs(z - zb) < 0.05 and y < yf - 0.5 and (abs(abs(x) - hx) < 0.05 or abs(y - py_0) < 0.05))
+    L.chamfer(c, e, 0.8, 'Strip bottom chamfer')
+    # the plate's front edge, top (bed) side, in line with the pod's corners
+    e = L.edges_where(body, lambda x, y, z: abs(z - z1) < 0.05 and y > py1 - chf - 0.3)
+    L.chamfer(c, e, P.SONAR_PLATE_EDGE, 'Plate front chamfer')
     L.bed_chamfer(c, body, 'z', z1, 1, 0.4, 'Bed chamfer')
     return occ
 
@@ -1793,7 +1833,7 @@ def hardware_placements():
             add('Nut M3', (x, y, P.BODY_TOP - nt - 0.2 + 0.05), PZ)      # in the hex pocket under the bracket plate
         else:
             add('Insert M3', (x, y, P.BODY_TOP), PZ)
-        add('Screw M3x10 socket', (x, y, P.BODY_TOP + P.DOCK_STACK + 3.0), PZ, group='arm')
+        add('Screw M3x10 socket', (x, y, P.BODY_TOP + P.DOCK_STACK + 3.0 - P.ARM_BASE_CBORE[1]), PZ, group='arm')   # head in the counterbore (3b)
         add('Screw M3x8 socket', (x, y, P.BODY_TOP + P.DOCK_STACK), PZ, group='noarm')
     # shoulder servo: tab screws along -X into the base posts
     sy, sz = P.SHOULDER

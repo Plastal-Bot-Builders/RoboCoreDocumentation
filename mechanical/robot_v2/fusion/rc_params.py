@@ -220,6 +220,8 @@ JAW_LEN = 34.0
 ARM_DECK_Y = (56.0, 90.0)
 JAW_PIVOT_Y = 78.6
 ARM_BASE_Y = (38.0, 65.0)
+ARM_BASE_FRONT_CHAMFER = 2.0            # 3b (14 Oct): 45-degree chamfer on the plate's front top edge, so the step down to the sonar plate reads as a slope
+ARM_BASE_CBORE = (6.0, 2.0)             # 3b: counterbores for the two M3 socket heads on the plate: diameter, depth
 
 # --- arm styling (rev 5, after Fred's toy excavator, 2026-10-07) --------------------------
 BOOM = ([(0.0, -7.0), (64.0, -7.0), (64.0, 6.0), (44.0, 12.0), (16.0, 12.5), (0.0, 7.0)], [0, 3, 3, 12, 12, 0])
@@ -262,18 +264,21 @@ INSERT_M2_D, INSERT_M2_DEPTH = 3.2, 5.0
 # a faceplate with two round eyes and bezels, a brow, and two side walls. The board goes in from the BACK of
 # the pod: the cans drop into the eyes (that locates it) and two snap strips click behind the PCB.
 DOCK_STACK = 3.0                 # bracket plate thickness; the arm base sits on top of it
-SONAR_PLATE_Y = (38.0, 73.0)     # bracket plate over the dock towers, running out over the nose
-SONAR_PLATE_CHAMFER = 4.0
-POD_HALF = 25.2                  # pod outer half width (PCB 45 + 0.7 each side + 2 mm walls: the hooks then clear the PCB edge)
+SONAR_PLATE_Y = (38.0, 74.5)     # bracket plate over the dock towers, running out 0.4 past the pod's faceplate
+SONAR_PLATE_CHAMFER = 4.0        # plan chamfers on the plate's rear corners
+SONAR_PLATE_CHAMFER_F = 6.8      # ...and on its front corners, in line with the pod's corner chamfers (0.4 outside them)
+SONAR_PLATE_EDGE = 1.5           # chamfer along the plate's front edge, top side (1a, 14 Oct)
+POD_HALF = 25.2                  # pod outer half width at the strips (PCB 45 + 0.7 each side + 2 mm walls: the hooks then clear the PCB edge)
 POD_WALL = 2.0
-POD_Y = (62.5, 72.6)             # rear (0.5 in front of the chassis nose) to the faceplate's front; the PCB's front face is at y 70
+POD_FRONT = (28.0, 4.0)          # front block, from the slit forward: outer half width, 45-degree corner chamfer (1a, 14 Oct)
+POD_Y = (62.5, 74.1)             # rear (0.5 in front of the chassis nose) to the faceplate's front; the PCB's front face is at y 70
 POD_Z0 = 12.0                    # bottom of the pod (PCB bottom edge at 14)
-POD_FACE_T = 2.5                 # faceplate; the PCB's front face sits against its back (US_UNDER_Y)
+POD_FACE_T = 4.0                 # faceplate (2.5 until 14 Oct); the PCB's front face sits against its back (US_UNDER_Y), which did not move
 EYE_CLEAR = 0.8                  # eye opening = can + this
 EYE_DZ = 0.0                     # the HC-SR04's cans are on the board's centre line
-EYE_BEZEL = (21.0, 1.0)          # raised ring round each eye: OD, proud
+EYE_BEZEL = (21.5, 1.0)          # raised ring round each eye: OD, proud
+EYE_RECESS = 1.2                 # 45-degree bezel into the eye opening (1a): the opening sits this far behind the ring's crest
 POD_BROW = (3.0, 44.0, 48.4)     # visor over the eyes: reach forward, underside z, top z at the faceplate (47-degree slope)
-POD_CHAMFER = 2.0                # on the pod's vertical front corners
 POD_SNAP = (66.4, 67.0, 66.8, 1.6, 18.0, 30.0)   # slit y0 y1 (strip behind), hook front y (PCB back at 67.1), hook reach, hook z0 z1
 POD_WINDOW = (5.9, 13.6, 18.9)   # window through the faceplate for the HC-SR04's crystal (10.5 x 4 x 3 proud, bottom centre): half width, z0, z1
 SONAR_SLOT = (-8.0, 8.0, 28.0, 41.0)   # x0, x1, z0, z1: slot in the front wall for the 4 Dupont wires (under the bus band)

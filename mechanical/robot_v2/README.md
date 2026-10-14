@@ -177,6 +177,23 @@ See [`EXPANSION_BUS.md`](EXPANSION_BUS.md).
   wheel-section outer walls from Fusion v30, applied the way a face cut behaves, so the hub rings and fender arches
   keep standing on the uncut material. Set `HAND_EDITS = False` to drop it.
 
+## Pod face and arm base edges (1a and 3b, 2026-10-14)
+From the 14 October DFMA brief, reviewed in `docs/Review_DFMA_brief_2026-10-14.md`; Fred chose items 1a, 3b and 5b.
+- **Sonar pod (1a):** the faceplate is 4 mm thick (was 2.5) and the front block, from the snap slit forward, is 56 mm
+  wide (was 50.4, `POD_FRONT`), so the vertical front corners carry **4 mm × 45° chamfers** (were 2 mm) and still leave
+  3.4 mm of material at the corner. The eyes keep their raised bezels (Ø21.5), now **countersunk at 45°**
+  (`EYE_RECESS`, 1.2 mm) so each opening sits behind a crest. The brow's ends follow the corner chamfers, the step from
+  the front block back to the 2 mm snap strips is chamfered 2 mm, the plate's front corners are 6.8 mm chamfers in line
+  with the pod's, and its front edge has a 1.5 mm chamfer on top. The board, its cans, the snap strips and the crystal
+  pocket did not move: the faceplate grew forward, so the cans stand 7 mm proud (were 9), the cans still end 2 mm behind
+  the legs' tips, and the front block clears each leg by 4.9 mm (was 7.7). Still prints plate-down, no supports; 11.1 g.
+  Why not the brief's fillets and lofted "double-bubble": fillets are against the design rules, and a lofted cowling with
+  the face vertical overhangs past 45° under the bubbles.
+- **Arm base (3b):** the plate's front top edge has a **2 mm × 45° chamfer** (`ARM_BASE_FRONT_CHAMFER`), so the step down
+  to the sonar plate reads as a slope, and the two M3 × 10 socket heads sit in **Ø6 × 2 mm counterbores** (`ARM_BASE_CBORE`),
+  1 mm proud instead of 3. An M3 × 8 still passes right through the nut.
+- **Battery holder to motor (5b):** nothing modelled; the 0.9 mm gap is open item 14.
+
 ## Fasteners, rev 6 (Task A, 2026-10-14): no heat-set inserts
 Community feedback (EO, alexchunlin on the Every Flavor Robotics Discord): heat-set inserts are too fiddly for a school.
 Rev 5 had 10 per robot. Rev 6 replaces every one of them, chosen per location:
@@ -219,14 +236,14 @@ Parts removed: the sled and its three height variants, the snap grooves, the plu
 
 ## Sonar pod (fourth round)
 Fred found the slide-in bracket impractical and wanted a more modern look. The new mount:
-- The **plate on the dock stays** (2 × M3; the arm base stacks on it), now with chamfered corners to match the chassis.
-- A **headlight-style pod** hangs from the plate's front: a 2.5 mm faceplate with two round eyes and raised bezels, a 47° brow over them, 2 mm walls each side and chamfered front corners. The cans stand 9 mm proud of the faceplate, like a loader's lights.
+- The **plate on the dock stays** (2 × M3; the arm base stacks on it), now with chamfered corners to match the chassis (6.8 mm at the front since 14 Oct, in line with the pod's corners, and a 1.5 mm chamfer along the front edge).
+- A **headlight-style pod** hangs from the plate's front: a 4 mm faceplate (2.5 until 14 Oct) with two round eyes in raised, countersunk bezels, a 47° brow over them, 2 mm walls each side and 4 mm chamfered front corners on a wider front block (see "Pod face and arm base edges"). The cans stand 7 mm proud of the faceplate, like a loader's lights.
 - **Fitting the board:** push it into the pod **from the back**, cans first, header up. The cans drop into the eyes (Ø16.8 for the Ø16 cans), which locates the board, and two **snap strips** on the side walls click in behind the PCB. To release, push the strips outward with a fingernail and draw the board back.
 - **Cable:** four Dupont jumper wires onto the header, led back through the 16 × 13 mm slot in the nose wall and up through the front cable slot to J403.
 - A small window at the bottom of the faceplate clears the HC-SR04's crystal, which stands 3 mm proud of the board's front face.
 - The JST plug on the back of the board goes straight back through the slot in the chassis nose, as before.
 - The board sits **flat** (no tilt), its cans centred **24 mm** above the floor (it dropped 6 mm so the header plugs clear the plate). With the HC-SR04's 15° measuring angle the floor stays outside the beam beyond about 90 mm.
-- The pod sits between the two front legs with 7.7 mm each side, and the cans end 2 mm behind the legs' tips, so the legs still guard them.
+- The pod sits between the two front legs with 4.9 mm each side at the front block (7.7 at the strips), and the cans end 2 mm behind the legs' tips, so the legs still guard them.
 
 ## The arm module, styled after the toy excavator
 | Toy excavator | On the RoboCore arm |
@@ -300,7 +317,7 @@ There were no clashes in three poses: floor with the jaws closed, carry (+30°, 
 | Chassis | 1 | PETG yellow (construction) or teal | **deck (top) down** | 133 g |
 | Wheel | 2 | PETG dark teal | flat inner face down | 7.9 g each |
 | Tyre | 2 | TPU 95A black | flat | 4.6 g each |
-| Sonar bracket (pod) | 1 | PETG yellow | plate top face down (pod up) | 9.0 g |
+| Sonar bracket (pod) | 1 | PETG yellow | plate top face down (pod up) | 11.1 g |
 | **Base robot** | | | | **170 g** |
 | Arm base / Arm / Jaw L / Jaw R | 1 each | PETG **yellow** / black jaws | as exported (arm deck down, cylinder up) | 7.9 / 11.1 / 1.1 / 1.3 g |
 | Ballast clip | 2 (with the arm) | PETG black | on its side | 3.8 g each |
@@ -411,6 +428,7 @@ The base robot needs **8 screws and 2 nuts, no inserts**. There is no battery sc
 11. **Horns:** the shoulder horn sits against the right boom plate (no recess) and is held by 3 screws. Check one real SG90 horn against the model: hub Ø7 × 4 mm, arm 16 mm, holes at 9 and 13 mm.
 12. **Battery joint in screenshots:** driving the Battery joint does move the holder (I checked its position: 75 mm out puts its rear end 64 mm behind the rear wall). Fusion's viewport didn't redraw the linked holder in my scripted screenshots, though, so there is no picture of it.
 13. **Faduino line sensor:** not in the project folder yet (only the RoboCore_LineSensor, the HC-SR04, the servos and the battery holder are there). Add it to the RoboCore V2 folder and I will swap it in: `LINE_HOLES` moves the two bosses to its holes and the deck's cable slot moves over its header.
+14. **Battery holder to motor gap (5b, 14 Oct):** in the model the holder's case passes **0.9 mm** from the DG01D-E's encoder end, through the rail-wall window (worst case about 0.4 mm with the holder's play between the rails). The motor is a community model, so measure this on a real DG01D-E before the first print. If it really is that close, `MOTOR_IN` 40.5 → 41.2 moves both motors out 0.7 mm; the wheel-section skin follows and the robot gets 1.4 mm wider.
 
 ## Regenerating
 In Fusion, with **RoboCore V2 Robot** open, run from the Scripts dialog or through Claude:
