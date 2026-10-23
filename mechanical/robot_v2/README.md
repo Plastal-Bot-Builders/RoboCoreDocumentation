@@ -283,6 +283,33 @@ they are the design domain; the pipeline is `topo/arm_topo.py` (numpy/scipy, no 
 - **To redo it** (other load, other target): `python3 topo/arm_topo.py 0.20 0.30`, read the polygons from the JSON,
   paste into `BOOM_WINDOWS_TOPO`, then cut them in Fusion. The same code can take another plate-like part by changing
   `build_domain()` and the loads.
+- **Wrist deck and jaws (same day, Fred's picks):** these print flat, so their windows need no overhang rule but their
+  loads bend them out of plane, which a 2D plate model cannot see. `topo/topo3d.py` is a voxel (8-node hex) SIMP solver
+  with one density per column through the thickness (through-windows only); `topo/jaw_deck_topo.py` sets up both parts
+  (0.75 and 0.8 mm voxels, loads: 100 g object on the jaws with its lever, the grip force, the servo). The deck keeps
+  the servo posts, the plate junctions and a 1.6 mm ring round every hole; Fred chose the **50 % layout**, trimmed to
+  its **three windows** over 12 mm² (`DECK_WINDOWS`): 1189 → 919 mm², jaw-pivot deflection 126 → 193 µm with a 100 g
+  object. On the jaws the optimizer only found an irregular slot (the hub, gear sector, horn slot and teeth leave a thin
+  band), so each finger got a hand-drawn **teardrop slot** in the same place for the family look (`JAW_SLOT`, 28 mm²,
+  1.4 mm from the edge). Both were cut on the live bodies (the jaws have no hand edits, but the joints stay valid that
+  way). Arm 10.5 → 10.0 g. Pictures: `renders/rev6_topo/`, `topo/jaw_deck_proposal.png`.
+- **Yoke between the plates (same day, Fred's option 2, a standing web):** the hydraulic-cylinder styling, its saddles,
+  the web and the mid brace (3.6 cm³ together) are gone. A voxel topology optimization of the space between the plates
+  (`topo/yoke_topo.py`, 1.5 mm voxels, 3D self-support filter) first returned a flat X web lying on the bed (38× the
+  bare plates' side stiffness, 1.2 cm³); Fred rejected the look and asked for a web standing between the faces. That is
+  a **ground-structure truss optimization** (`topo/yoke_truss.py`): the plates (with their windows) and the deck are
+  voxels, 737 candidate struts run between anchors on the plate inner faces, two mid rows, a ridge above the plate tops
+  (z 11 to 14) and the deck top; a candidate exists only if it rises at **45° or steeper from a supported node**, or is
+  a bridge under 18 mm between free nodes, so the result prints support-free by construction. Strut areas are sized by an
+  optimality-criteria update for the weighted side, twist and bending compliances at 1.4 cm³, with a penalty and two
+  pruning stages so the material concentrates; a repair pass props any node nothing rises into. Loads as before: a
+  0.5 N side push with its 50 mm lever, an 18 N·mm twist, bending. **Result: 11 struts, Ø2.0 to 3.4 mm, 1.3 cm³**: a
+  long Λ from the plate feet at y 30 to an apex at z 14 above the plates, four legs from the deck up to the ridge, two
+  short arches from the plate sides and one ridge bridge. Side stiffness 3.6× the bare plates (the flat X was 38×, the
+  twist barely changes with any web that must start at the plate feet). Built in Fusion as real cylinders with spherical
+  joints (`TemporaryBRepManager`, a base feature, one Combine), trimmed at the bed plane; arm 10.0 → 8.6 g. Earlier
+  candidates are kept in `topo/yoke_struts_8.json`, `_15.json` (the 15-strut one has a ridge node nothing supports) and
+  the voxel webs. Pictures: `renders/rev6_topo/yoke_*.png`, `topo/yoke_truss_preview.png`.
 
 ## Moving the model in Fusion (joints)
 Open **RoboCore V2 Robot** and drag a part, or right-click a joint in the browser and choose **Drive Joints**:
@@ -341,7 +368,7 @@ There were no clashes in three poses: floor with the jaws closed, carry (+30°, 
 | Tyre | 2 | TPU 95A black | flat | 4.6 g each |
 | Sonar bracket (pod) | 1 | PETG yellow | plate top face down (pod up) | 11.1 g |
 | **Base robot** | | | | **170 g** |
-| Arm base / Arm / Jaw L / Jaw R | 1 each | PETG **yellow** / black jaws | as exported (arm deck down, cylinder up) | 7.8 / 10.5 / 1.1 / 1.3 g (arm 11.1 g before the topology windows) |
+| Arm base / Arm / Jaw L / Jaw R | 1 each | PETG **yellow** / black jaws | as exported (arm deck down, web up) | 7.8 / 8.6 / 1.1 / 1.3 g (arm 11.1 g before the topology work) |
 | Ballast clip | 2 (with the arm) | PETG black | on its side | 3.8 g each |
 | Bus clip (template) | as many as you like | PETG black | on its side | 1.7 g |
 | Rail coupon (test piece) | 1 | PETG | deck down | 3.3 g |

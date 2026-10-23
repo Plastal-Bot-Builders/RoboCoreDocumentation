@@ -244,6 +244,12 @@ HORN_HOLES = (9.0, 13.0)                # horn-arm screw holes from the axis
 GRIP_HORN_ANGLE = 14.0                  # deg: the gripper horn's arm points 14 deg outward so it stays inside the finger
 ARM_MAX = 85.0                          # shoulder joint limit (deg); the minimum is the floor pose
 JAW_LIMITS = (0.0, 35.0)                # each jaw (deg), 0 = closed
+DECK_WINDOWS = [               # (x, y) polygons through the wrist deck (2026-10-23 topology optimization, Fred's pick: 50 %%); the deck is the bed face, so any shape prints
+    [(7.0, 83.5), (6.5, 82.5), (2.5, 82.5), (-1.0, 85.0), (-1.0, 88.0), (6.5, 88.0), (7.0, 87.0)],
+    [(17.0, 80.5), (14.5, 82.0), (10.0, 86.5), (10.0, 88.0), (15.5, 88.0), (17.0, 85.5)],
+    [(14.5, 59.5), (-0.5, 59.5), (-1.0, 60.0), (-1.0, 62.5), (-2.0, 63.0), (-4.0, 63.0), (-4.0, 67.0), (-2.0, 70.0), (-1.0, 72.0), (2.0, 76.0), (5.5, 76.0), (8.5, 71.5), (11.0, 65.5), (14.0, 61.5), (14.5, 61.5)],
+]
+JAW_SLOT = ((-10.5, 100.5), 2.2, (-5.5, 109.1))      # teardrop slot in each finger (mirrored for the right jaw): circle centre, radius, apex; family resemblance to the arm's windows
 
 # --- expansion bus clip (template) -------------------------------------------------
 CLIP_W = 16.0           # one clip covers two detents

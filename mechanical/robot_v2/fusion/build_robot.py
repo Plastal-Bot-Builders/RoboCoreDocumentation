@@ -1274,6 +1274,13 @@ def build_arm(theta=None):
     L.cyl_z(c, [(-P.JAW_PITCH_R, P.JAW_PIVOT_Y)], 12.6, -7.5, -3.5, L.CUT, B, 'Gear tower hole')
     L.cyl_z(c, [(-P.JAW_PITCH_R, yc - P.SG90_SHAFT_X - 6.0)], 6.4, -7.5, -3.5, L.CUT, B, 'Gear boss hole')
     L.cyl_z(c, [(P.JAW_PITCH_R, P.JAW_PIVOT_Y)], 2.6, -7.5, -3.5, L.CUT, B, 'Jaw screw pilot')
+    # topology-optimized windows through the wrist deck (2026-10-23); the deck is the bed face, any shape prints
+    if getattr(P, 'DECK_WINDOWS', None):
+        sk = L.sketch(c, L.plane_xy(c, -7.5), 'Deck windows')
+        for poly in P.DECK_WINDOWS:
+            L.poly(sk, [(x, y, -7.5) for (x, y) in poly])
+        L.done(sk)
+        L.extrude(c, sk, L.all_profiles(sk), 4.0, L.CUT, (0, 0, 1), B, 'Deck windows')
     # left plate: bearing hole for the base's D-pin
     xb = P.ARM_PLATE_X[1][0] - 0.5
     _yz_extrude(c, B, xb, xb + 4.0, lambda sk, xf: L.circle(sk, xf, 0, 0, 5.4), 'Pivot hole', L.CUT)
@@ -1303,6 +1310,26 @@ def grip_horn_dir():
     return (-math.sin(a), math.cos(a))
 
 
+def teardrop_pts(A, r, Bp, n=14):
+    """Closed teardrop outline: apex Bp, round end of radius r at A (the arm's window family, for the jaws)."""
+    dx, dy = Bp[0] - A[0], Bp[1] - A[1]
+    d = math.hypot(dx, dy); phi0 = math.atan2(dy, dx); th = math.asin(r / d)
+    a1, a2 = phi0 + math.pi / 2 + th, phi0 - math.pi / 2 - th + 2 * math.pi
+    return [Bp] + [(A[0] + r * math.cos(a1 + (a2 - a1) * k / (n - 1)), A[1] + r * math.sin(a1 + (a2 - a1) * k / (n - 1))) for k in range(n)]
+
+
+def _jaw_teardrop(c, B, side, z0, z1):
+    """Teardrop slot through the finger (2026-10-23, family resemblance to the arm's optimized windows)."""
+    A, r, Bp = P.JAW_SLOT
+    pts = teardrop_pts(A, r, Bp)
+    if side > 0:
+        pts = [(-x, y) for (x, y) in pts]
+    sk = L.sketch(c, L.plane_xy(c, z0 - 0.5), 'Finger slot')
+    L.poly(sk, [(x, y, z0 - 0.5) for (x, y) in pts])
+    L.done(sk)
+    L.extrude(c, sk, L.all_profiles(sk), (z1 - z0) + 1.0, L.CUT, (0, 0, 1), B, 'Finger slot')
+
+
 def build_jaw(side):
     """Gripper jaw in the arm frame, styled as an excavator claw with bucket teeth on the grip edge.
     side -1: driven jaw on the gripper servo's horn; +1: idle jaw on an M3."""
@@ -1323,6 +1350,8 @@ def build_jaw(side):
     body.name = name
     B = [body]
     L.cyl_z(c, [(cx, cy)], 13.0, z0, z1, L.JOIN, B, 'Hub')
+    if getattr(P, 'JAW_SLOT', None):
+        _jaw_teardrop(c, B, side, z0, z1)
     teeth = [-30.0, 0.0, 30.0] if side < 0 else [135.0, 165.0, 195.0, 225.0]
     centre = 0.0 if side < 0 else 180.0
     sk = L.sketch(c, L.plane_xy(c, z0), 'Gear sector')
