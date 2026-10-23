@@ -60,6 +60,22 @@ PCBWay priced the parts after review. The parts came to about twice the LCSC est
 
 So the prototype order is the controller only: about **$295 delivered** (FedEx about $35, $30 coupon). The sensors will be bought-in modules (HC-SR04-type, 3-channel line module), about $3–5 together. The custom sensor boards only make sense in a batch, where the $88 minimum assembly fee is spread out.
 
+## JLCPCB re-quote, controller only, 2 assembled (2026-10-12; not ordered)
+Current files (headers on J403/J404, labelled silkscreen), Fred's account. Options matched to the PCBWay order: 4 layers, 1.6 mm, ENIG, TG155, 1 oz outer + **1 oz inner**, 0.2 mm vias, order number removed, Standard PCBA top side.
+
+| Item | Price |
+|---|---|
+| 5 PCBs: base $8 + ENIG $17.20 + 1 oz inner $16.77 + TG155 $3.44 + 0.2 mm vias $17.22 + forced 4-wire Kelvin test $16.90 | $79.53 |
+| Assembly of 2: setup $25.75, stencil $8.27, parts (62 lines, all JLC stock) $77.77, feeder loading $88.35, SMT $3.40, placement confirmation $0.45, hand soldering $3.61, manual assembly $1.85, X-ray $3.30, packaging $0.50 | $213.25 |
+| **Boards total** | **$292.78** (615 g; DHL extra, about $45–55; account coupons $30 / $20) |
+
+Against PCBWay's $289.83 + $34.88 FedEx − $30 coupon = **$294.71 delivered**, JLC is about $15–25 dearer at 2 units, so the PCBWay order stands (Fred, 2026-10-12). JLC's parts are half PCBWay's price, but its per-order fees (feeders $88, setup $26, the 0.2 mm via + Kelvin surcharges $34) cancel that out at this quantity.
+
+**JLC upload notes** (files in `fab/JLCPCB_V2_2026-10-12/`):
+- Standard PCBA needs each side > 70 mm, so JLC adds edge rails (78 × 70 mm). Vias are "Plugged" on 4-layer boards ("Tented" isn't offered).
+- U105 (TPS3700DDCR, C33002) comes up unticked because JLC calls the package SOT-23-6 and our footprint TSOT-23-6. It is the same DDC package: tick it, or the battery input never switches on.
+- The CPL from KiCad uses pin 1 as the position of pin headers/sockets and the XT30. `RoboCore_V2_Controller_CPL_JLC.csv` there is corrected: J401/J402/J407/J408/J405/J406 at their centres with rotation 270, J403/J404 centred at 0, J102 centred. In JLC's preview J101 (USB-C, about 1–1.5 mm towards the edge) and SW101 (body past the right edge) still look off: use "Confirm Parts Placement" and check them in the DFM result before approving.
+
 ## Prototype: 2 assembled units of each board (5 PCBs each), 2026-10-07 (superseded by the section above)
 | Board | PCBWay (submitted quotes) | JLCPCB (calculator) |
 |---|---|---|
