@@ -101,8 +101,12 @@ async function main() {
   await buildPrototype(pages.prototype, IDE, SCR);
   mark('prototype');
 
+  await figma.setCurrentPageAsync(pages.dark);
+  const DK = await buildDarkPage(pages.dark, IDE, SCR);
+  mark('dark');
+
   // page canvas backgrounds
-  for (const p of Object.values(pages)) p.backgrounds = [{ type: 'SOLID', color: hexToRgb('#E9E2D2') }];
+  for (const p of Object.values(pages)) p.backgrounds = [{ type: 'SOLID', color: hexToRgb(p === pages.dark ? '#0B1422' : '#E9E2D2') }];
 
   REPORT.counts.ideFrames = Object.keys(IDE).length;
   REPORT.counts.screenFrames = Object.keys(SCR).length;
@@ -124,6 +128,8 @@ async function main() {
     if (fnd) await exportForReview(fnd.children.map(sec => ['found_' + sec.name.replace(/[^\w]+/g, '_') + '.png', sec, 0.6]));
     await figma.setCurrentPageAsync(pages.prototype);
     await exportForReview(pages.prototype.children.filter(c => c.type === 'FRAME').slice(0, 3).map(c => ['proto_' + c.name.replace(/[^\w]+/g, '_') + '.png', c, 0.5]));
+    await figma.setCurrentPageAsync(pages.dark);
+    await exportForReview(Object.entries(DK).map(([k, f]) => ['dark_' + k + '.png', f, 1]).concat([['dark_guide.png', pages.dark.children.find(c => c.name === 'Dark mode guide'), 0.6]]));
   }
   REPORT.timings.total = Date.now() - T;
   await sendReport();
@@ -135,7 +141,7 @@ main().then(() => {
   const msg = 'RoboCore IDE design built — ' + (REPORT.errors.length ? REPORT.errors.length + ' error(s), ' : '') + (REPORT.counts.icons || 0) + ' icons, ' + (REPORT.counts.blocks || 0) + ' blocks, ' + ((REPORT.counts.ideFrames || 0) + (REPORT.counts.screenFrames || 0)) + ' screens';
   figma.closePlugin(msg);
 }).catch(async (e) => {
-  REPORT.errors.push('FATAL: ' + e.message + ' | ' + (e.stack || '').split('\n').slice(0, 6).join(' | '));
+  REPORT.errors.push('FATAL: ' + (e && e.message ? e.message : String(e) + ' (' + typeof e + ')') + ' | ' + ((e && e.stack) || '').split('\n').slice(0, 6).join(' | '));
   try { if (await openReview()) await sendReport(); } catch (x) { /* ignore */ }
-  figma.closePlugin('RoboCore IDE builder stopped: ' + e.message);
+  figma.closePlugin('RoboCore IDE builder stopped: ' + (e && e.message ? e.message : String(e)));
 });

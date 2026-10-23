@@ -5,9 +5,17 @@
 
 const NAV = [[['Home', 'home'], ['Projects', 'folder'], ['Libraries', 'library'], ['Examples', 'lightbulb']], [['Board Setup', 'cpu'], ['Serial Monitor', 'terminal']]];
 function inkRule(parent, dir, len, op) { const r = divider(parent, dir, len, 'color/border/ink', 'Rule'); r.opacity = op === undefined ? 0.2 : op; return r; }
+const TIPS = {
+  'Undo': 'Undo · Ctrl+Z', 'Redo': 'Redo · Ctrl+Shift+Z', 'Clear workspace': 'Delete all blocks', 'Find': 'Find · Ctrl+F',
+  'Settings': 'Settings', 'Collapse panel': 'Hide panel · Ctrl+J', 'Expand panel': 'Show panel · Ctrl+J', 'Clear output': 'Clear',
+  'Clear': 'Clear', 'Collapse sidebar': 'Collapse sidebar · Ctrl+B', 'Close': 'Close · Esc', 'Close assistant': 'Close Cog · Esc',
+  'Send to Cog': 'Send · Enter', 'New tab': 'New tab', 'Previous match': 'Previous · Shift+Enter', 'Next match': 'Next · Enter',
+  'Close find': 'Close · Esc', 'More': 'More actions', 'Reset board': 'Restart the sketch',
+};
 function iconBtn(parent, icon, o = {}) {
-  const b = inst('Icon Button', { State: o.state || 'Default' }, parent, { name: o.name || icon });
+  const b = inst('Icon Button', { State: o.state || 'Default', Tip: o.tipAbove ? 'Above' : 'Below' }, parent, { name: o.name || icon });
   setProp(b, 'Icon', ICON[icon].id);
+  setProp(b, 'Tooltip', o.tip || TIPS[o.name] || o.name || icon);
   if (o.state !== 'Disabled') { const ic = b.findOne(n => n.name === 'Icon' && n.type === 'INSTANCE'); if (ic) tint(ic, o.state === 'Active' ? 'color/icon/strong' : 'color/icon/default'); }
   return b;
 }
@@ -60,7 +68,7 @@ function buildSidebar(parent) {
     const foot = box({ name: 'Footer', dir: exp ? 'H' : 'V', gap: 8, pad: [10, 4, 0, 12], cross: 'center', parent: c, stroke: 'color/border/subtle', sides: { t: 1 } });
     if (exp) foot.layoutSizingHorizontal = 'FILL';
     if (exp) txt('Build. Code. Create.', { style: 'Caption/Overline', color: 'color/text/secondary', parent: foot, name: 'Tagline', grow: true });
-    iconBtn(foot, exp ? 'panel-left' : 'panel-right', { name: 'Collapse sidebar' });
+    iconBtn(foot, exp ? 'panel-left' : 'panel-right', { name: 'Collapse sidebar', tipAbove: true, tip: exp ? 'Collapse sidebar · Ctrl+B' : 'Expand sidebar · Ctrl+B' });
     comps.push(c);
   }
   CMP['Sidebar'] = makeSet(comps, 'Sidebar', parent, 2, 'Navigation, 208px / 64px collapsed (⌘B).');
@@ -101,12 +109,13 @@ function buildTopBar(parent) {
       const b = inst('Button', { Variant: 'Primary', State: 'Default' }, c, { name: 'New project' });
       setProp(b, 'Label', 'New project'); setProp(b, 'Icon', ICON['plus'].id);
     }
+    if (ctx === 'Editor') inst('Cog Button', { State: 'Default' }, c, { name: 'Ask Cog' });
     const util = box({ name: 'Utilities', dir: 'H', gap: 8, cross: 'center', parent: c });
     const sb = inst('Icon Button', { State: 'Default' }, util, { name: 'Settings' }); setProp(sb, 'Icon', ICON['settings'].id); tint(sb, 'color/icon/strong');
     inst('Avatar', null, util, { name: 'Account' });
     comps.push(c);
   }
-  CMP['Top Bar'] = makeSet(comps, 'Top Bar', parent, 1, 'Header in the box yellow, navy ink. Editor: project, board, Verify / Upload (Stop appears only while running). Browse: search + New project.');
+  CMP['Top Bar'] = makeSet(comps, 'Top Bar', parent, 1, 'Header in the box yellow, navy ink. Editor: project, board, Verify / Upload (Stop appears only while running), Ask Cog. Browse: search + New project.');
 }
 
 // ---------------------------------------------------------------- Status bar
@@ -191,13 +200,13 @@ function buildBoardMenu(parent) {
   parent.appendChild(c);
 }
 
-// ---------------------------------------------------------------- thumbnails (mini blocks in the three roles / code lines)
+// ---------------------------------------------------------------- thumbnails (mini blocks in category colours / code lines)
 function blocksThumb(parent, w, h) {
   const t = box({ name: 'Thumbnail', w, h, fill: 'color/bg/subtle', parent, clip: true });
   const s = w / 268;
-  const mk = (role, x, y, bw, bh, r) => { const n = rect({ name: 'Mini ' + role, w: bw * s, h: bh, radius: r, fill: ROLE[role].fill, parent: t, x, y }); n.strokes = [paint('color/block/outline')]; n.strokeWeight = 1; return n; };
-  mk('control', 20, 40, 76, 14, [7, 7, 2, 2]); mk('action', 28, 56, 104, 12, 2); mk('control', 28, 70, 64, 12, 2); mk('action', 28, 84, 96, 12, 2);
-  mk('control', 150 * s, 40, 72, 14, [7, 7, 2, 2]); mk('action', 150 * s + 8, 56, 92, 12, 2); mk('value', 150 * s + 8, 70, 62, 12, 6);
+  const mk = (role, x, y, bw, bh, r) => { const n = rect({ name: 'Mini ' + role, w: bw * s, h: bh, radius: r, fill: 'color/block/' + role, parent: t, x, y }); n.strokes = [paint('color/block/outline')]; n.strokeWeight = 1; return n; };
+  mk('events', 20, 40, 76, 14, [7, 7, 2, 2]); mk('pins', 28, 56, 104, 12, 2); mk('light', 28, 70, 96, 12, 2); mk('control', 28, 84, 64, 12, 2);
+  mk('events', 150 * s, 40, 72, 14, [7, 7, 2, 2]); mk('movement', 150 * s + 8, 56, 92, 12, 2); mk('sensors', 150 * s + 8, 70, 62, 12, 6);
   return t;
 }
 function codeThumb(parent, w, h) {
@@ -223,9 +232,9 @@ function gridDots(w, h, step = 24) {
 // ---------------------------------------------------------------- Project card
 function buildProjectCard(parent) {
   const comps = [];
-  for (const mode of ['Blocks', 'Code']) {
-    const c = comp('Mode=' + mode);
-    al(c, { dir: 'V', gap: 0, w: 268, cross: 'start', radius: 10, fill: 'color/bg/panel', stroke: 'color/border/default' });
+  for (const mode of ['Blocks', 'Code']) for (const state of ['Default', 'Hover']) {
+    const c = comp('Mode=' + mode + ', State=' + state);
+    al(c, { dir: 'V', gap: 0, w: 268, cross: 'start', radius: 10, fill: 'color/bg/panel', stroke: state === 'Hover' ? 'color/border/ink' : 'color/border/default', effect: state === 'Hover' ? 'Elevation/Popover' : undefined });
     c.layoutSizingVertical = 'HUG'; c.clipsContent = true;
     const th = mode === 'Blocks' ? blocksThumb(c, 268, 112) : codeThumb(c, 268, 112);
     th.layoutSizingHorizontal = 'FILL';
@@ -233,18 +242,22 @@ function buildProjectCard(parent) {
     mb.x = 10; mb.y = 10;
     iconSlot(mb, mode === 'Blocks' ? 'blocks' : 'code', 'color/icon/strong', 14, 'Mode icon');
     txt(mode, { style: 'Label/Small', parent: mb, name: 'Mode' });
-    const body = box({ name: 'Body', dir: 'V', gap: 4, pad: [12, 14, 14, 14], parent: c, wSize: 'fill', stroke: 'color/border/subtle', sides: { t: 1 } });
-    txt(mode === 'Blocks' ? 'Blink LED' : 'Obstacle avoider', { style: 'Heading/H3', parent: body, name: 'Name', fill: true, truncate: true });
-    txt('RoboCore V2 · Edited 2h ago', { style: 'Caption/Default', color: 'color/text/tertiary', parent: body, name: 'Meta', fill: true, truncate: true });
+    const body = box({ name: 'Body', dir: 'H', gap: 4, pad: [12, 8, 14, 14], cross: 'center', parent: c, wSize: 'fill', stroke: 'color/border/subtle', sides: { t: 1 } });
+    const bt = box({ name: 'Texts', dir: 'V', gap: 4, parent: body, grow: true });
+    txt(mode === 'Blocks' ? 'Blink LED' : 'Obstacle avoider', { style: 'Heading/H3', parent: bt, name: 'Name', fill: true, truncate: true });
+    txt('RoboCore V2 · Edited 2h ago', { style: 'Caption/Default', color: 'color/text/tertiary', parent: bt, name: 'Meta', fill: true, truncate: true });
+    iconBtn(body, 'more-vertical', { name: 'More', tip: 'More actions' });
     comps.push(c);
   }
-  CMP['Project Card'] = makeSet(comps, 'Project Card', parent, 2, 'Project tile: thumbnail, name, board and last edit. The whole card is the click target.');
+  CMP['Project Card'] = makeSet(comps, 'Project Card', parent, 4, 'Project tile: thumbnail, name, board and last edit. The card opens the project; ⋮ opens Rename, Duplicate, Download and Delete.');
 }
 
 // ---------------------------------------------------------------- Example card
 function buildExampleCard(parent) {
-  const c = comp('Example Card', 'Example tile: line icon, level, title, one-line description, modes and boards. Opening it makes a copy in Projects.');
-  al(c, { dir: 'V', gap: 10, pad: 16, w: 268, cross: 'start', radius: 10, fill: 'color/bg/panel', stroke: 'color/border/default' });
+  const ecs = [];
+  for (const state of ['Default', 'Hover']) {
+  const c = comp('State=' + state);
+  al(c, { dir: 'V', gap: 10, pad: 16, w: 268, cross: 'start', radius: 10, fill: 'color/bg/panel', stroke: state === 'Hover' ? 'color/border/ink' : 'color/border/default', effect: state === 'Hover' ? 'Elevation/Popover' : undefined });
   c.layoutSizingVertical = 'HUG';
   const top = box({ name: 'Top', dir: 'H', align: 'between', cross: 'center', parent: c, wSize: 'fill' });
   const tile = box({ name: 'Icon tile', dir: 'H', w: 40, h: 40, align: 'center', cross: 'center', radius: 999, stroke: 'color/border/ink', parent: top });
@@ -254,8 +267,9 @@ function buildExampleCard(parent) {
   txt('Blink an LED', { style: 'Heading/H3', parent: tb, name: 'Title', fill: true, truncate: true });
   txt('Switch the built-in LED on and off.', { style: 'Body/Small', color: 'color/text/secondary', parent: tb, name: 'Description', fill: true, truncate: true });
   txt('Blocks + Code · V2 · Uno · ESP32', { style: 'Caption/Default', color: 'color/text/tertiary', parent: c, name: 'Meta', fill: true, truncate: true });
-  CMP['Example Card'] = c;
-  parent.appendChild(c);
+  ecs.push(c);
+  }
+  CMP['Example Card'] = makeSet(ecs, 'Example Card', parent, 2, 'Example tile: line icon, level, title, one-line description, modes and boards. Opening it shows a preview; “Open as new project” makes a copy in Projects.');
 }
 function exampleCard(parent, o) {
   const i = inst('Example Card', null, parent, { name: 'Example ' + o.title, text: { Title: o.title, Description: o.desc, Meta: o.meta || 'Blocks + Code · V2 · Uno · ESP32' } });
@@ -268,16 +282,19 @@ function exampleCard(parent, o) {
 
 // ---------------------------------------------------------------- Template tile
 function buildTiles(parent) {
-  const t = comp('Template Tile', 'Starter template. Creates a new project pre-filled with blocks.');
-  al(t, { gap: 12, pad: [12, 14, 12, 12], w: 240, cross: 'center', radius: 10, fill: 'color/bg/panel', stroke: 'color/border/default' });
+  const tts = [];
+  for (const state of ['Default', 'Hover']) {
+  const t = comp('State=' + state);
+  al(t, { gap: 12, pad: [12, 14, 12, 12], w: 240, cross: 'center', radius: 10, fill: 'color/bg/panel', stroke: state === 'Hover' ? 'color/border/ink' : 'color/border/default', effect: state === 'Hover' ? 'Elevation/Popover' : undefined });
   t.layoutSizingVertical = 'HUG';
   const tile = box({ name: 'Icon tile', dir: 'H', w: 36, h: 36, align: 'center', cross: 'center', radius: 8, fill: 'color/brand/tint', parent: t });
   iconSlot(tile, 'bot', 'color/icon/strong', 18, 'Icon');
   const col = box({ name: 'Text', dir: 'V', gap: 0, parent: t, grow: true });
   txt('Line follower', { style: 'Label/Strong', parent: col, name: 'Title', truncate: true });
   txt('Follow a line with 3 IR sensors', { style: 'Caption/Default', color: 'color/text/tertiary', parent: col, name: 'Description', fill: true, truncate: true });
-  CMP['Template Tile'] = t;
-  parent.appendChild(t);
+  tts.push(t);
+  }
+  CMP['Template Tile'] = makeSet(tts, 'Template Tile', parent, 2, 'Starter template. Creates a new project pre-filled with blocks.');
 }
 function tileInst(parent, o) {
   const i = inst('Template Tile', null, parent, { name: 'Template ' + o.title, text: { Title: o.title, Description: o.desc } });
@@ -349,21 +366,19 @@ function buildDialogs(parent) {
   {
     const { c, body, ft } = dialogShell('Dialog/New Project', 'New project', 'You can switch between Blocks and Code at any time.', { w: 500, descr: 'Create-project dialog.' });
     field(body, 'Project name', 'Obstacle avoider');
-    const ch = box({ name: 'Mode choice', dir: 'H', gap: 12, parent: body, wSize: 'fill' });
-    choiceCard(ch, 'Blocks', 'Drag and drop', 'blocks', true);
-    choiceCard(ch, 'Code', 'Arduino C++', 'code', false);
-    labeledSelect(body, 'Board', 'RoboCore V2 (ESP32-S3)');
+    const mc = inst('Mode Choice', { Selected: 'Blocks' }, body, { name: 'Mode choice' }); mc.layoutSizingHorizontal = 'FILL';
+    labeledSel(body, 'Board', 'Board');
     footerButtons(ft, [['Ghost', 'Cancel'], ['Primary', 'Create project', 'plus']]);
-    CMP['Dialog/New Project'] = c; parent.appendChild(c);
+    CMP['Dialog/New Project'] = c; parent.appendChild(c); stackForOverflow(c);
   }
   {
     const { c, body, ft } = dialogShell('Dialog/Project Settings', 'Project settings', null, { w: 500, descr: 'Opened from the project name in the top bar.' });
     field(body, 'Name', 'Blink LED');
-    labeledSelect(body, 'Board', 'RoboCore V2 (ESP32-S3)');
+    labeledSel(body, 'Board', 'Board');
     const sr = box({ name: 'Settings', dir: 'V', gap: 0, parent: body, wSize: 'fill' });
     settingRow(sr, 'Auto-save', 'Every 30 seconds and before upload.', (r) => inst('Toggle', { On: 'True' }, r, { name: 'Toggle' }));
     footerButtons(ft, [['Ghost', 'Delete project', 'trash'], ['spacer'], ['Secondary', 'Cancel'], ['Primary', 'Save']]);
-    CMP['Dialog/Project Settings'] = c; parent.appendChild(c);
+    CMP['Dialog/Project Settings'] = c; parent.appendChild(c); stackForOverflow(c);
   }
 }
 
@@ -394,16 +409,26 @@ function codeView(parent, code, o = {}) {
   if (o.wSize === 'fill' && isAL(parent)) view.layoutSizingHorizontal = 'FILL';
   const gut = box({ name: 'Gutter', dir: 'V', gap: 0, pad: [14, 12, 14, 8], parent: view, hSize: 'fill', w: 52, cross: 'end' });
   const nums = lines.map((_, i) => String(i + 1)).join('\n');
-  const nt = txt(nums, { style: 'Code/Default', color: 'color/syntax/line-number', parent: gut, name: 'Line numbers', align: 'RIGHT' });
+  const cs = o.small ? 'Code/Small' : 'Code/Default';
+  const nt = txt(nums, { style: cs, color: 'color/syntax/line-number', parent: gut, name: 'Line numbers', align: 'RIGHT' });
   if (o.activeLine) {
     const idx = nums.split('\n').slice(0, o.activeLine - 1).join('\n').length + (o.activeLine > 1 ? 1 : 0);
     nt.setRangeFills(idx, idx + String(o.activeLine).length, [paint('color/syntax/line-number-active')]);
   }
   const area = box({ name: 'Text area', dir: 'V', gap: 0, pad: [14, 16, 14, 8], parent: view, grow: true, hSize: 'fill' });
   if (o.activeLine) rect({ name: 'Current line', w: 2000, h: 20, fill: 'color/brand/soft', parent: area, abs: true, x: 0, y: 14 + (o.activeLine - 1) * 20 });
-  const t = txt(code, { style: 'Code/Default', color: 'color/syntax/plain', parent: area, name: 'Code' });
+  const t = txt(code, { style: cs, color: 'color/syntax/plain', parent: area, name: 'Code' });
   highlight(t, code);
   if (o.cursor) rect({ name: 'Caret', w: 2, h: 18, fill: 'color/ink/default', parent: area, abs: true, x: 8 + o.cursor.col * 7.8, y: 15 + (o.cursor.line - 1) * 20 });
+  if (o.error) {
+    const e = o.error, y0 = 14 + (e.line - 1) * 20;
+    const sq = figma.createVector(); sq.name = 'Error underline';
+    let d = 'M 0 2'; for (let x = 0; x < e.len * 7.8; x += 4) d += ' L ' + (x + 2) + ' ' + ((x / 4) % 2 ? 2 : 0) + ' L ' + (x + 4) + ' ' + ((x / 4) % 2 ? 0 : 2);
+    sq.vectorPaths = [{ windingRule: 'NONE', data: d }]; sq.strokes = [paint('color/border/ink')]; sq.strokeWeight = 1.2; sq.fills = [];
+    area.appendChild(sq); sq.layoutPositioning = 'ABSOLUTE'; sq.x = 8 + e.col * 7.8; sq.y = y0 + 17;
+    const gm = iconInst('alert-triangle', view, 'color/icon/strong', 14); gm.name = 'Error marker'; gm.layoutPositioning = 'ABSOLUTE'; gm.x = 6; gm.y = y0 + 3;
+    if (e.lens) { const l = inst('Explain Lens', null, area, { name: 'Explain lens', abs: true }); l.x = 8 + e.lineLen * 7.8 + 16; l.y = y0 - 1; }
+  }
   return view;
 }
 // console lines: [ts, kind('rx'|'tx'|'sys'|'ok'|'err'), text]
@@ -416,6 +441,7 @@ function consoleView(parent, lines, o = {}) {
     if (kind === 'tx') txt('→', { style: 'Code/Small', color: 'color/text/brand', parent: r, name: 'Direction' });
     const t = txt(text, { style: 'Code/Small', color: col, parent: r, name: 'Text', grow: true });
     if (kind === 'ok' || kind === 'err' || kind === 'tx') POST.push(() => { t.fontName = PICK(FONT_MONO, 'Bold'); });
+    if (kind === 'err' && o.explain) { const b = box({ name: 'Explain error', dir: 'H', pad: [0, 8, 0, 8], h: 18, cross: 'center', radius: 4, fill: 'color/brand/default', parent: r }); txt('Explain', { style: 'Label/Small', color: 'color/text/on-bright', parent: b, name: 'Label' }); }
   }
   return v;
 }

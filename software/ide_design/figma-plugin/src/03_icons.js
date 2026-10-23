@@ -90,6 +90,8 @@ const ICON_SVG = {
   'gauge': '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
   'lock': '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
   'circle': '<circle cx="12" cy="12" r="9"/>',
+  'wifi-off': '<path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/>',
+  'sparkles': '<path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/>',
 };
 
 function buildIcons(parent) {
@@ -126,18 +128,46 @@ function logoSvg(kind) {
   return '<svg width="2815" height="490" viewBox="70 100 2815 490" xmlns="http://www.w3.org/2000/svg"><path d="' + p.letters + '" fill="#1B2A41"/><path d="' + p.gearOuter + '" fill="#1B2A41"/><path d="' + p.gearInner + '" fill="#1B2A41"/></svg>';
 }
 function inkLogo(node) { for (const v of node.findAll(n => n.type === 'VECTOR')) v.fills = [paint('color/ink/default')]; }
+// Geared Ring app mark (the final app icon's glyph) cropped to its own bounds. size: 'small' (16–48 px) | 'master' (64 px and up)
+function appMarkSvg(size, color) {
+  const m = APP_MARK[size], [x0, y0, x1, y1] = m.box;
+  return '<svg width="' + Math.round(x1 - x0) + '" height="' + Math.round(y1 - y0) + '" viewBox="' + x0 + ' ' + y0 + ' ' + (x1 - x0) + ' ' + (y1 - y0) + '" xmlns="http://www.w3.org/2000/svg">' +
+    m.layers.map(l => '<path d="' + l.d + '" fill="' + (color || '#1B2A41') + '" fill-rule="evenodd"/>').join('') + '</svg>';
+}
+function markComponent(name, size, h, desc) {
+  const c = figma.createComponentFromNode(figma.createNodeFromSvg(appMarkSvg(size)));
+  c.name = name; c.description = desc;
+  const vs = c.findAll(n => n.type === 'VECTOR'); APP_MARK[size].layers.forEach((l, i) => { if (vs[i]) vs[i].name = l.name; });
+  inkLogo(c); c.rescale(h / c.height);
+  return c;
+}
 function buildLogos(parent) {
   const row = box({ name: 'Logo components', dir: 'H', gap: 32, pad: 32, cross: 'center', parent, fill: 'color/bg/brand', radius: 12 });
-  const mark = figma.createComponentFromNode(figma.createNodeFromSvg(logoSvg('mark')));
-  mark.name = 'Logo/Mark'; mark.description = 'RoboCore gear mark, navy ink. Minimum 16px.';
-  inkLogo(mark); mark.rescale(28 / mark.width); row.appendChild(mark); CMP['Logo/Mark'] = mark;
+  // app mark = the Geared Ring from the final app icon (Figma "RoboCore IDE — App Icon", round 3)
+  const mark = markComponent('Logo/Mark', 'small', 24, 'RoboCore IDE app mark: the Geared Ring from the app icon (final, 2026-10-19). Small glyph (10 teeth) for 16–48 px. One navy ink; cream on Navy.');
+  row.appendChild(mark); CMP['Logo/Mark'] = mark;
+  const big = markComponent('Logo/Mark · Large', 'master', 64, 'Geared Ring master glyph (12 teeth) for 64 px and up: splash, About, docs.');
+  row.appendChild(big); CMP['Logo/Mark · Large'] = big;
+  // the app icon itself, as the OS shows it (Rounded shape, Default look: navy glyph on box yellow)
+  const icon = comp('Logo/App Icon', 'The app icon (Rounded shape, Default look). Same art as the platform icons in robocore-ide. Always navy on box yellow.');
+  icon.resize(64, 64); icon.cornerRadius = Math.round(64 * 229 / 1024); icon.cornerSmoothing = 0.6; icon.fills = [solid('#F2B01E')]; icon.clipsContent = true;
+  const g = figma.createNodeFromSvg(appMarkSvg('master', '#1B2A41')); g.name = 'Glyph';
+  // same fit as the icon builder's Rounded shape: glyph ×1.114 so its farthest tooth sits 450 px from the centre
+  const gw = 64 * (APP_MARK.master.box[2] - APP_MARK.master.box[0]) * (450 / 404) / 1024; g.rescale(gw / g.width);
+  icon.appendChild(g); g.x = Math.round((64 - g.width) / 2 * 10) / 10; g.y = Math.round((64 - g.height) / 2 * 10) / 10;
+  row.appendChild(icon); CMP['Logo/App Icon'] = icon;
   const word = figma.createComponentFromNode(figma.createNodeFromSvg(logoSvg('word')));
   word.name = 'Logo/Wordmark'; word.description = 'Official RoboCore wordmark (gear "o"), single navy ink as on the box.';
   inkLogo(word); word.rescale(22 / word.height); row.appendChild(word); CMP['Logo/Wordmark'] = word;
-  const lock = comp('Logo/Product Lockup', 'Top-bar lockup: wordmark + "IDE" in Barlow Condensed Bold, navy on box yellow.');
+  const lock = comp('Logo/Product Lockup', 'Top-bar lockup: Geared Ring mark + wordmark + "IDE" in Barlow Condensed Bold, navy on box yellow.');
   al(lock, { gap: 10, cross: 'center' });
-  lock.appendChild(word.createInstance());
+  const mi = mark.createInstance(); mi.name = 'Mark'; lock.appendChild(mi);
+  const wi = word.createInstance(); wi.name = 'Wordmark'; lock.appendChild(wi);
   txt('IDE', { style: 'Brand/Wordmark', color: 'color/text/primary', parent: lock, name: 'Product' });
   row.appendChild(lock); CMP['Logo/Product Lockup'] = lock;
+  // Cog (the assistant) keeps the plain RoboCore gear: it is literally a cog
+  const gear = figma.createComponentFromNode(figma.createNodeFromSvg(logoSvg('mark')));
+  gear.name = 'Logo/Gear'; gear.description = 'Plain RoboCore gear from the wordmark. Used for Cog, the assistant; not the app mark.';
+  inkLogo(gear); gear.rescale(28 / gear.width); row.appendChild(gear); CMP['Logo/Gear'] = gear;
   return row;
 }

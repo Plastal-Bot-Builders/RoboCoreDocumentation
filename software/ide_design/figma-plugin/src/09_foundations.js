@@ -34,10 +34,10 @@ function buildFoundations(page) {
   art.layoutPositioning = 'ABSOLUTE'; art.x = 1472 - 520; art.y = 10;
 
   // ---- colour
-  const col = docSection(root, 'Colour', 'Monochrome: every surface, text and icon is navy ink or a navy tint on paper. Yellow marks the brand and what is active. States change fill, outline or icon — never hue.');
+  const col = docSection(root, 'Colour', 'Monochrome: every surface, text and icon is navy ink or a navy tint on paper. Yellow marks the brand and what is active. States change fill, outline or icon — never hue. Block categories are the one exception (see Blocks).');
   const row = box({ name: 'Base colours', dir: 'H', gap: 20, parent: col });
-  swatchBig(row, 'color/ink/default', 'Navy ink', '#1B2A41', 'Text, icons, outlines, primary buttons, action blocks', true);
-  swatchBig(row, 'color/brand/default', 'RoboCore yellow', '#F2B01E', 'Top bar, active indicator, progress, control blocks — never text');
+  swatchBig(row, 'color/ink/default', 'Navy ink', '#1B2A41', 'Text, icons, outlines, primary buttons, Pins & Serial blocks', true);
+  swatchBig(row, 'color/brand/default', 'RoboCore yellow', '#F2B01E', 'Top bar, active indicator, progress, Events blocks — never text');
   swatchBig(row, 'color/bg/app', 'Cream', '#F7F1E3', 'App background (the box’s cream card)');
   swatchBig(row, 'color/bg/panel', 'Paper', '#FFFCF5', 'Panels, cards, editor, canvas');
   swatchBig(row, 'color/text/brand', 'Ochre', '#8A5A00', 'Numbers and strings in code, warnings', true);
@@ -61,19 +61,34 @@ function buildFoundations(page) {
   }
 
   // ---- blocks
-  const bl = docSection(root, 'Blocks', 'Three roles instead of eight colours, drawn as line art like the box. Shape still tells you how a block fits: hats start a script, statements stack, values plug in.');
-  const br = box({ name: 'Roles', dir: 'H', gap: 24, parent: bl, wSize: 'fill' });
-  for (const [role, title, desc, key] of [['control', 'Control', 'Yellow. Start, loops, waits, if.', 'Control/Wait'], ['action', 'Action', 'Navy. LEDs, motors, servos, serial, variables.', 'Output/Set built-in LED'], ['value', 'Value', 'White, outlined. Sensors, inputs, maths.', 'Sensors/Ultrasonic distance']]) {
-    const c = box({ name: 'Role ' + title, dir: 'V', gap: 12, pad: 20, radius: 10, fill: 'color/bg/canvas', stroke: 'color/border/default', parent: br, grow: true });
+  const bl = docSection(root, 'Blocks', 'Blocks are the one place colour goes beyond the box: learners find blocks by colour, so each category has its own print-like ink. Every block keeps the navy line-art outline, and shape still tells you how it fits — hats start a script, statements stack, values plug in.');
+  const bg = box({ name: 'Categories', dir: 'V', gap: 16, parent: bl, wSize: 'fill' });
+  let bgRow = null;
+  // one sample block per category (descriptions come from BLOCK_CATS)
+  const CAT_DOC = {
+    Events: 'Events/When timer', Movement: 'Movement/Start moving', Motors: 'Motors/Set servo', 'Light & Sound': 'Light & Sound/Play beep',
+    Sensors: 'Sensors/Distance', Control: 'Control/Wait', Operators: 'Operators/Compare', Variables: 'Variables/Change variable',
+    'My Blocks': 'My Blocks/Call', 'Pins & Serial': 'Pins & Serial/Print to serial',
+  };
+  BLOCK_CATS.forEach(([cat, ic, , use], idx) => {
+    if (idx % 5 === 0) bgRow = box({ name: 'Row', dir: 'H', gap: 16, parent: bg, wSize: 'fill' });
+    const key = CAT_DOC[cat];
+    const st = STYLE(cat);
+    const c = box({ name: 'Category ' + cat, dir: 'V', gap: 14, pad: 18, h: 176, radius: 10, fill: 'color/bg/canvas', stroke: 'color/border/default', parent: bgRow, grow: true });
+    const hd = box({ name: 'Header', dir: 'H', gap: 12, cross: 'center', parent: c, wSize: 'fill' });
+    const chip = box({ name: 'Colour chip', dir: 'H', w: 32, h: 32, align: 'center', cross: 'center', radius: 8, fill: st.fill, parent: hd });
+    iconInst(ic, chip, st.icon, 18);
+    const tt = box({ name: 'Name', dir: 'V', gap: 0, parent: hd, grow: true });
+    txt(cat, { style: 'Heading/H3', parent: tt, name: 'Title' });
+    txt(use, { style: 'Caption/Default', color: 'color/text/tertiary', parent: tt, name: 'Use', fill: true });
+    txt(VAR_HEX[st.fill], { style: 'Code/Small', color: 'color/text/tertiary', parent: hd, name: 'Hex' });
     blk(key, null, c);
-    txt(title, { style: 'Heading/H3', parent: c, name: 'Title' });
-    txt(desc, { style: 'Body/Small', color: 'color/text/secondary', parent: c, name: 'Desc', fill: true });
-  }
+  });
   const prog = buildBlinkProgram({ selected: true });
   const pc = box({ name: 'Sample program', dir: 'H', gap: 40, pad: 24, radius: 10, fill: 'color/bg/canvas', stroke: 'color/border/default', parent: bl, wSize: 'fill', cross: 'start' });
   pc.appendChild(prog);
   const pn = box({ name: 'Notes', dir: 'V', gap: 8, parent: pc, grow: true });
-  for (const l of ['on start → setup(), forever → loop().', 'Category = toolbox icon + label; role = fill.', 'Yellow outline = selected / keyboard focus.']) txt(l, { style: 'Body/Small', color: 'color/text/secondary', parent: pn, name: 'Note' });
+  for (const l of ['Colour = category, shape = how it fits.', 'Cream labels on every colour (at least 4.5:1); navy labels on yellow Events.', 'The toolbox shows the colour as a chip next to each category.', 'on start → setup(), forever → loop(); other “when …” hats are checked on every pass of loop().', 'Yellow outline = selected / keyboard focus.']) txt(l, { style: 'Body/Small', color: 'color/text/secondary', parent: pn, name: 'Note' });
 
   // ---- states
   const st = docSection(root, 'States', 'Default, hover, focus, disabled. Focus is a navy border with a yellow halo.');
@@ -88,7 +103,7 @@ function buildFoundations(page) {
   // ---- rules
   const ru = docSection(root, 'Rules', null);
   const rr = box({ name: 'Rule columns', dir: 'H', gap: 24, parent: ru, wSize: 'fill', cross: 'start' });
-  for (const [title, items] of [['Keep it simple', ['One primary button per view.', 'The workspace is the largest area; chrome stays thin.', 'Show only what helps the next step.']], ['Honest hardware', ['“Connected” only when a real port is open.', 'Progress is real toolchain progress.', 'Errors quote the toolchain and say what to do.']], ['Accessible', ['Text ≥ 4.5:1, never yellow text on paper.', 'Status = icon or shape + words, not colour.', 'Every icon button has a tooltip and a label.']]]) {
+  for (const [title, items] of [['Keep it simple', ['One primary button per view.', 'The workspace is the largest area; chrome stays thin.', 'Show only what helps the next step.']], ['Honest hardware', ['“Connected” only when a real port is open.', 'Progress is real toolchain progress.', 'Errors quote the toolchain and say what to do.']], ['Accessible', ['Text ≥ 4.5:1, never yellow text on paper.', 'Status = icon or shape + words, not colour.', 'Every icon button has a tooltip and a label.']], ['Cog, the learning partner', ['Guide before fixing: one hint at a time, the fix only on request.', 'Show what it read: file and line, output, board.', 'Nothing changes without Apply, and Apply can be undone.']]]) {
     const c = box({ name: 'Rules ' + title, dir: 'V', gap: 8, pad: 20, radius: 10, stroke: 'color/border/default', parent: rr, grow: true });
     txt(title, { style: 'Heading/H3', parent: c, name: 'Title' });
     for (const it of items) txt('— ' + it, { style: 'Body/Small', color: 'color/text/secondary', parent: c, name: 'Rule', fill: true });

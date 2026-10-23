@@ -13,9 +13,44 @@ const PRIMITIVES = {
   // RoboCore yellow (box field) and its ochre contour shade
   'yellow/100': '#F2B01E', 'yellow/hover': '#F5C04A', 'yellow/pressed': '#D99A0F', 'yellow/tint': '#FCE9BF', 'yellow/soft': '#FDF1D5',
   'ochre/ink': '#8A5A00', 'ochre/contour': '#D9971A',
+  // block categories — print-like inks chosen to sit with navy and yellow; cream labels >= 4.5:1
+  'block/movement': '#2F6BBF', 'block/motors': '#B84A26', 'block/light': '#7A4FB5', 'block/sensors': '#0F7680',
+  'block/control': '#8A5A00', 'block/operators': '#2F7A4C', 'block/variables': '#B23E7A', 'block/myblocks': '#5B6577',
+  'block/pins': '#1B2A41',
   // paper
   'paper/cream': '#F7F1E3', 'paper/sheet': '#FFFCF5', 'paper/white': '#FFFFFF',
 };
+// Dark mode ("Navy"): the box inverted — navy surfaces, cream ink, the same yellow.
+const DARK_PRIMS = {
+  'night/950': '#0B1422', 'night/900': '#0E1828', 'night/850': '#121E31', 'night/800': '#16233A', 'night/750': '#17253A', 'night/700': '#1B2A41',
+  'night/650': '#22344F', 'night/600': '#26395A', 'night/550': '#2E4363', 'night/500': '#33496B', 'night/450': '#4A6085', 'night/400': '#56709A',
+  'cream/100': '#F7F1E3', 'cream/90': '#E1DDD3', 'cream/78': '#C7C5BF', 'cream/60': '#9FA1A2', 'cream/42': '#777E85', 'cream/32': '#616A75',
+  'cream/hover': '#E8E0CD', 'cream/pressed': '#D9CFB8', 'night/yellow-tint': '#46453A', 'night/yellow-soft': '#2C353E', 'night/contour': '#695122',
+  'night/value': '#F2C14E', 'night/scrim': '#05090FB3', 'night/communication': '#3E5A86',
+};
+const DARK_MAP = {
+  'color/bg/app': 'night/850', 'color/bg/chrome': 'night/850', 'color/bg/brand': 'night/900', 'color/bg/panel': 'night/700', 'color/bg/raised': 'night/650',
+  'color/bg/input': 'night/800', 'color/bg/hover': 'night/600', 'color/bg/subtle': 'night/650', 'color/bg/editor': 'night/700', 'color/bg/canvas': 'night/750',
+  'color/bg/console': 'night/800', 'color/bg/selected': 'night/yellow-tint', 'color/bg/inverse': 'cream/100', 'color/bg/overlay': 'night/scrim',
+  'color/border/subtle': 'night/650', 'color/border/default': 'night/550', 'color/border/strong': 'night/450', 'color/border/ink': 'cream/100',
+  'color/text/primary': 'cream/100', 'color/text/secondary': 'cream/78', 'color/text/tertiary': 'cream/60', 'color/text/disabled': 'cream/42',
+  'color/text/on-ink': 'night/700', 'color/text/brand': 'yellow/100', 'color/text/on-bright': 'navy/100',
+  'color/icon/default': 'cream/78', 'color/icon/muted': 'cream/60', 'color/icon/strong': 'cream/100', 'color/icon/on-ink': 'night/700', 'color/icon/brand': 'yellow/100',
+  'color/icon/disabled': 'cream/32', 'color/icon/on-bright': 'navy/100',
+  'color/ink/default': 'cream/100', 'color/ink/hover': 'cream/hover', 'color/ink/pressed': 'cream/pressed',
+  'color/brand/default': 'yellow/100', 'color/brand/hover': 'yellow/hover', 'color/brand/pressed': 'yellow/pressed', 'color/brand/tint': 'night/yellow-tint', 'color/brand/soft': 'night/yellow-soft',
+  'color/decor/contour': 'night/contour',
+  'color/block/events': 'yellow/100', 'color/block/movement': 'block/movement', 'color/block/motors': 'block/motors', 'color/block/light': 'block/light',
+  'color/block/sensors': 'block/sensors', 'color/block/control': 'block/control', 'color/block/operators': 'block/operators', 'color/block/variables': 'block/variables',
+  'color/block/myblocks': 'block/myblocks', 'color/block/pins': 'night/communication',
+  'color/block/label': 'paper/cream', 'color/block/outline': 'night/950', 'color/block/field': 'paper/white',
+  'color/control/track-off': 'night/400', 'color/control/knob': 'night/900',
+  'color/syntax/keyword': 'cream/100', 'color/syntax/function': 'cream/100', 'color/syntax/value': 'night/value', 'color/syntax/comment': 'cream/60',
+  'color/syntax/plain': 'cream/90', 'color/syntax/line-number': 'cream/42', 'color/syntax/line-number-active': 'cream/100',
+};
+// how dark frames get their colours: a real "Navy" mode when the plan allows it, otherwise a parallel collection
+const THEME = { modes: false, collection: null, modeId: null };
+const VD = {}, DARK_BY_ID = {}, DARK_HEX = {};
 const BG = ['FRAME_FILL', 'SHAPE_FILL'], BR = ['STROKE_COLOR'], TX = ['TEXT_FILL'], ALLC = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'], IC = ['SHAPE_FILL', 'STROKE_COLOR'];
 const SEMANTIC = [
   ['color/bg/app', 'paper/cream', BG, 'App background (box cream)'],
@@ -42,12 +77,14 @@ const SEMANTIC = [
   ['color/text/disabled', 'navy/40', TX, 'Disabled (non-essential only)'],
   ['color/text/on-ink', 'paper/cream', TX, 'Text on navy — 12.8:1'],
   ['color/text/brand', 'ochre/ink', TX, 'Yellow-family text (warnings, values) — 5.8:1'],
+  ['color/text/on-bright', 'navy/100', TX, 'Text on yellow, cream or white surfaces — navy in both themes'],
   ['color/icon/default', 'navy/72', IC, 'Default icon'],
   ['color/icon/muted', 'navy/58', IC, 'Muted icon'],
   ['color/icon/strong', 'navy/100', IC, 'Active / emphasised icon'],
   ['color/icon/on-ink', 'paper/cream', IC, 'Icon on navy'],
   ['color/icon/brand', 'yellow/100', IC, 'Yellow icon on navy'],
   ['color/icon/disabled', 'navy/32', IC, 'Disabled icon'],
+  ['color/icon/on-bright', 'navy/100', IC, 'Icon on yellow, cream or white — navy in both themes'],
   ['color/ink/default', 'navy/100', ALLC, 'Primary actions, connected, success'],
   ['color/ink/hover', 'navy/88', ALLC, 'Primary hover'],
   ['color/ink/pressed', 'navy/deep', ALLC, 'Primary pressed'],
@@ -57,9 +94,17 @@ const SEMANTIC = [
   ['color/brand/tint', 'yellow/tint', ALLC, 'Selected backgrounds'],
   ['color/brand/soft', 'yellow/soft', ALLC, 'Quiet brand backgrounds'],
   ['color/decor/contour', 'ochre/contour', IC, 'Topography contour lines (decoration only)'],
-  ['color/block/control', 'yellow/100', ALLC, 'Control blocks: start, loops, waits, if'],
-  ['color/block/action', 'navy/100', ALLC, 'Action blocks: outputs, motors, serial, variables'],
-  ['color/block/value', 'paper/white', ALLC, 'Value blocks: sensors, inputs, maths (outlined)'],
+  ['color/block/events', 'yellow/100', ALLC, 'Events blocks (hats) — box yellow, navy labels'],
+  ['color/block/movement', 'block/movement', ALLC, 'Movement blocks — cobalt'],
+  ['color/block/motors', 'block/motors', ALLC, 'Motor and servo blocks — brick'],
+  ['color/block/light', 'block/light', ALLC, 'Light & Sound blocks — violet'],
+  ['color/block/sensors', 'block/sensors', ALLC, 'Sensor blocks — teal'],
+  ['color/block/control', 'block/control', ALLC, 'Control blocks — ochre'],
+  ['color/block/operators', 'block/operators', ALLC, 'Operator blocks — green'],
+  ['color/block/variables', 'block/variables', ALLC, 'Variable blocks — berry'],
+  ['color/block/myblocks', 'block/myblocks', ALLC, 'My Blocks — slate'],
+  ['color/block/pins', 'block/pins', ALLC, 'Pins & Serial blocks — box navy'],
+  ['color/block/label', 'paper/cream', ALLC, 'Cream label text and icons on coloured blocks'],
   ['color/block/outline', 'navy/100', ALLC, 'Block outline (line-art)'],
   ['color/block/field', 'paper/white', ALLC, 'Field pills'],
   ['color/control/track-off', 'navy/24', BG, 'Toggle track off'],
@@ -165,8 +210,32 @@ async function setupTokens() {
   for (const [n, p, sc, desc] of SEMANTIC) mk(C, n, 'COLOR', { type: 'VARIABLE_ALIAS', id: prim[p].id }, sc, css(n), desc);
   const D = getColl('Dimensions', 'Value');
   for (const [n, v, sc] of DIMENSIONS) mk(D, n, 'FLOAT', v, sc, css(n));
-  // remove variables left over from earlier builds (the v1 dark palette)
+  // dark mode: Navy values, as a second mode if the plan allows, else as a parallel collection
+  const dprim = {};
+  for (const [k, h] of Object.entries(DARK_PRIMS)) dprim[k] = mk(P, k, 'COLOR', hexToRgba(h), [], css('primitive/' + k), h.toUpperCase());
+  const darkPrim = (n) => dprim[DARK_MAP[n]] || prim[DARK_MAP[n]] || prim[SEMANTIC.find(x => x[0] === n)[1]];
+  for (const [n] of SEMANTIC) DARK_HEX[n] = DARK_PRIMS[DARK_MAP[n]] || PRIMITIVES[DARK_MAP[n]] || VAR_HEX[n];
+  let navy = C.modes.find(m => m.name === 'Navy');
+  let navyId = navy ? navy.modeId : null;
+  if (!navyId) { try { navyId = C.addMode('Navy'); } catch (e) { navyId = null; REPORT.themeNote = 'one mode per collection on this plan — dark frames use the "Color · Navy" collection'; } }
   const ours = new Set([P.id, C.id, D.id]);
+  if (navyId) {
+    THEME.modes = true; THEME.collection = C; THEME.modeId = navyId;
+    for (const [n] of SEMANTIC) V[n].setValueForMode(navyId, { type: 'VARIABLE_ALIAS', id: darkPrim(n).id });
+  } else {
+    const CD = getColl('Color · Navy', 'Navy');
+    ours.add(CD.id);
+    for (const [n, p, sc, desc] of SEMANTIC) {
+      let v = vars.find(x => x.name === n && x.variableCollectionId === CD.id);
+      if (!v) v = figma.variables.createVariable(n, CD, 'COLOR');
+      v.setValueForMode(CD.modes[0].modeId, { type: 'VARIABLE_ALIAS', id: darkPrim(n).id });
+      v.scopes = sc; v.setVariableCodeSyntax('WEB', css(n)); v.description = (desc || '') + ' (Navy)';
+      VD[n] = v; DARK_BY_ID[V[n].id] = v; keep.add(v.id);
+    }
+  }
+  REPORT.counts.darkModes = THEME.modes ? 'mode' : 'collection';
+  // remove variables left over from earlier builds
+
   let removed = 0;
   for (const v of vars) if (ours.has(v.variableCollectionId) && !keep.has(v.id)) { try { v.remove(); removed++; } catch (e) { /* in use */ } }
   REPORT.counts.variables = Object.keys(V).length;

@@ -10,6 +10,8 @@ const PAGE_NAMES = {
   ide: '03 — Main IDE',
   screens: '04 — Additional Screens',
   prototype: '05 — Prototype',
+  dark: '06 — Dark Mode',
+  spec: '07 — Behaviour Spec',
 };
 
 const REPORT = { errors: [], warnings: [], counts: {}, timings: {} };

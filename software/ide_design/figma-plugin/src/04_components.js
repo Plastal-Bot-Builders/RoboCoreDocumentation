@@ -54,14 +54,22 @@ function buildButton(parent) {
 function buildIconButton(parent) {
   const S = { Default: [null, 'color/icon/default'], Hover: ['color/bg/hover', 'color/icon/strong'], Active: ['color/bg/selected', 'color/icon/strong'], Disabled: [null, 'color/icon/disabled'] };
   const comps = [];
-  for (const [state, [fill, icon]] of Object.entries(S)) {
-    const c = comp('State=' + state);
+  for (const tip of ['Below', 'Above']) for (const [state, [fill, icon]] of Object.entries(S)) {
+    const c = comp('State=' + state + ', Tip=' + tip);
     al(c, { w: 32, h: 32, align: 'center', cross: 'center', radius: 6, fill: fill || undefined });
+    c.clipsContent = false;
     iconSlot(c, 'settings', icon, 18);
+    if (state === 'Hover') {
+      // tooltip, centred on the button (a wide transparent holder centres the hugging pill)
+      const hold = box({ name: 'Tooltip', dir: 'H', align: 'center', w: 260, h: 26, parent: c, abs: true, x: -114, y: tip === 'Below' ? 38 : -32 });
+      const pill = box({ name: 'Tooltip pill', dir: 'H', gap: 8, pad: [0, 8, 0, 8], h: 26, cross: 'center', radius: 4, fill: 'color/bg/inverse', parent: hold });
+      txt('Settings', { style: 'Label/Default', color: 'color/text/on-ink', parent: pill, name: 'Tip' });
+    }
     comps.push(c);
   }
-  const set = makeSet(comps, 'Icon Button', parent, 4, '32px icon-only control. Always has a tooltip and an accessible label. Active = toggled on (yellow tint).');
+  const set = makeSet(comps, 'Icon Button', parent, 4, '32px icon-only control. Hover shows its tooltip (label + shortcut); Tip puts it below or above. Active = toggled on (yellow tint).');
   propSwap(set, 'Icon', 'Icon', 'settings');
+  propText(set, 'Tooltip', 'Tip', 'Settings');
   CMP['Icon Button'] = set;
 }
 
@@ -93,7 +101,7 @@ function buildToolbarActions(parent) {
 
 // ---------------------------------------------------------------- Badge
 function buildBadge(parent) {
-  const T = { Neutral: ['color/bg/hover', 'color/text/primary'], Brand: ['color/brand/default', 'color/text/primary'], Ink: ['color/ink/default', 'color/text/on-ink'] };
+  const T = { Neutral: ['color/bg/hover', 'color/text/primary'], Brand: ['color/brand/default', 'color/text/on-bright'], Ink: ['color/ink/default', 'color/text/on-ink'] };
   const comps = [];
   for (const [tone, [bg, fg]] of Object.entries(T)) {
     const c = comp('Tone=' + tone);
@@ -283,6 +291,7 @@ function buildMenu(parent) {
     al(c, { gap: 10, pad: [0, 10, 0, 10], w: 240, h: 32, cross: 'center', radius: 4, fill: state === 'Hover' ? 'color/bg/hover' : (state === 'Selected' ? 'color/bg/selected' : undefined) });
     iconSlot(c, 'cpu', 'color/icon/default', 16, 'Leading icon');
     txt('Menu item', { style: state === 'Selected' ? 'Label/Strong' : 'Body/Small', color: 'color/text/primary', parent: c, name: 'Label', grow: true, truncate: true });
+    txt('Ctrl+C', { style: 'Caption/Default', color: 'color/text/tertiary', parent: c, name: 'Shortcut' });
     iconSlot(c, 'check', 'color/icon/strong', 16, 'Check');
     mc.push(c);
   }
@@ -290,6 +299,8 @@ function buildMenu(parent) {
   propText(set, 'Label', 'Label', 'Menu item');
   propBool(set, 'Show icon', 'Leading icon', true);
   propBool(set, 'Show check', 'Check', false);
+  propBool(set, 'Show shortcut', 'Shortcut', false);
+  propText(set, 'Shortcut', 'Shortcut', 'Ctrl+C');
   propSwap(set, 'Icon', 'Leading icon', 'cpu');
   CMP['Menu Item'] = set;
 }
@@ -337,7 +348,7 @@ function buildTooltip(parent) {
 
 // ---------------------------------------------------------------- Toast
 function buildToast(parent) {
-  const T = { Success: ['color/bg/raised', 'check-circle', 'color/icon/strong', 'color/text/primary', 'Upload complete', 'Blink LED is running on RoboCore V2.'], Error: ['color/bg/inverse', 'alert-triangle', 'color/icon/brand', 'color/text/on-ink', 'Upload failed', 'No reply from /dev/cu.usbmodem1101. Hold BOOT, tap RESET, try again.'], Info: ['color/bg/raised', 'info', 'color/icon/strong', 'color/text/primary', 'Board package update', 'ESP32 core 3.0.7 is available.'] };
+  const T = { Success: ['color/bg/raised', 'check-circle', 'color/icon/strong', 'color/text/primary', 'Upload complete', 'Blink LED is running on RoboCore V2.'], Error: ['color/bg/inverse', 'alert-triangle', 'color/icon/on-ink', 'color/text/on-ink', 'Upload failed', 'No reply from /dev/cu.usbmodem1101. Hold BOOT, tap RESET, try again.'], Info: ['color/bg/raised', 'info', 'color/icon/strong', 'color/text/primary', 'Board package update', 'ESP32 core 3.0.7 is available.'] };
   const comps = [];
   for (const [type, [bg, ic, icc, fg, title, msg]] of Object.entries(T)) {
     const c = comp('Type=' + type);
@@ -355,21 +366,20 @@ function buildToast(parent) {
 }
 
 // ---------------------------------------------------------------- Block Category (toolbox row)
-const BLOCK_CATS = [
-  ['Output', 'lightbulb'], ['Input', 'log-in'], ['Control', 'repeat'], ['Math', 'sigma'],
-  ['Variables', 'variable'], ['Robotics', 'bot'], ['Sensors', 'radio'], ['Communication', 'message'],
-];
+// BLOCK_CATS (the toolbox categories) live with the block library in 05a_block_data.js
 function buildCategoryItem(parent) {
   const comps = [];
   for (const [cat, ic] of BLOCK_CATS) for (const state of ['Default', 'Active']) {
     const c = comp('Category=' + cat + ', State=' + state);
-    al(c, { gap: 10, pad: [0, 10, 0, 12], w: 144, h: 34, cross: 'center', radius: 6, fill: state === 'Active' ? 'color/bg/selected' : undefined });
-    iconSlot(c, ic, state === 'Active' ? 'color/icon/strong' : 'color/icon/default', 18, 'Icon');
+    al(c, { gap: 8, pad: [0, 8, 0, 10], w: 144, h: 34, cross: 'center', radius: 6, fill: state === 'Active' ? 'color/bg/selected' : undefined });
+    const st = STYLE(cat);
+    const chip = box({ name: 'Colour chip', dir: 'H', w: 22, h: 22, align: 'center', cross: 'center', radius: 11, fill: st.fill, parent: c });
+    iconSlot(chip, ic, st.icon, 14, 'Icon');
     txt(cat, { style: state === 'Active' ? 'Label/Strong' : 'Label/Default', color: state === 'Active' ? 'color/text/primary' : 'color/text/secondary', parent: c, name: 'Label', grow: true });
     if (state === 'Active') rect({ name: 'Active bar', w: 3, h: 18, radius: [0, 2, 2, 0], fill: 'color/brand/default', parent: c, abs: true, x: 0, y: 8 });
     comps.push(c);
   }
-  CMP['Block Category'] = makeSet(comps, 'Block Category', parent, 4, 'Toolbox category: line icon + label. Categories share the three block roles (control / action / value) instead of eight colours.');
+  CMP['Block Category'] = makeSet(comps, 'Block Category', parent, 4, 'Toolbox category: colour chip (the category’s block colour + line icon) and label. The chip is the only place outside the canvas where block colours appear.');
 }
 
 // ---------------------------------------------------------------- Avatar

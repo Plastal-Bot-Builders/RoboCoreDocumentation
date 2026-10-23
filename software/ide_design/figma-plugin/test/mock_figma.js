@@ -7,13 +7,14 @@
 let NEXT = 1;
 const loadedFonts = new Set();
 const allNodes = new Map();
+const PLUGIN_DATA = new Map();
 const fk = (f) => f.family + '|' + f.style;
 const CONTAINERS = new Set(['DOCUMENT', 'PAGE', 'FRAME', 'COMPONENT', 'COMPONENT_SET', 'INSTANCE', 'GROUP', 'SECTION', 'BOOLEAN_OPERATION']);
 const KNOWN = new Set(('id name type parent children removed visible locked opacity fills strokes strokeWeight strokeAlign strokeTopWeight strokeBottomWeight strokeLeftWeight strokeRightWeight dashPattern effects effectStyleId ' +
-  'strokeCap strokeJoin x y width height rotation cornerRadius topLeftRadius topRightRadius bottomLeftRadius bottomRightRadius clipsContent layoutMode layoutWrap itemSpacing counterAxisSpacing paddingTop paddingRight paddingBottom paddingLeft ' +
+  'strokeCap strokeJoin x y width height rotation cornerRadius topLeftRadius topRightRadius bottomLeftRadius bottomRightRadius clipsContent overflowDirection cornerSmoothing layoutMode layoutWrap itemSpacing counterAxisSpacing paddingTop paddingRight paddingBottom paddingLeft ' +
   'primaryAxisAlignItems counterAxisAlignItems primaryAxisSizingMode counterAxisSizingMode layoutSizingHorizontal layoutSizingVertical layoutGrow layoutAlign layoutPositioning constraints minWidth maxWidth minHeight maxHeight ' +
   'characters fontName fontSize lineHeight letterSpacing textCase textAlignHorizontal textAlignVertical textAutoResize textTruncation maxLines textStyleId ' +
-  'description componentPropertyReferences mainComponent vectorPaths backgrounds flowStartingPoints reactions placeholder isAsset').split(/\s+/));
+  'description componentPropertyReferences mainComponent vectorPaths backgrounds flowStartingPoints reactions placeholder isAsset itemReverseZIndex _pd').split(/\s+/));
 
 class Node {
   constructor(type) {
@@ -98,6 +99,8 @@ class Node {
   resize(w, h) { if (!(w >= 0.01) || !(h >= 0.01)) throw new Error('resize: invalid size ' + w + 'x' + h + ' on ' + this.name); this._w = w; this._h = h; if (this.type !== 'TEXT') { this._sizingH = 'FIXED'; this._sizingV = 'FIXED'; } else if (this.textAutoResize !== 'HEIGHT') this.textAutoResize = 'NONE'; }
   resizeWithoutConstraints(w, h) { this._w = w; this._h = h; }
   rescale(s) { this._w *= s; this._h *= s; }
+  setPluginData(k, v) { const m = PLUGIN_DATA.get(this.id) || {}; m[k] = String(v); PLUGIN_DATA.set(this.id, m); }
+  getPluginData(k) { return (PLUGIN_DATA.get(this.id) || {})[k] || ''; }
   appendChild(c) { this.insertChild(this.children.length, c); }
   insertChild(i, c) {
     if (!this.children) throw new Error('cannot append to ' + this.type);
@@ -178,6 +181,8 @@ class Node {
   }
   swapComponent(c) { if (this.type !== 'INSTANCE') throw new Error('swap on non-instance'); if (!c || c.type !== 'COMPONENT') throw new Error('swap needs component'); this._main = c; }
   getSharedPluginData() { return ''; }
+  setExplicitVariableModeForCollection(c, m) { if (!c || !m) throw new Error('bad mode args'); }
+  getStyledTextSegments(f) { return [{ start: 0, end: String(this._chars || '').length, fills: this._fills }]; }
   get mainComponent() { throw new Error('in get_mainComponent: Cannot call with documentAccess: dynamic-page. Use node.getMainComponentAsync instead.'); }
   async getMainComponentAsync() { return this._main; }
 }
@@ -249,7 +254,7 @@ const figma = {
   variables: {
     async getLocalVariableCollectionsAsync() { return collections; },
     async getLocalVariablesAsync() { return variables; },
-    createVariableCollection(name) { const c = { id: 'VC:' + NEXT++, name, modes: [{ modeId: 'm' + NEXT++, name: 'Mode 1' }], variableIds: [], renameMode(id, n) { this.modes.find(m => m.modeId === id).name = n; } }; collections.push(c); return c; },
+    createVariableCollection(name) { const c = { id: 'VC:' + NEXT++, name, modes: [{ modeId: 'm' + NEXT++, name: 'Mode 1' }], variableIds: [], renameMode(id, n) { this.modes.find(m => m.modeId === id).name = n; }, addMode() { if (process.env.MOCK_MODES) { const id = 'm' + NEXT++; this.modes.push({ modeId: id, name: 'Navy' }); return id; } throw new Error('in addMode: Limited to 1 modes only'); } }; collections.push(c); return c; },
     createVariable(name, coll, type) {
       if (typeof coll !== 'object') throw new Error('pass collection object');
       if (/\s/.test(name)) throw new Error('variable name with spaces');
