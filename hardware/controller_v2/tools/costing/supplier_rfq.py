@@ -26,9 +26,9 @@ SRC = DOCS / "RoboCore_V2_component_list.xlsx"
 PHOTOS = DOCS / "photos"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-EXCLUDE = {1: "controller (ordered from PCBWay)", 32: "packaging", 33: "shipping estimate", 34: "shipping estimate", 35: "tools"}
+EXCLUDE = {1: "controller (ordered from PCBWay)", 28: "packaging", 29: "shipping estimate", 30: "shipping estimate", 31: "tools"}
 
-# line -> (item name, specification, usual pack, notes for the supplier, photo is only similar?)
+# line -> (item name, specification, usual pack, notes for the supplier, photo is only similar?)   (31-line list, 2026-10-12)
 SPEC = {
     2: ("Motor pair with encoders", "SparkFun ROB-24053 'Hobby Motor with Encoder - Plastic Gear (Pair, Red)': 2 motors, 1:48 gearbox, "
         "585 counts per wheel turn, two 6-pin cables included", "pair",
@@ -38,40 +38,35 @@ SPEC = {
         "Must work from 3.3 V: the classic 5 V-only HC-SR04 is not suitable.", False),
     4: ("Line-tracking sensor, 3-channel", "3-channel TCRT5000 line-tracking module with ANALOG outputs. Pins VCC, GND, L, C, R. About 60 x 24 mm", "1",
         "Analog outputs required: digital-only modules (LM339 comparator outputs) are not suitable. Please state the board size.", True),
-    5: ("Micro servo, metal gear", "MG90S, with horns and screws", "1",
+    5: ("Micro servo, metal gear", "MG90S, with horns and screws (one for the shoulder, one for the gripper of each robot)", "1",
         "Metal gears. Please supply a consistent, good-quality batch; we test every unit on arrival.", True),
-    6: ("Micro servo", "SG90 (9 g), with horns and screws", "1", "", False),
-    7: ("18650 Li-ion cell", "Genuine branded cell (Samsung, LG, Molicel, EVE or similar), about 3000 mAh, 65 mm long, unprotected", "1",
+    6: ("18650 Li-ion cell", "Genuine branded cell (Samsung, LG, Molicel, EVE or similar), about 3000 mAh, 65 mm long, unprotected", "1",
         "All cells the same model and batch. Protected cells (about 70 mm long) don't fit. Please state brand and model.", False),
-    8: ("Battery holder, 3 x 18650", "3-cell 18650 holder with wire leads, about 61.6 x 78.4 mm", "1",
+    7: ("Battery holder, 3 x 18650", "3-cell 18650 holder with wire leads, about 61.6 x 78.4 mm", "1",
         "We need the cells in PARALLEL (3.7 V out). Please state whether the holder is wired in series or parallel.", True),
-    9: ("1S Li-ion protection board", "1S (3.7 V) 18650 protection board, DW01 + 8205A type, rated 5 A or more", "5-10",
-        "Protection only (no charger needed).", True),
-    10: ("XT30 battery lead, female", "AMASS XT30U-F (female) with 10-15 cm of 16 AWG silicone wire", "5",
+    8: ("XT30 battery lead, female", "AMASS XT30U-F (female) with 10-15 cm of 16 AWG silicone wire", "5",
          "Female plug, which mates with an XT30 male (XT30UPB-M on our board).", True),
-    11: ("Heat-shrink tubing assortment", "Assorted sizes, small box", "set", "", False),
-    12: ("Dupont jumper wires, female-female", "2.54 mm, female-female, 20 cm", "40-wire strip", "", False),
-    13: ("USB-C cable", "USB-A to USB-C or USB-C to USB-C, data + charging", "1", "Must carry data (not charge-only).", False),
-    15: ("Heat-set insert, M2 (brass)", "M2 brass heat-set insert for Ø3.2 mm holes, e.g. M2 x 3 mm long, 3.2 mm OD", "50-100", "", True),
-    16: ("Heat-set insert, M3 short (brass)", "M3 brass heat-set insert for Ø4.0 mm holes, e.g. M3 x 4 mm long, 4.0 mm OD", "50-100", "", False),
-    17: ("Machine screw M2 x 6, pan head", "M2 x 6 mm pan head machine screw, steel", "50", "", False),
-    18: ("Self-tapping screw M2 x 6, pan head", "M2 x 6 mm pan head self-tapping screw (for plastic)", "50", "", False),
-    19: ("Flat washer M2", "M2 flat washer, steel", "100", "", False),
-    20: ("Machine screw M2 x 8, pan head", "M2 x 8 mm pan head machine screw, steel", "50", "", False),
-    21: ("Screw M2 x 5, pan head", "M2 x 5 mm pan head screw, steel", "50", "", False),
-    22: ("Screw M2 x 4, pan head", "M2 x 4 mm pan head screw, steel", "50", "", False),
-    23: ("Socket head cap screw M3 x 10", "M3 x 10 mm hex socket head cap screw, steel", "50", "", False),
-    24: ("Self-tapping screw M3 x 8, pan head", "M3 x 8 mm pan head self-tapping screw (for plastic)", "50", "", False),
-    25: ("Thumb screw M3 x 8, knurled head", "M3 x 8 mm thumb screw with knurled head", "20", "", True),
-    26: ("Hex nut M8", "M8 hex nut, plain steel (about 5 g each)", "1", "", False),
-    27: ("Steel ball ½\" (12.7 mm)", "12.7 mm (½\") steel bearing ball", "20", "12.7 mm glass marbles are also acceptable.", False),
-    28: ("PETG filament, yellow", "PETG 3D-printer filament, 1.75 mm, yellow", "1 kg spool", "", False),
-    29: ("PETG filament, black", "PETG 3D-printer filament, 1.75 mm, black", "1 kg spool", "", False),
-    30: ("PETG filament, dark teal", "PETG 3D-printer filament, 1.75 mm, dark teal", "1 kg spool", "", False),
-    31: ("TPU filament, black", "TPU 95A flexible filament, 1.75 mm, black", "250 g-1 kg spool", "A small spool is enough.", False),
+    9: ("Dupont jumper wires, female-female", "2.54 mm, female-female, 20 cm", "40-wire strip", "", False),
+    11: ("Heat-set insert, M2 (brass)", "M2 brass heat-set insert for Ø3.2 mm holes, e.g. M2 x 3 mm long, 3.2 mm OD", "50-100", "", True),
+    12: ("Heat-set insert, M3 short (brass)", "M3 brass heat-set insert for Ø4.0 mm holes, e.g. M3 x 4 mm long, 4.0 mm OD", "50-100", "", False),
+    13: ("Machine screw M2 x 6, pan head", "M2 x 6 mm pan head machine screw, steel", "50", "", False),
+    14: ("Self-tapping screw M2 x 6, pan head", "M2 x 6 mm pan head self-tapping screw (for plastic)", "50", "", False),
+    15: ("Flat washer M2", "M2 flat washer, steel", "100", "", False),
+    16: ("Machine screw M2 x 8, pan head", "M2 x 8 mm pan head machine screw, steel", "50", "", False),
+    17: ("Screw M2 x 5, pan head", "M2 x 5 mm pan head screw, steel", "50", "", False),
+    18: ("Screw M2 x 4, pan head", "M2 x 4 mm pan head screw, steel", "50", "", False),
+    19: ("Socket head cap screw M3 x 10", "M3 x 10 mm hex socket head cap screw, steel", "50", "", False),
+    20: ("Self-tapping screw M3 x 8, pan head", "M3 x 8 mm pan head self-tapping screw (for plastic)", "50", "", False),
+    21: ("Thumb screw M3 x 8, knurled head", "M3 x 8 mm thumb screw with knurled head", "20", "", True),
+    22: ("Hex nut M8", "M8 hex nut, plain steel (about 5 g each)", "1", "", False),
+    23: ("Steel ball ½\" (12.7 mm)", "12.7 mm (½\") steel bearing ball", "20", "12.7 mm glass marbles are also acceptable.", False),
+    24: ("PETG filament, yellow", "PETG 3D-printer filament, 1.75 mm, yellow", "1 kg spool", "", False),
+    25: ("PETG filament, black", "PETG 3D-printer filament, 1.75 mm, black", "1 kg spool", "", False),
+    26: ("PETG filament, dark teal", "PETG 3D-printer filament, 1.75 mm, dark teal", "1 kg spool", "", False),
+    27: ("TPU filament, black", "TPU 95A flexible filament, 1.75 mm, black", "250 g-1 kg spool", "A small spool is enough.", False),
 }
-SECTIONS = [("Motors, sensors and servos", range(2, 7)), ("Battery and power", range(7, 12)), ("Cables", range(12, 15)),
-            ("Screws, inserts and small hardware", range(15, 28)), ("3D-printing filament", range(28, 32))]
+SECTIONS = [("Motors, sensors and servos", range(2, 6)), ("Battery and power", range(6, 9)), ("Cables", range(9, 11)),
+            ("Screws, inserts and small hardware", range(11, 24)), ("3D-printing filament", range(24, 28))]
 NAVY, PALE, YEL = "1F2A44", "E8ECF3", "FFF2B3"
 
 def read_lines(robots):
@@ -84,7 +79,7 @@ def read_lines(robots):
         mat, col, per, one, mass = pp.cell(r, 5).value, pp.cell(r, 6).value, pp.cell(r, 3).value or 0, pp.cell(r, 4).value or 0, pp.cell(r, 7).value or 0
         if not mat: continue
         a, b = grams.get((mat, col), (0, 0)); grams[(mat, col)] = (a + per * mass, b + one * mass)
-    fil = {28: ("PETG", "Yellow"), 29: ("PETG", "Black"), 30: ("PETG", "Dark teal"), 31: ("TPU 95A", "Black")}
+    fil = {24: ("PETG", "Yellow"), 25: ("PETG", "Black"), 26: ("PETG", "Dark teal"), 27: ("TPU 95A", "Black")}
     out = {}
     for r in range(8, ws.max_row + 1):
         n = ws.cell(r, 1).value
@@ -248,7 +243,7 @@ if __name__ == "__main__":
     out = DOCS / f"RoboCore_V2_quote_request_{a.robots}_robots.xlsx"
     n = build_xlsx(lines, a.robots, out, photos)
     print(f"{n} items -> {out}")
-    skipped = sorted(set(range(1, 36)) - set(lines))
+    skipped = sorted(set(range(1, 32)) - set(lines))
     print("left out:", ", ".join(f"{k} ({EXCLUDE.get(k, 'quantity 0')})" for k in skipped))
     if not a.no_pdf:
         ok = build_pdf(lines, a.robots, out.with_suffix(".pdf"), photos)

@@ -2,6 +2,8 @@
 
 **Main board only.** The line-sensor and ultrasonic boards are not being ordered (see "What changed" below). 2 fully assembled units, 5 PCBs, turnkey.
 
+**Paid 2026-10-14: PCBWay order YU1827457** (W836287AS1F11 + T-1F12W836287A), US$234.19, confirmed by PCBWay at 23:03 UTC+8. The card payment had failed on Airtel's limit, so Betsy sent an invoice and bank-transfer instructions. The quotation's ship date (6 November) moves with the payment date: expect about 11 November, then FedEx to Lusaka.
+
 **On PCBWay as PCB W836287AS1F11 + assembly T-1F12W836287A (submitted 2026-10-09, both "Subject to audit", all four files attached, Gerber = the labelled 18:42 export, MD5 d954248c…).** History: the 2026-10-07 items (W836287AS1F3 / T-1F4W836287A and the two sensor pairs) were removed on 2026-10-08 (reason "Change the data"); the 2026-10-08 resubmission W836287AS1F9 / T-1F10W836287A carried the unlabelled Gerber and could not be updated on the site, so it was removed on 2026-10-09 and submitted again. Nothing paid.
 
 ## What changed since the 2026-10-07 files
