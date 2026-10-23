@@ -1,0 +1,56 @@
+{
+  "errors": [],
+  "warnings": [],
+  "counts": {
+    "variables": 16,
+    "images": 15,
+    "artboards": 7
+  },
+  "timings": {
+    "kit": 5851,
+    "rollup": 6128,
+    "popup": 6440,
+    "banner": 6608,
+    "flyer": 7008,
+    "brochure": 7923,
+    "total": 18307
+  },
+  "fonts": {
+    "display": {
+      "family": "Barlow Condensed",
+      "style": "Bold"
+    },
+    "displayX": {
+      "family": "Barlow Condensed",
+      "style": "ExtraBold"
+    },
+    "head": {
+      "family": "Barlow Condensed",
+      "style": "SemiBold"
+    },
+    "body": {
+      "family": "Barlow",
+      "style": "Regular"
+    },
+    "bodyM": {
+      "family": "Barlow",
+      "style": "Medium"
+    },
+    "bodyS": {
+      "family": "Barlow",
+      "style": "SemiBold"
+    },
+    "bodyB": {
+      "family": "Barlow",
+      "style": "Bold"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "style": "Regular"
+    },
+    "monoB": {
+      "family": "JetBrains Mono",
+      "style": "Bold"
+    }
+  }
+}

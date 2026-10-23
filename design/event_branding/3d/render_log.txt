@@ -1,0 +1,15 @@
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_iso_fl.png 2592 x 2290 104.6 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_iso_fr.png 2592 x 2290 100.7 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_iso_rr.png 2592 x 2290 87.6 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_front.png 2592 x 1830 49.1 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_back.png 2592 x 1830 60.2 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_left.png 2592 x 1099 32.9 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_right.png 2592 x 1099 25.6 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/robot_top.png 1558 x 2592 76.0 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/box_closed_iso_fl.png 2592 x 2019 82.7 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/box_closed_iso_fr.png 2592 x 2019 81.5 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/box_closed_front.png 2592 x 788 34.1 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/box_closed_top.png 2592 x 1928 67.2 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/box_open_iso_fl.png 2174 x 2592 97.3 s
+RENDERED /Users/fred/RoboCoreProjects/RoboCore_Event_Branding/assets/renders/box_open_iso_fr.png 2174 x 2592 86.9 s
+DONE
