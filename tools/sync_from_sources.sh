@@ -39,5 +39,4 @@ sync $RCP/RoboCore_Architecture/ software/architecture/
 # design: event branding (Figma plugin, scripts, review previews; not the 3D models, raw renders or elevation data)
 sync $RCP/RoboCore_Event_Branding/ design/event_branding/ --exclude 3d/renders_raw/ --exclude '3d/*.step' --exclude '3d/*.glb' \
   --exclude topo/dem/ --exclude assets/
-# community: posts and replies to the maker communities
-sync $RCP/Community_Updates_2026-10/ docs/community/2026-10/
+# not synced: community posts (Community_Updates_*), grant applications, pitch video
