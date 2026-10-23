@@ -248,7 +248,7 @@ Fred found the slide-in bracket impractical and wanted a more modern look. The n
 ## The arm module, styled after the toy excavator
 | Toy excavator | On the RoboCore arm |
 |---|---|
-| Curved boom with an open frame | Each side plate has a curved boom outline (up to 12.5 mm high in the middle) with three diamond truss windows. They are 45° diamonds, so they print without supports and echo the chassis |
+| Curved boom with an open frame | Each side plate has a curved boom outline (up to 12.5 mm high in the middle) with truss windows. Until 23 Oct they were three 45° diamonds; now they are the four windows a topology optimization chose (see "Arm plates, topology-optimized" below), still with 45° roofs so they print without supports |
 | Hydraulic cylinder along the boom | A barrel, gland, rod and two eyes run along the top between the plates. Two saddles and a central web carry it, and that stiffens the yoke too |
 | Big round pivot bosses with bolt heads | The RoboCore 9-tooth gear with a hex bolt head on the right shoulder (the horn screw sits in a counterbore in it), and hex bolt-head bosses at the wrist on both plates |
 | Bucket with teeth | The jaws are claws, with a curved back and three bucket teeth on each grip edge (they also grip better) |
@@ -261,6 +261,28 @@ The mechanism and its numbers are unchanged:
 - gripper on gear sectors.
 
 The arm is 3 g heavier, at 11 g.
+
+### Arm plates, topology-optimized (2026-10-23)
+Fred asked for topology optimization across the design, starting with the arm. The side plates carry the load, so
+they are the design domain; the pipeline is `topo/arm_topo.py` (numpy/scipy, no Fusion needed):
+- **Model:** 2D plane-stress finite elements on 0.5 mm cells over the boom profile plus the shoulder circle; SIMP with
+  the optimality-criteria update, a 1.5 mm density filter (no strut under 1.6 mm), and Langelaar's additive-manufacturing
+  filter with the build direction +z (the arm prints deck-down): a design cell may only be as dense as the three cells
+  below it, so every window roof comes out at 45°. The 1.6 mm outer skin uses a wider stencil, which is the bridge rule:
+  a flat ceiling up to 12 mm prints. A post-pass (`printable()`) enforces the same rules on the thresholded layout.
+- **Kept solid:** the outline skin (1.6 mm), the shoulder hub to y 16 (horn arm and screws), the wrist block from y 56
+  (deck junction and bolt boss), the cylinder saddle band and the mid brace.
+- **Loads:** 1.2 N on the wrist deck (gripper servo, jaws and a 100 g object) with its 9 mm lever, arm level (bending)
+  and arm raised 85° (mostly axial), hub fully fixed.
+- **Result, Fred's pick (20 % of the design area):** four windows, plate area 847 mm² (was 1041 with the diamonds,
+  −19 %), wrist deflection 21 µm at 1.2 N (was 13 µm; the plates were never stiffness-limited, this is a mass and looks
+  change). Polygons in `BOOM_WINDOWS_TOPO`, `BOOM_WINDOW_STYLE = 'topo'`; the 30 % layout (three windows, −17 %) is in
+  `topo/arm_topo_result.json` too. Preview: `topo/arm_topo_proposal.png`.
+- **How it went into Fusion:** the old diamonds were filled and the new windows cut on the *existing* arm body, so
+  Fred's hand chamfers on the arm stayed. The generator now produces the same windows.
+- **To redo it** (other load, other target): `python3 topo/arm_topo.py 0.20 0.30`, read the polygons from the JSON,
+  paste into `BOOM_WINDOWS_TOPO`, then cut them in Fusion. The same code can take another plate-like part by changing
+  `build_domain()` and the loads.
 
 ## Moving the model in Fusion (joints)
 Open **RoboCore V2 Robot** and drag a part, or right-click a joint in the browser and choose **Drive Joints**:
@@ -319,7 +341,7 @@ There were no clashes in three poses: floor with the jaws closed, carry (+30°, 
 | Tyre | 2 | TPU 95A black | flat | 4.6 g each |
 | Sonar bracket (pod) | 1 | PETG yellow | plate top face down (pod up) | 11.1 g |
 | **Base robot** | | | | **170 g** |
-| Arm base / Arm / Jaw L / Jaw R | 1 each | PETG **yellow** / black jaws | as exported (arm deck down, cylinder up) | 7.9 / 11.1 / 1.1 / 1.3 g |
+| Arm base / Arm / Jaw L / Jaw R | 1 each | PETG **yellow** / black jaws | as exported (arm deck down, cylinder up) | 7.8 / 10.5 / 1.1 / 1.3 g (arm 11.1 g before the topology windows) |
 | Ballast clip | 2 (with the arm) | PETG black | on its side | 3.8 g each |
 | Bus clip (template) | as many as you like | PETG black | on its side | 1.7 g |
 | Rail coupon (test piece) | 1 | PETG | deck down | 3.3 g |
@@ -440,6 +462,12 @@ import checks; print(checks.interference()); print(checks.antenna()); print(chec
 import export; export.print_files(); export.assembly_files(); export.renders(); export.hero()
 build_robot.apply_scheme('construction')               # or 'teal', 'orange'
 ```
+- **Fred's hand edits (since 23 Oct 2026) come first.** The Chassis carries 31 hand-made features after the generator's
+  (sweeps, mirrors and wall extrudes along the front and rear sections), the Arm base 9 (the cab restyle) and the Arm
+  12 (0.4 mm chamfers on its bottom edges). **Do not run the `chassis_*`, `arm_base` or `arm` steps on the live
+  document:** they delete and rebuild the part and those features with it. Add new features on the existing bodies
+  instead, the way the topology windows were cut (`scratchpad/b_arm_topo.py` pattern: `_yz_extrude` on the live
+  component). The generator steps remain the record of the designed geometry and the way to rebuild from scratch.
 - **The last steps are `hardware`** (screws, inserts, nuts and horns, placed with the arm level), **`joints`** (grounding, rigid groups, joints and the jaw motion link) **and `pose`**. Rebuilding a part removes the joints that use it, so run `hardware`, `joints` and `pose` again afterwards.
 - **The chassis is built in nine steps** (`chassis_shell`, `_cradle`, `_front`, `_holes`, `_bus`, `_detents`, `_finish`, `_style`, `_tread`), so each fits in one Fusion call. `chassis_style` is slow (about 25 min, mostly the two badge logos). Rebuild from `chassis_shell` after any change: each step adds to the body that the steps before it made.
 - **Long checks** (the full interference run) can outlast one MCP call; `checks.interference(log=path)` writes its progress to a file.

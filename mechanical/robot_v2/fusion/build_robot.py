@@ -1205,8 +1205,17 @@ def build_arm(theta=None):
     def diamonds(sk, xf):
         for (y, z, h) in P.BOOM_WINDOWS:
             L.poly(sk, [(xf, y - h, z), (xf, y, z - h), (xf, y + h, z), (xf, y, z + h)])
+
+    def topo_windows(sk, xf):
+        for poly in P.BOOM_WINDOWS_TOPO:
+            L.poly(sk, [(xf, y, z) for (y, z) in poly])
     for (x0, x1) in P.ARM_PLATE_X:
-        _yz_extrude(c, B, x0 - 0.5, x1 + 0.5, diamonds, 'Truss windows', L.CUT)
+        if getattr(P, 'BOOM_WINDOW_STYLE', 'diamonds') == 'topo':
+            # cut from 0.5 inside the plate's inner face to exactly its outer face (the wrist bolt boss sits there)
+            xin, xout = (x0, x1) if abs(x0) < abs(x1) else (x1, x0)
+            _yz_extrude(c, B, xin - 0.5 * (1 if xin > 0 else -1), xout, topo_windows, 'Topology windows', L.CUT)
+        else:
+            _yz_extrude(c, B, x0 - 0.5, x1 + 0.5, diamonds, 'Truss windows', L.CUT)
     L.box(c, P.ARM_PLATE_X[1][1] - 0.1, 36.0, -7.0, P.ARM_PLATE_X[0][0] + 0.1, 42.0, -4.0, L.JOIN, B, 'Mid brace')
     # hydraulic-cylinder look-alike between the plate tops: barrel, gland, rod and two eyes on cross saddles,
     # carried by a central web (it prints on the web, and the saddles bridge only half the gap each)

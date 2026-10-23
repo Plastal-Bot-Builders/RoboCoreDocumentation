@@ -227,6 +227,13 @@ ARM_BASE_CBORE = (6.0, 2.0)             # 3b: counterbores for the two M3 socket
 BOOM = ([(0.0, -7.0), (64.0, -7.0), (64.0, 6.0), (44.0, 12.0), (16.0, 12.5), (0.0, 7.0)], [0, 3, 3, 12, 12, 0])
                                          # side-plate outline (arm frame y, z): curved boom, round shoulder end (r 7)
 BOOM_WINDOWS = [(22.0, 2.5, 6.0), (35.5, 2.5, 6.0), (51.0, 1.5, 4.0)]   # diamond truss windows: y, z, half diagonal
+BOOM_WINDOW_STYLE = 'topo'     # 'diamonds' (rev 5 truss windows) or 'topo' (2026-10-23 topology-optimized layout, Fred's pick: 20 %% of the design area)
+BOOM_WINDOWS_TOPO = [          # (y, z) polygons in the arm frame, same on both plates; roofs 45 deg or bridges <= 12 mm
+    [(17.0, 10.0), (17.0, 5.0), (20.0, 5.0), (21.0, 7.0), (21.0, 10.0)],
+    [(17.0, -2.0), (17.0, -5.0), (35.0, -5.0), (35.0, -3.0), (26.0, 7.0), (23.0, 7.0), (22.0, 4.0)],
+    [(33.0, 10.0), (30.0, 7.0), (38.0, -3.0), (41.0, -3.0), (45.0, 3.0), (38.0, 10.0)],
+    [(54.0, 5.0), (52.0, 5.0), (44.0, -3.0), (44.0, -5.0), (55.5, -5.0), (55.5, 3.0)],
+]
 BOOM_CYL = (14.5, 3.5, 2.0, (15.0, 34.0, 45.0), (12.5, 46.5))   # "hydraulic cylinder" on top: axis z, barrel r, rod r,
                                                                  # (barrel y0, barrel y1, rod end), eye ys (saddles)
 GEAR_BOSS = (9, 5.2, 6.8, 1.2, 5.6)     # RoboCore gear on the shoulder: teeth, root r, tip r, height, hex AF
