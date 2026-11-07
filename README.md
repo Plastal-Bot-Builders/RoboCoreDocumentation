@@ -6,7 +6,7 @@
 
 RoboCore is a classroom robot kit and coding platform, designed and built in Zambia by **Plastal-Bot Builders** (Lusaka). It has four parts:
 - an **ESP32-S3 controller board**;
-- a **3D-printed robot** with an excavator-style arm;
+- a **3D-printed robot** with a parallel lift and a geared gripper;
 - a **retail box** with a quick-start guide;
 - the **RoboCore IDE**, where students code the robot with blocks or C++.
 
@@ -14,7 +14,7 @@ This repository holds the design sources for all of it: the PCBs, the mechanical
 
 <table>
   <tr>
-    <td width="50%"><img src="mechanical/robot_v2/renders/robot_hero.png" alt="The RoboCore V2 robot with its arm"></td>
+    <td width="50%"><img src="mechanical/robot_v3/renders/robot_iso_fl.png" alt="The RoboCore robot: navy frame, yellow lift and gripper, V-wheels"></td>
     <td width="50%"><img src="hardware/controller_v2/renders/web/robocore-controller-hero-front-white.jpg" alt="The RoboCore V2 controller board"></td>
   </tr>
   <tr>
@@ -62,12 +62,12 @@ An XRP-style robot controller on a 68 × 60 mm, 4-layer board. Everything a clas
 - **Before connecting anything:** the sensor headers are not keyed, so a cable can go on backwards. Read [the wrong-plug check](docs/RoboCore_V2_wrong_plug_check.md). Known issues and bring-up findings are kept in [the errata list](docs/RoboCore_V2_errata.md).
 - **Sensor boards:** our own 3-channel line sensor and ultrasonic boards are designed in `hardware/sensors/`. For now the robot uses bought-in modules.
 
-## The robot (V2)
+## The robot
 
-A differential-drive robot with an XRP-style printed deck chassis, a sonar pod, and an arm module styled as a toy excavator. The arm has a shoulder servo and a gripper with geared jaws. The board sits on the deck; the battery holder slides in from the back.
+The current robot (V3, the V-wheel version): an open printed frame with Warren-truss sides, two encoder motors with 56 mm wheels, four V-wheels in wheel wells, a parallel four-bar lift on one MG90S servo (the gripper stays level from the floor to +40 degrees) and a geared gripper on a second servo. The RoboCore V2 controller sits between the side frames, three 18650 cells lie in a printed cradle, the sonar sits in a housing at the front, and a cream rear deck carries an 8 mm Technic/M4 hole grid. 154 x 286 x 111 mm with the lift level, about 620 g; every part prints flat without supports. The V3 model lives in Fusion 360 (document "RoboCore V3 Robot"); the files below are the earlier V2 robot, kept for reference.
 
 <p align="center">
-  <img src="mechanical/robot_v2/renders/arm_poses.png" alt="Arm poses: floor, carry and up" width="100%">
+  <img src="mechanical/robot_v3/renders/robot-arm-motion.png" alt="Lift poses: floor, carry and up" width="100%">
 </p>
 
 - **Model:** `mechanical/robot_v2/RoboCore_V2_Robot.f3d` (Fusion 360) and `.step` (any CAD program).
@@ -79,12 +79,12 @@ A differential-drive robot with an XRP-style printed deck chassis, a sonar pod, 
 
 <table>
   <tr>
-    <td width="50%"><img src="mechanical/robot_v2/packaging/out/render_closed_hero.png" alt="The RoboCore V2 mailer box, closed"></td>
-    <td width="50%"><img src="mechanical/robot_v2/packaging/out/render_open_hero.png" alt="The box open: quick-start guide and insert"></td>
+    <td width="50%"><img src="mechanical/robot_v3/renders/box_closed_iso_fl.png" alt="The RoboCore mailer box, closed"></td>
+    <td width="50%"><img src="mechanical/robot_v3/renders/box_open_iso_fl.png" alt="The box open: quick-start guide and the insert shaped to the robot"></td>
   </tr>
 </table>
 
-A printed mailer box, XRP-style, with the quick-start guide printed inside the lid and a fold-up insert for the parts. The print-ready 1:1 PDFs are in `mechanical/robot_v2/packaging/`.
+A printed mailer box, XRP-style, with the quick-start guide printed inside the lid and an insert with a pocket traced from the robot (lift lowered, jaws on the floor) plus a strip for the cable, screws and card. Outer 303 x 213 x 91 mm. The print-ready 1:1 PDFs are in `mechanical/robot_v2/packaging/out_v3/` (generator `make_box_v3.py`; the V2 box is in `out/`).
 
 ## Software
 
