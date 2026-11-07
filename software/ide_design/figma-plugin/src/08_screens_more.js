@@ -94,7 +94,7 @@ function homeScreen(page, x, y, o = {}) {
   const hero = box({ name: 'Hero', dir: 'H', pad: [32, 40, 32, 40], h: 264, cross: 'center', radius: 12, fill: 'color/bg/brand', clip: true, parent: m, wSize: 'fill' });
   contours(hero, 1168, 264, 'color/decor/contour');
   const hc = box({ name: 'Hero text', dir: 'V', gap: 10, parent: hero, grow: true });
-  txt('RoboCore V2 · Classroom robot', { style: 'Caption/Overline', parent: hc, name: 'Overline' });
+  txt('RoboCore · Classroom robot', { style: 'Caption/Overline', parent: hc, name: 'Overline' });
   txt('Welcome back, ' + PROFILE.name, { style: 'Heading/Display', parent: hc, name: 'Greeting' });
   txt('Build. Code. Create.', { style: 'Body/Default', parent: hc, name: 'Tagline' });
   const ac = box({ name: 'Actions', dir: 'H', gap: 8, pad: [10, 0, 0, 0], parent: hc });

@@ -365,20 +365,23 @@ function artRect(parent, key, w, name) {
   if (parent) parent.appendChild(r);
   return r;
 }
-// the box's topography contours (Fred's contour SVG), scaled to cover w x h and clipped
+// the Copperbelt terrain contours (as in the event branding and on the website), scaled to cover w x h and clipped:
+// the ordinary lines, then every fifth (index) line heavier
 function contours(parent, w, h, color, opacity) {
-  const svg = '<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    ART.contours.map(d => '<path d="' + d + '" stroke="#D9971A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>').join('') + '</svg>';
-  const art = figma.createNodeFromSvg(svg);
-  art.name = 'Contour lines';
-  art.rescale(Math.max(w, h) / 1080);
-  for (const v of art.findAll(n => n.type === 'VECTOR')) { v.strokes = [paint(color || 'color/decor/contour')]; v.strokeWeight = 1.25; }
+  const svg = (paths) => '<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    paths.map(d => '<path d="' + d + '" stroke="#D9971A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>').join('') + '</svg>';
   const g = figma.createFrame();
   g.name = 'Contours';
   g.fills = []; g.clipsContent = true;
   g.resize(w, h);
-  g.appendChild(art);
-  art.x = Math.round((w - art.width) / 2); art.y = Math.round((h - art.height) / 2);
+  for (const [paths, name, weight] of [[ART.contours, 'Contour lines', 1.25], [ART.contoursIndex, 'Index contours', 2.25]]) {
+    const art = figma.createNodeFromSvg(svg(paths));
+    art.name = name;
+    art.rescale(Math.max(w, h) / 1080);
+    for (const v of art.findAll(n => n.type === 'VECTOR')) { v.strokes = [paint(color || 'color/decor/contour')]; v.strokeWeight = weight; }
+    g.appendChild(art);
+    art.x = Math.round((w - art.width) / 2); art.y = Math.round((h - art.height) / 2);
+  }
   g.locked = true;
   if (opacity !== undefined) g.opacity = opacity;
   if (parent) { parent.appendChild(g); if (isAL(parent)) g.layoutPositioning = 'ABSOLUTE'; g.x = 0; g.y = 0; g.constraints = { horizontal: 'STRETCH', vertical: 'STRETCH' }; }

@@ -52,7 +52,7 @@ function buildFoundations(page) {
 
   // ---- type
   const ty = docSection(root, 'Type', 'Barlow Condensed for headings (as on the box), Barlow for the interface, ' + FONT_MONO + ' for code.');
-  for (const [name, sample] of [['Heading/Display', 'Robocore V2'], ['Heading/H1', 'Board setup'], ['Heading/H2', 'Recent projects'], ['Heading/H3', 'Blink LED'], ['Body/Default', 'Plug RoboCore V2 in with a USB-C data cable.'], ['Label/Strong', 'Upload'], ['Caption/Overline', 'Classroom robot'], ['Code/Default', 'digitalWrite(LED_BUILTIN, HIGH);']]) {
+  for (const [name, sample] of [['Heading/Display', 'RoboCore'], ['Heading/H1', 'Board setup'], ['Heading/H2', 'Recent projects'], ['Heading/H3', 'Blink LED'], ['Body/Default', 'Plug RoboCore V2 in with a USB-C data cable.'], ['Label/Strong', 'Upload'], ['Caption/Overline', 'Classroom robot'], ['Code/Default', 'digitalWrite(LED_BUILTIN, HIGH);']]) {
     const r = box({ name: 'Type ' + name, dir: 'H', gap: 24, pad: [10, 0, 10, 0], cross: 'center', parent: ty, wSize: 'fill', stroke: 'color/border/subtle', sides: { b: 1 } });
     const meta = box({ name: 'Meta', dir: 'V', gap: 2, w: 260, parent: r });
     txt(name, { style: 'Label/Strong', parent: meta, name: 'Style' });

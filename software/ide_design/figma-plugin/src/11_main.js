@@ -6,7 +6,9 @@
 async function preparePages() {
   const managed = Object.values(PAGE_NAMES);
   for (const p of figma.root.children) await p.loadAsync();
-  const foreign = figma.root.children.filter(p => managed.indexOf(p.name) < 0 && p.children.length > 0);
+  // companion pages built by their own plugins (RoboCore_Play_App/figma-plugin) live beside ours and are left alone
+  const companion = (p) => /^08 — RoboCore Play/.test(p.name);
+  const foreign = figma.root.children.filter(p => managed.indexOf(p.name) < 0 && p.children.length > 0 && !companion(p));
   if (foreign.length) throw new Error('This file already has other content (page "' + foreign[0].name + '"). Run the builder in a new, empty design file.');
   // never wipe generated pages by accident: that needs the explicit Rebuild command
   const built = figma.root.children.filter(p => managed.indexOf(p.name) >= 0 && p.children.length > 0);
