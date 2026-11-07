@@ -432,6 +432,11 @@ def frames_inside(sh):
     }
 
 
+
+# Contour line weight in the 1080-unit source (artkit.topography): the Copperbelt contours have about 2.5 times as many
+# lines as the box's first hand-drawn ones (drawn at 2.2), so they are lighter to keep the art and text in front.
+TOPO_STROKE = 1.4
+
 def artwork_outside(sh):
     P = panels()
     for k, pts in P.items():
@@ -440,7 +445,7 @@ def artwork_outside(sh):
         pass
     topo = os.path.join(OUT, 'topography_outside.png')
     if not os.path.exists(topo):
-        A.topography(topo, SHEET_W, SHEET_H, [P[k] for k in ('lid', 'floor', 'back', 'front', 'L outer', 'R outer', 'tongue')], ppm=4, opacity=0.2, stroke=2.2)
+        A.topography(topo, SHEET_W, SHEET_H, [P[k] for k in ('lid', 'floor', 'back', 'front', 'L outer', 'R outer', 'tongue')], ppm=4, opacity=0.2, stroke=TOPO_STROKE)
     sh.image(0, 0, SHEET_W, SHEET_H, topo)
     F = frames_outside(sh)
     hero(F['lid']); underside(F['floor']); back_outside(F['back']); front_outside(F['front'])
@@ -456,7 +461,7 @@ def artwork_inside(sh):
         sh.poly(M(pts), fill=CREAM if k in ('lid', 'floor', 'back', 'front', 'tongue') else YEL, name=k)
     topo = os.path.join(OUT, 'topography_inside.png')
     if not os.path.exists(topo):
-        A.topography(topo, SHEET_W, SHEET_H, [M(P[k]) for k in ('lid', 'floor', 'back', 'front', 'tongue')], ppm=4, opacity=0.1, stroke=2.2)
+        A.topography(topo, SHEET_W, SHEET_H, [M(P[k]) for k in ('lid', 'floor', 'back', 'front', 'tongue')], ppm=4, opacity=0.1, stroke=TOPO_STROKE)
     sh.image(0, 0, SHEET_W, SHEET_H, topo)
     F = frames_inside(sh)
     # faint oversized line art behind the cards, like the reference box

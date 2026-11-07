@@ -14,7 +14,7 @@ DRY=(-n)
 EXCL=(--exclude .DS_Store --exclude '*-backups/' --exclude .history/ --exclude fp-info-cache --exclude '_autosave-*'
       --exclude '*.lck' --exclude '*.kicad_prl' --exclude '*.bak' --exclude '*.bak[0-9]' --exclude '~*' --exclude __pycache__/
       --exclude '*.pyc' --exclude node_modules/ --exclude '*.log' --exclude .cache/ --exclude '*.blend1'
-      --exclude '*.rev5' --exclude '*.rev5stand' --exclude '*.rev6nose' --exclude '*.rev5work' --exclude out_tuckend/)
+      --exclude '*.rev5' --exclude '*.rev5stand' --exclude '*.rev6nose' --exclude '*.rev5work' --exclude out_tuckend/ --exclude out_before_copperbelt/)
 sync() {   # sync SRC/ DST/ [extra rsync args]
   local src=$1 dst=$2; shift 2
   [[ -e $src ]] || { echo "skip (missing): $src"; return }

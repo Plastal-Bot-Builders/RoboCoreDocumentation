@@ -1,6 +1,6 @@
 """Shared drawing kit for the RoboCore V2 packaging: a dual PDF + SVG sheet (mm units, mm type sizes), the brand
 palette, fonts (Barlow), QR code, image placement, and the navy topography background renderer."""
-import os, json, math, base64
+import os, re, json, math, base64
 import numpy as np
 import pymupdf as fitz
 from PIL import Image, ImageDraw
@@ -178,9 +178,12 @@ def motif(sh, x, y, rot=0, color=NAVY, s=1.0):
 
 
 def topography(out_png, w_mm, h_mm, panels, ppm=6, opacity=0.2, stroke=1.6, seed_shift=0):
-    """Fred's contour SVG rendered in navy at `opacity`, scaled to cover the sheet, masked to the given panel polygons."""
+    """The contour SVG rendered in navy at `opacity`, scaled to cover the sheet, masked to the given panel polygons.
+    The source is the Copperbelt terrain from the event branding (since 2026-11-07; the box's first hand-drawn lines are
+    topography_src_box.svg): its ordinary lines are 1 wide and every fifth (index) line 2, so every width is scaled by
+    `stroke` and the index lines stay twice as heavy."""
     src = os.path.join(ART, 'topography_src.svg')
-    s = open(src).read().replace('stroke-width="0.75"', 'stroke-width="%g"' % stroke)
+    s = re.sub(r'stroke-width="([\d.]+)"', lambda m: 'stroke-width="%g"' % (float(m.group(1)) * stroke), open(src).read())
     pg = fitz.open('svg', s.encode())[0]
     side = int(max(w_mm, h_mm) * ppm)
     pix = pg.get_pixmap(matrix=fitz.Matrix(side / 1080, side / 1080), alpha=True)
