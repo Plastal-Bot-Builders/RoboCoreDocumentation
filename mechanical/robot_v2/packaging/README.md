@@ -29,7 +29,10 @@ logo, Build | Code | Create, top view, finger notch; end walls = compact wordmar
 Plastal-Bot mark, barcode and origin line (right).
 Inside: lid = Get started here (QR, what the site holds, before you start); back wall = Plastal-Bot Builders and
 community cards with QRs; floor = This kit includes, 12 line-art icons; inner end walls = part drawings; front wall and
-tongue = wordmark. Palette: yellow outside, cream information areas, navy type and line art, Fred's contours faint behind.
+tongue = wordmark. Palette: yellow outside, cream information areas, navy type and line art, contour lines faint behind.
+The contours are the real Copperbelt terrain from the event branding (since 2026-11-07, drawn at `TOPO_STROKE = 1.4`);
+the first hand-drawn lines are kept as `../cardboard/art/topography_src_box.svg` and the outputs made with them in
+`out_before_copperbelt/` (not in the docs repo).
 
 ## Files (out/)
 - `box_outside.pdf`, `box_inside.pdf`: print 1:1 (639 × 621 mm page; the inside page is mirrored so it prints on the back
@@ -45,6 +48,10 @@ tongue = wordmark. Palette: yellow outside, cream information areas, navy type a
   (states `closed` | `open`; views `hero` | `front` | `top` | `back`). To add the robot, import the Fusion export into the
   open scene and put it in the robot pocket (x 10.5..184.5, y 10.5..185.5 from the front, z 1.5..41.5 mm, box origin at the
   front-bottom-left outer corner, metres = mm × 0.001).
+- `renders/`: orthographic studio renders (Cycles, transparent background with a soft floor shadow): `box_closed_iso_fl`,
+  `iso_fr`, `front`, `top`, `box_open_iso_fl`, `iso_fr`. Made with the event-branding renderer:
+  `BOX_DIR="$PWD/out" Blender -b --python <RoboCore_Event_Branding>/3d/render_views.py -- box_closed iso_fl,iso_fr,front,top <raw> 2592`,
+  then the shadow fade and crop of its `finish_renders.py`.
 
 ## Folding
 1. Cut the outline, the four tab slots and the finger notch; score every dashed line.
