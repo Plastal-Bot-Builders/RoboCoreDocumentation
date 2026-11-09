@@ -362,10 +362,12 @@ The pin names are printed on the back of the board.
 |---|---|---|
 | IO37 | Expansion B pin 9 | Free |
 | IO43, IO44 | Expansion B pins 5, 6 | UART TX and RX. `Serial` uses USB, so these are free: `Serial0.begin(9600);` |
-| IO3 | Expansion A pin 12 | Free, but the ESP32 reads it at power-up: connect nothing that pulls it HIGH or LOW at that moment |
-| IO38, IO39, IO35, IO36 | Servo headers, expansion | Free when no servo is plugged into that header |
-| IO40, IO41 | Ultrasonic header, expansion A | Free when no ultrasonic sensor is plugged in |
+| IO3 | Expansion A pin 12 | Free, and an analog input. The ESP32 reads it at power-up: connect nothing that pulls it HIGH or LOW at that moment |
+| IO38, IO39, IO35, IO36 | Servo headers, expansion | Free when no servo is plugged into that header. Digital only |
+| IO40, IO41 | Ultrasonic header, expansion A | Free when no ultrasonic sensor is plugged in. Digital only |
 | IO7, IO10, IO2 | Line header, expansion A | Free when no line sensor is plugged in. Analog inputs |
+
+**Analog inputs.** The ESP32-S3 can read analog (`analogRead()`) only on IO1 to IO20. Of the pins you can reach, that leaves IO3 and the line-sensor pins IO2, IO7 and IO10. IO35 to IO44 are digital only.
 
 **Leave these alone**
 - IO19 and IO20 carry USB.
