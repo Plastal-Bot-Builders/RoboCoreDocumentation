@@ -32,13 +32,15 @@ Record each board by serial (V2-01, V2-02). Photograph anything odd before touch
 
 | ID | Date | Board | Where | Says | Should say | Fix | Status |
 |---|---|---|---|---|---|---|---|
+| E-016 | 2026-11-09 | V2-01, V2-02 (design) | Beside the buzzer, RGB LED, USER and BOOT buttons, and the IMU | Nothing: the parts on the board have no pin number, unlike the servo, ultrasonic and line headers (Fred couldn't find the buzzer's pin when he tried to program it) | BUZZER IO47, RGB IO48, USER IO42, BOOT IO0, IMU 0x6A (SDA IO8, SCL IO9) | V2: `docs/RoboCore_V2_pin_reference.md` (pins and Arduino names for every part). Next board: print the IO numbers beside each part, in the same white boxes as the headers | Workaround |
 | | | | | | | | |
 
 ### Design errors
 
 | ID | Date | Board | Symptom | Cause | Workaround (bodge, firmware) | Fix for the next board | Status |
 |---|---|---|---|---|---|---|---|
-| | | | | | | | |
+| E-015 | 2026-11-07 | V2-01, V2-02 (design) | **The motor sockets J301/J302 are wired back to front for SparkFun XRP motors.** Encoders gave no counts; encoder B read low and A high with the motors plugged in; driving a motor drew ~300 mA in one direction only and the wheel never turned. | Footprint numbering. Our Connector_JST:JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vertical has pad 1 at the opposite physical end to SparkFun's JST_SMD_1.0mm-6_Vertical on the XRP Controller (both list pins 1-6 as M+, M−, 3.3 V, ENC A, ENC B, GND; with the signal row turned the same way, KiCad's pad 1 is at one end and SparkFun's at the other; checked from SparkFun's XRP board file on 2026-11-07). So an XRP motor's pin k lands on our pin 7−k: our M+ drives the encoder's GND, our M− its B output, our 3.3 V its A output, and the motor coil sits between our ENC B input and GND. The ~300 mA went through the encoder's electronics. SparkFun's 4-pin footprint matches ours, so Qwiic (J201) is correct. | **Don't plug XRP motors straight in.** Use a reversed 6-way JST SH cable (pin 1 to pin 6) or re-pin the board end of the motor cable in reverse order. Both motors' encoders may have been stressed by the 7 Nov test: re-test them after the fix. | Swap the J301/J302 pin assignments (pin k gets the net of pin 7−k), or rotate the sockets 180°; re-route. Check every JST SH footprint against the mating part's own footprint, not just the pin list. | Open |
+| E-014 | 2026-11-07 | V2-01 | **On USB with no battery, a motor can't start.** At 30 % the driver drew ~300 mA, +BATT (the IO4 reading) fell from 4.05 V to ~2.2 V, the DRV8411A flagged nFAULT (under-voltage) and the wheel didn't turn; the next command got no current while it recovered. The ESP32 and 3.3 V stayed up. | **Under review (E-015):** this was measured with the motor plugs back to front, so the motor coil was never driven. The likely explanation still stands: with no cell, the MCP73871's battery pin only supplies its charge current, and the TPS61089 boost (which feeds VMOT from +BATT) needs more than that when a motor starts. | Run motors and servos only with a battery or a bench supply on the XT30. Firmware/IDE: warn when nFAULT goes low, and when IO4 reads ~4.0–4.2 V with USB present (it can't tell a cell from no cell, so word it as "motors need the battery"). | Optional: a charger with a no-battery system path that also feeds the boost, or document "motors need the battery" on the silkscreen next to the USB-C. | Note |
 
 ### Manufacturing defects
 
@@ -47,6 +49,7 @@ Record each board by serial (V2-01, V2-02). Photograph anything odd before touch
 | | | | | | | | |
 
 ## Bring-up checklist hooks
+The full step-by-step power-up order is in `RoboCore_V2_bring-up.md` (boards arrived 2026-11-06).
 - Before the first battery: run each board from a bench supply (3.7 V, 1 A limit) through an XT30 lead; check 3V3 and VMOT, and the current with the switch off and on.
 - Power each sensor alone on a current-limited supply first (3.3 V; 50 mA ultrasonic, 100 mA line), measure the ultrasonic's Echo high level, and confirm the line module's pin order.
 - Turn one servo plug round on a current-limited 5.5 V supply and confirm nothing heats (wrong-plug case T3).

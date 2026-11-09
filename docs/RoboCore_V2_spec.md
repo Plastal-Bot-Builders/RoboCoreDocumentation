@@ -39,6 +39,8 @@ USB-C ──ESD──► ESP32-S3 native USB (one-click upload, no CP2102N)
 | I2C port | Qwiic (JST SH 4-pin) | Same as XRP |
 
 ## ESP32-S3 GPIO map
+For programming the board (Arduino pin numbers, library names, example sketches), see `RoboCore_V2_pin_reference.md`.
+
 | GPIO | Signal | | GPIO | Signal |
 |---|---|---|---|---|
 | IO0 | BOOT button | | IO15 / IO16 | Encoder 1 A / B |
