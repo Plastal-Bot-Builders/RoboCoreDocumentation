@@ -8,6 +8,8 @@ gen_sch.py draws power symbols for POWER_NETS, wires nets that stay inside a blo
 TE tied straight to +5V_USB (safety timer off, as before), USBLC6 channel pins swapped (same circuit, cleaner drawing).
 """
 ROOT_UUID = "061529a6-e218-4bfa-b9b2-1c0a6368cc57"
+REV = "2.1"            # V2.1: errata fixes (2026-11-14); V2.0 = the boards made by PCBWay in Oct 2026
+DATE = "2026-11-14"
 
 R0603 = "Resistor_SMD:R_0603_1608Metric"
 C0603 = "Capacitor_SMD:C_0603_1608Metric"
@@ -375,12 +377,14 @@ driver = BLOCK(
     ],
     notes=[("ITRIP = VREF / (16.5k x 200 uA/A) = 3.3 / 3.3 = 1.0 A", 96.52, 88.9), ("bulk caps", 15.24, 58.42)])
 
+MOTOR_FP = "RoboCoreV2:JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vertical_XRP"   # V2.1 (E-015): SparkFun's pin-1 end
+
 motor1 = BLOCK(
     "MOTOR 1 (XRP JST-SH 6-PIN)", [
         "XRP motor plug: 1 M+, 2 M-, 3 3.3 V, 4 encoder A, 5 encoder B, 6 GND.",
-        "10k pull-ups on the encoder outputs."],
+        "10k pull-ups on the encoder outputs. V2.1: pin 1 at SparkFun's end, so XRP motors and cables plug straight in (E-015)."],
     (210.82, 15.24), (91.44, 53.34), [
-        CONN("J301", 6, "MOTOR_1", "Connector_JST:JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vertical", 45.72, 27.94,
+        CONN("J301", 6, "MOTOR_1", MOTOR_FP, 45.72, 27.94,
              {1: "MOTA_P", 2: "MOTA_N", 3: "+3V3", 4: "ENC1_A", 5: "ENC1_B", 6: "GND"}, fields={"MF": "JST", "MP": "BM06B-SRSS-TB"}),
         R("R304", "10k", 66.04, 33.02, "+3V3", "ENC1_A"),
         R("R305", "10k", 78.74, 33.02, "+3V3", "ENC1_B"),
@@ -392,7 +396,7 @@ motor2 = BLOCK(
         "Same plug as motor 1.",
         "10k pull-ups on the encoder outputs."],
     (210.82, 72.39), (91.44, 53.34), [
-        CONN("J302", 6, "MOTOR_2", "Connector_JST:JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vertical", 45.72, 27.94,
+        CONN("J302", 6, "MOTOR_2", MOTOR_FP, 45.72, 27.94,
              {1: "MOTB_P", 2: "MOTB_N", 3: "+3V3", 4: "ENC2_A", 5: "ENC2_B", 6: "GND"}, fields={"MF": "JST", "MP": "BM06B-SRSS-TB"}),
         R("R306", "10k", 66.04, 33.02, "+3V3", "ENC2_A"),
         R("R307", "10k", 78.74, 33.02, "+3V3", "ENC2_B"),
@@ -440,36 +444,48 @@ exp_a = BLOCK(
     (15.24, 81.28), (96.52, 76.2), [
         CONN("J405", 14, "EXPANSION_A", S.format(14), 50.8, 22.86,
              {1: "+3V3", 2: "GND", 3: "IR_L_HDR", 4: "IR_C_HDR", 5: "IR_R_HDR", 6: "US_TRIG_HDR", 7: "US_ECHO_HDR", 8: "SERVO1_HDR", 9: "SERVO2_HDR",
-              10: "BUZZER", 11: "RGB_DOUT", 12: "EXP_IO3_HDR", 13: "VMOT", 14: "GND"}),
+              10: "BUZZER_HDR", 11: "RGB_DOUT_HDR", 12: "EXP_IO3_HDR", 13: "VMOT", 14: "GND"}),
     ])
 
 exp_b = BLOCK(
     "EXPANSION HEADER B", [
-        "Female 2.54 mm header: I2C, UART0, servo 3/4 signals (IO35/IO36), spare IO37, IMU interrupt, USER button, EN and VSYS_SW."],
+        "Female 2.54 mm header: I2C, UART0, servo 3/4 signals (IO35/IO36), spare IO37, IMU interrupt, USER button and VSYS_SW.",
+        "Pin 12 is not connected since V2.1 (it carried EN, next to VSYS_SW: errata E-003)."],
     (116.84, 81.28), (101.6, 76.2), [
         CONN("J406", 14, "EXPANSION_B", S.format(14), 50.8, 22.86,
              {1: "+3V3", 2: "GND", 3: "I2C_SDA", 4: "I2C_SCL", 5: "UART_TX_HDR", 6: "UART_RX_HDR", 7: "SERVO3_HDR", 8: "SERVO4_HDR",
-              9: "EXP_IO37_HDR", 10: "IMU_INT1", 11: "USER_BTN", 12: "EN", 13: "VSYS_SW", 14: "GND"}),
+              9: "EXP_IO37_HDR", 10: "IMU_INT1_HDR", 11: "USER_BTN_HDR", 13: "VSYS_SW", 14: "GND"}),   # 12: EN until V2.0 (E-003)
     ])
 
 protect = BLOCK(
     "HEADER PROTECTION", [
-        "330R in series with every ESP32 pin that leaves the board: limits the current if a pin is shorted to a rail or zapped.",
-        "Nets ending in _HDR are the connector side."],
+        "1k in series with every ESP32 pin that leaves the board: limits the current if a pin is shorted to a rail or zapped",
+        "(V2.1, E-007: 1.6 mA at 5.5 V; V2 had 330R). Nets ending in _HDR are the connector side."],
     (15.24, 162.56), (203.2, 71.12), [
-        R("R401", "330", 33.02, 27.94, "SERVO1", "SERVO1_HDR", rot=90),
-        R("R402", "330", 33.02, 35.56, "SERVO2", "SERVO2_HDR", rot=90),
-        R("R403", "330", 33.02, 43.18, "US_TRIG", "US_TRIG_HDR", rot=90),
-        R("R404", "330", 33.02, 50.80, "US_ECHO", "US_ECHO_HDR", rot=90),
-        R("R405", "330", 33.02, 58.42, "IR_L", "IR_L_HDR", rot=90),
-        R("R406", "330", 99.06, 27.94, "IR_C", "IR_C_HDR", rot=90),
-        R("R407", "330", 99.06, 35.56, "IR_R", "IR_R_HDR", rot=90),
-        R("R408", "330", 99.06, 43.18, "EXP_IO3", "EXP_IO3_HDR", rot=90),
-        R("R409", "330", 99.06, 50.80, "SERVO3", "SERVO3_HDR", rot=90),
-        R("R410", "330", 99.06, 58.42, "SERVO4", "SERVO4_HDR", rot=90),
-        R("R411", "330", 165.10, 27.94, "EXP_IO37", "EXP_IO37_HDR", rot=90),
-        R("R412", "330", 165.10, 35.56, "UART_TX", "UART_TX_HDR", rot=90),
-        R("R413", "330", 165.10, 43.18, "UART_RX", "UART_RX_HDR", rot=90),
+        R("R401", "1k", 33.02, 27.94, "SERVO1", "SERVO1_HDR", rot=90),
+        R("R402", "1k", 33.02, 35.56, "SERVO2", "SERVO2_HDR", rot=90),
+        R("R403", "1k", 33.02, 43.18, "US_TRIG", "US_TRIG_HDR", rot=90),
+        R("R404", "1k", 33.02, 50.80, "US_ECHO", "US_ECHO_HDR", rot=90),
+        R("R405", "1k", 33.02, 58.42, "IR_L", "IR_L_HDR", rot=90),
+        R("R406", "1k", 99.06, 27.94, "IR_C", "IR_C_HDR", rot=90),
+        R("R407", "1k", 99.06, 35.56, "IR_R", "IR_R_HDR", rot=90),
+        R("R408", "1k", 99.06, 43.18, "EXP_IO3", "EXP_IO3_HDR", rot=90),
+        R("R409", "1k", 99.06, 50.80, "SERVO3", "SERVO3_HDR", rot=90),
+        R("R410", "1k", 99.06, 58.42, "SERVO4", "SERVO4_HDR", rot=90),
+        R("R411", "1k", 165.10, 27.94, "EXP_IO37", "EXP_IO37_HDR", rot=90),
+        R("R412", "1k", 165.10, 35.56, "UART_TX", "UART_TX_HDR", rot=90),
+        R("R413", "1k", 165.10, 43.18, "UART_RX", "UART_RX_HDR", rot=90),
+    ])
+
+exp_protect = BLOCK(
+    "EXPANSION PIN PROTECTION (V2.1)", [
+        "1k between the expansion headers and the on-board parts that share these pins (errata E-004): IMU INT1, USER,",
+        "buzzer, and the RGB LED's output (R417 sits beside the LED). SDA/SCL stay direct: no room beside J406 on this outline."],
+    (223.52, 81.28), (101.6, 76.2), [
+        R("R414", "1k", 33.02, 27.94, "IMU_INT1", "IMU_INT1_HDR", rot=90),
+        R("R415", "1k", 33.02, 35.56, "USER_BTN", "USER_BTN_HDR", rot=90),
+        R("R416", "1k", 33.02, 43.18, "BUZZER", "BUZZER_HDR", rot=90),
+        R("R417", "1k", 33.02, 50.80, "RGB_DOUT", "RGB_DOUT_HDR", rot=90),
     ])
 
 SHEETS = [
@@ -483,7 +499,7 @@ SHEETS = [
          blocks=[driver, motor1, motor2],
          summary=["DRV8411A dual H-bridge with current sense,", "two XRP motor connectors with encoders."]),
     dict(title="IO connectors", file="io.kicad_sch", uuid="5fbebdb8-a863-42ce-9c70-c54585cc4446",
-         blocks=[servos, ultra, linef, exp_a, exp_b, protect],
+         blocks=[servos, ultra, linef, exp_a, exp_b, protect, exp_protect],
          summary=["Servos, ultrasonic, line follower,", "two 14-pin expansion headers."]),
 ]
 
@@ -565,7 +581,10 @@ _missing = assign_part_numbers(SHEETS)
 if _missing:
     print("spec_v2: no part number for", _missing)
 
-ROOT_NOTES = [("RoboCore V2 - ESP32-S3 robot controller (68 x 60 mm, same outline as V1)", 25.4, 30.48, 2.5),
+ROOT_NOTES = [("RoboCore V2.1 - ESP32-S3 robot controller (68 x 60 mm, same outline as V1)", 25.4, 30.48, 2.5),
+              ("V2.1 (2026-11-14), fixes from docs/RoboCore_V2_errata.md: motor sockets numbered from SparkFun's end (E-015),", 25.4, 157.48, 1.5),
+              ("1k header resistors (E-007), 1k on IMU INT1 / USER / buzzer / RGB out for the expansion headers (E-004),", 25.4, 160.91, 1.5),
+              ("EN off the expansion header (E-003), IO numbers printed beside the parts (E-016).", 25.4, 164.34, 1.5),
               ("Parts follow the SparkFun XRP Controller where possible; circuit drawn independently.", 25.4, 36.83, 1.5),
               ("Power flow: USB-C 5 V -> charger -> VSYS -> ON/OFF -> VSYS_SW -> 3.3 V buck-boost and 5.5 V boost (VMOT).", 25.4, 182.88, 1.5),
               ("Battery: 1S Li-ion (cells in parallel) on XT30. Programming: USB-C straight to the ESP32-S3.", 25.4, 187.96, 1.5)]

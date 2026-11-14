@@ -8,6 +8,20 @@ V2 keeps V1's 68 × 60 mm outline, mounting holes, single-cell (1S) Li-ion batte
 - Use the XRP's part choices.
 - ~~Bottom-side parts may cover the artwork.~~ Changed 2026-10-05: the back stays blank for artwork, so every SMD part is on the top side.
 
+## V2.1 (2026-11-14): errata fixes
+The V2.0 boards (PCBWay, October 2026) work, with the faults listed in `RoboCore_V2_errata.md`. V2.1 fixes what fits on the same outline. Order files and change list: `fab/PCBWay_V2.1_2026-11-15/ORDER_NOTES.md`.
+
+| Errata | V2.1 |
+|---|---|
+| E-015 motor sockets | XRP-numbered footprint turned 180° (SparkFun's arrangement: pins toward the edge, tabs inward). XRP motors and cables plug straight in |
+| E-007 header resistors | R401–R413 1 kΩ (were 330 Ω) |
+| E-004 unprotected expansion pins | 1 kΩ on IMU INT1, USER, buzzer (R414–R416, beside J405/J406) and RGB out (R417, beside the LED). SDA/SCL still direct |
+| E-003 EN beside VSYS_SW | EXP B pin 12 not connected |
+| E-016 IO numbers | IO legend on the back silkscreen |
+| E-001, E-002, E-012 shorts | 1S protection board (≥ 8 A) in the battery pack; no board fuse (no room) |
+
+Unchanged: outline, mounting holes, every connector position and the rest of the routing (`tools/eco_v21.py` changed the routed V2.0 board in place).
+
 The parts follow the SparkFun XRP Controller. Our circuit is drawn from scratch: SparkFun's design files are CC BY-SA 4.0, so anything copied from them directly would need credit and the same license.
 
 ## Block diagram
@@ -61,7 +75,7 @@ IO45 and IO46 are strapping pins and stay unconnected. All IR inputs use ADC1, w
 ## Connectors
 | Connector | Type | Pins |
 |---|---|---|
-| Motor 1, Motor 2 | JST SH 6-pin vertical | M+, M−, 3.3 V, Enc A, Enc B, GND (XRP order) |
+| Motor 1, Motor 2 | JST SH 6-pin vertical | M+, M−, 3.3 V, Enc A, Enc B, GND (XRP order). V2.0: back to front for XRP cables (E-015); V2.1: SparkFun's arrangement |
 | Servo 1–4 | 2.54 mm 1×3 male (1 + 3 on the left, 2 + 4 on the right, as on the XRP) | Signal, VMOT (5.5 V), GND |
 | Ultrasonic | 2.54 mm pin header 1×4 (J403; header again since 2026-10-08) | 3V3, TRIG, ECHO, GND: the HC-SR04 pin order, so a straight cable works. Use a 3.3 V-capable module (HC-SR04+, RCWL-1601). hanxia HX PH254-01-04-Z-L11.5, C52016392 |
 | Line follower | 2.54 mm pin header 1×5 (J404; header again since 2026-10-08) | 3V3, GND, L, C, R. For a 3-channel TCRT5000-type module with analog outputs. Hong Cheng HC-PZ254-11.5L-1x5PZ, C27985190 |
@@ -84,7 +98,7 @@ IO45 and IO46 are strapping pins and stay unconnected. All IR inputs use ADC1, w
 | 9 | Servo 2 (IO39) | IO37 |
 | 10 | Buzzer (IO47) | IMU INT1 (IO1) |
 | 11 | RGB LED data out (chain more WS2812s) | USER button (IO42) |
-| 12 | IO3 | EN (reset) |
+| 12 | IO3 | Not connected since V2.1 (EN on V2.0, E-003) |
 | 13 | VMOT 5.5 V | VSYS_SW (switched battery) |
 | 14 | GND | GND |
 

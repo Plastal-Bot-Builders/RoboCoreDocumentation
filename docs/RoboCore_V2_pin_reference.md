@@ -4,6 +4,13 @@ Which pin drives each part of the RoboCore V2 board, and how to use each part fr
 
 This guide covers the board as built (V2-01 and V2-02, November 2026). It was checked against the board files, the bring-up program and version 3.3.11 of the ESP32 Arduino core on 2026-11-09. Every sketch in it compiles for the board.
 
+**V2.1 boards** (designed 2026-11-14, not made yet) use the same pins and the same code. Five things differ, each noted where it matters:
+- the motor sockets take XRP motors and their cables straight in;
+- expansion header resistors are 1 kΩ (330 Ω on V2);
+- the buzzer, RGB-out, IMU-interrupt and USER pins on the expansion headers have a 1 kΩ resistor;
+- expansion B pin 12 is not connected (EN on V2);
+- the back has a table of the parts' pins.
+
 ## The short version
 
 - **A pin number is the ESP32-S3's GPIO number.** The board and this guide print it as IO plus the number, so IO47 is pin 47.
@@ -12,7 +19,7 @@ This guide covers the board as built (V2-01 and V2-02, November 2026). It was ch
 - **The Arduino Uno's numbers don't carry over.** On the V2:
   - pin 8 is the I²C data line, not a free pin;
   - `A0` means IO1, the motion sensor's interrupt;
-  - the parts on the board have no pin number printed next to them, which is why this table exists.
+  - the parts on the board have no pin number printed next to them, which is why this table exists (V2.1 prints them on the back).
 
 ## Board settings
 
@@ -240,7 +247,7 @@ void loop() {
 ```
 
 **Before you run the motors:**
-- **XRP motors need a reversed cable.** On V2 boards, the motor sockets are wired back to front for SparkFun XRP motors (errata E-015). Use a 6-way JST SH cable that is reversed (pin 1 to pin 6), or the motor won't turn and its encoder can be damaged.
+- **XRP motors need a reversed cable on V2 boards.** On V2 boards, the motor sockets are wired back to front for SparkFun XRP motors (errata E-015). Use a 6-way JST SH cable that is reversed (pin 1 to pin 6), or the motor won't turn and its encoder can be damaged. **V2.1 boards** take XRP motors and SparkFun's cables straight in.
 - **Motors and servos need the battery and the switch ON.** Their 5.5 V supply (VMOT) is off when the switch is OFF, even on USB. On USB alone, a motor can't start (errata E-014).
 
 ## Connectors
@@ -344,15 +351,15 @@ The pin names are printed on the back of the board.
 | 7 | Ultrasonic ECHO (IO41) | Servo 3 (IO35) |
 | 8 | Servo 1 (IO38) | Servo 4 (IO36) |
 | 9 | Servo 2 (IO39) | IO37 |
-| 10 | Buzzer (IO47) ⚠ | IMU interrupt (IO1) ⚠ |
-| 11 | RGB LED data out ⚠ | USER button (IO42) ⚠ |
-| 12 | IO3 | EN (reset) ⚠ |
+| 10 | Buzzer (IO47) ⚠ (1 kΩ on V2.1) | IMU interrupt (IO1) ⚠ (1 kΩ on V2.1) |
+| 11 | RGB LED data out ⚠ (1 kΩ on V2.1) | USER button (IO42) ⚠ (1 kΩ on V2.1) |
+| 12 | IO3 | EN (reset) ⚠; not connected on V2.1 |
 | 13 | VMOT 5.5 V ⚠ | VSYS_SW, the battery after the switch ⚠ |
 | 14 | GND | GND |
 
 **Protection on these pins**
-- The pins without ⚠ have a 330 Ω resistor between the header and the ESP32.
-- The pins marked ⚠ connect straight through, with no resistor (errata E-001 to E-004).
+- The pins without ⚠ have a 330 Ω resistor between the header and the ESP32 (1 kΩ on V2.1).
+- The pins marked ⚠ connect straight through, with no resistor (errata E-001 to E-004). On V2.1, pins 10 and 11 of both headers have 1 kΩ too, and B12 is not connected; SDA, SCL and the two power pins are still direct.
 - If pin 13's 5.5 V reaches a ⚠ pin, it can destroy the ESP32, the motion sensor or the LED.
 - Keep wires off pins 12 to 14 unless you need power from them.
 
