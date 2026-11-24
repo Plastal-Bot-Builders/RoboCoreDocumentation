@@ -5,7 +5,7 @@ Which pin drives each part of the RoboCore V2 board, and how to use each part fr
 This guide covers the board as built (V2-01 and V2-02, November 2026). It was checked against the board files, the bring-up program and version 3.3.11 of the ESP32 Arduino core on 2026-11-09. Every sketch in it compiles for the board.
 
 **V2.1 boards** (designed 2026-11-14, not made yet) use the same pins and the same code. Five things differ, each noted where it matters:
-- the motor sockets take XRP motors and their cables straight in;
+- the motor sockets are JST PH 2.0, the same as on the motors: a straight PH-to-PH 6-pin cable connects them (2026-11-23);
 - expansion header resistors are 1 kΩ (330 Ω on V2);
 - the buzzer, RGB-out, IMU-interrupt and USER pins on the expansion headers have a 1 kΩ resistor;
 - expansion B pin 12 is not connected (EN on V2);
@@ -247,7 +247,7 @@ void loop() {
 ```
 
 **Before you run the motors:**
-- **XRP motors need a reversed cable on V2 boards.** On V2 boards, the motor sockets are wired back to front for SparkFun XRP motors (errata E-015). Use a 6-way JST SH cable that is reversed (pin 1 to pin 6), or the motor won't turn and its encoder can be damaged. **V2.1 boards** take XRP motors and SparkFun's cables straight in.
+- **XRP motors need a reversed cable on V2 boards.** On V2 boards, the motor sockets are wired back to front for SparkFun XRP motors (errata E-015). Use a 6-way JST SH cable that is reversed (pin 1 to pin 6), or the motor won't turn and its encoder can be damaged. **V2.1 boards** have JST PH 2.0 sockets in the motor's own pin order: use a straight PH-to-PH 6-pin cable (pin 1 to pin 1).
 - **Motors and servos need the battery and the switch ON.** Their 5.5 V supply (VMOT) is off when the switch is OFF, even on USB. On USB alone, a motor can't start (errata E-014).
 
 ## Connectors

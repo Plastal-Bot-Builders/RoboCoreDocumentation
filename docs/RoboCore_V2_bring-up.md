@@ -74,6 +74,15 @@ USB is the safest first supply, because its input has a 1.5 A resettable fuse. N
 
 **Charging.** Battery plus USB: the red CHG LED is on while it charges, and the green FULL LED when it's done.
 
+**V2.1 boards (from 2026-11-23): on-board cell protection U106.** Bench supply on the XT30, USB unplugged, switch ON:
+1. **Plug-in start:** at 3.7 V the board must come on every time you connect the supply (try 5 times). If it ever stays dead, note it: U106 did not start (see the spec).
+2. **Low cut-off:** lower the supply slowly. The board must switch off at **2.85–2.95 V**. Raise it back to 3.7 V: it stays off (that is correct).
+3. **Wake-up:** plug in USB: the board comes back on and charging starts. Unplug USB.
+4. **Overcurrent (optional, supply limit at least 12 A only):** skip unless you have such a supply; the 10 A trip is fixed by the chip.
+5. **Wrong pack:** at 8.4 V (a 2S pack) nothing must light up and the current must stay under 10 mA.
+
+**Motor cables (V2.1):** straight JST PH 6-pin cable, pin 1 to pin 1. Before plugging into the board, check with the meter (unpowered) that the motor coil (a few ohms) is between pins 1 and 2 at the board end.
+
 ## 6. Test program, then the add-ons, one at a time
 - **Test program:** `firmware/v2_bringup/v2_bringup.ino`.
   - **At start-up** it runs a self-test that moves nothing: chip, flash, PSRAM, motor-driver fault line and idle current, encoder pull-ups, I2C scan, IMU identity, data and interrupt line, battery voltage, an RGB colour cycle and two beeps.

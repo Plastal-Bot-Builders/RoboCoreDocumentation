@@ -8,19 +8,24 @@ V2 keeps V1's 68 × 60 mm outline, mounting holes, single-cell (1S) Li-ion batte
 - Use the XRP's part choices.
 - ~~Bottom-side parts may cover the artwork.~~ Changed 2026-10-05: the back stays blank for artwork, so every SMD part is on the top side.
 
-## V2.1 (2026-11-14): errata fixes
-The V2.0 boards (PCBWay, October 2026) work, with the faults listed in `RoboCore_V2_errata.md`. V2.1 fixes what fits on the same outline. Order files and change list: `fab/PCBWay_V2.1_2026-11-15/ORDER_NOTES.md`.
+## V2.1 (2026-11-14, updated 2026-11-23): errata fixes, PH motor sockets, cell protection
+The V2.0 boards (PCBWay, October 2026) work, with the faults listed in `RoboCore_V2_errata.md`. V2.1 fixes what fits on the same outline. Order files and change list: `fab/PCBWay_V2.1_2026-11-24/ORDER_NOTES.md` (the 2026-11-15 and 2026-11-23 sets are superseded, never ordered).
+
+**2026-11-23 (Fred: "PH2.0 to PH2.0 connection from motor to board", sensors stay on headers, "changes to v2.1"):**
+- **Motor sockets J301/J302 = JST PH 2.0 6-pin vertical (B6B-PH-K-S, LCSC C131342)**, the same connector as on the DG01D-E motors. Pin order 1 M+, 2 M−, 3 3.3 V, 4 Enc A, 5 Enc B, 6 GND (pin 1 = square pad, left end) is the motor socket's own order, so a **straight PH-to-PH 6-pin cable (pin 1 to pin 1)** connects them: no special or reversed cable. PH contacts are rated 2 A (the motor limit stays 1.0 A). The sockets sit 1.6 mm higher than the SH ones; J201 (Qwiic) turned to 0° and moved down 4 mm, FID102 moved to the right edge, C204 below D201.
+- **Cell protection on the board: U106 XySemi XB8089D0** (SOP-8 with built-in 20 mΩ MOSFETs, LCSC C2760005) in the cell's minus lead, just above the XT30. It cuts off below 2.90 V (back on once USB charges the cell), above 4.25 V, above 10 A for 10 ms and at a short (40 A, 75 µs). **The pack is now just cells + holder + XT30 lead: no protection board.** After a short: unplug the pack for a second or plug in USB. R127 2.2 kΩ + C123 100 nF feed its VDD; D108 (5.6 V zener) keeps VDD under its 6 V limit if a 2S–4S pack is plugged in (the input protection still cuts that pack off).
+- The input-protection control parts (Q105, R124, C121, U105, R126, C122) now return to the cell's minus (net BAT_N), not GND, so the board stays off the cell for ~40 ms while U106 starts (its datasheet warns it may not start if the load is already connected). D107 (now 1N4148WT, SOD-523) feeds the enable from the common source BATP_S, which only rises through Q103's body diode when the pack is the right way round.
 
 | Errata | V2.1 |
 |---|---|
-| E-015 motor sockets | XRP-numbered footprint turned 180° (SparkFun's arrangement: pins toward the edge, tabs inward). XRP motors and cables plug straight in |
+| E-015 motor sockets | JST PH 2.0 6-pin in the motor's own pin order: a straight PH-to-PH cable fits (2026-11-23; the 2026-11-14 version used the XRP-numbered SH socket turned 180°) |
 | E-007 header resistors | R401–R413 1 kΩ (were 330 Ω) |
 | E-004 unprotected expansion pins | 1 kΩ on IMU INT1, USER, buzzer (R414–R416, beside J405/J406) and RGB out (R417, beside the LED). SDA/SCL still direct |
 | E-003 EN beside VSYS_SW | EXP B pin 12 not connected |
 | E-016 IO numbers | IO legend on the back silkscreen |
-| E-001, E-002, E-012 shorts | 1S protection board (≥ 8 A) in the battery pack; no board fuse (no room) |
+| E-001, E-002, E-012 shorts | Cell protection on the board, U106 XB8089D0: 10 A overcurrent, 40 A short, 2.9 V cut-off (2026-11-23; was a protection board in the pack) |
 
-Unchanged: outline, mounting holes, every connector position and the rest of the routing (`tools/eco_v21.py` changed the routed V2.0 board in place).
+Unchanged: outline, mounting holes, every other connector position and the rest of the routing (`tools/eco_v21.py`, then `tools/eco_v21b.py` on 2026-11-23, changed the routed board in place).
 
 The parts follow the SparkFun XRP Controller. Our circuit is drawn from scratch: SparkFun's design files are CC BY-SA 4.0, so anything copied from them directly would need credit and the same license.
 
@@ -37,8 +42,8 @@ USB-C ──ESD──► ESP32-S3 native USB (one-click upload, no CP2102N)
 | Function | Part | Note |
 |---|---|---|
 | MCU | ESP32-S3-WROOM-1-N8R2 | Drop-in alternates: N16R2 (best stocked) and N8. Never use R8/R16V modules: their octal PSRAM takes IO35–37 |
-| Motor driver | TI DRV8411ARTER (WQFN-16 3×3) | Same as XRP. One chip drives both motors, 4 A peak. Current limit set to **1.0 A** (R301/R302 = 16.5k), the rating of the JST-SH contacts |
-| Motor connectors | JST BM06B-SRSS-TB (SH 1.0 mm, 6-pin vertical) | XRP motor plug: 1 M+, 2 M−, 3 3.3 V, 4 Enc A, 5 Enc B, 6 GND |
+| Motor driver | TI DRV8411ARTER (WQFN-16 3×3) | Same as XRP. One chip drives both motors, 4 A peak. Current limit set to **1.0 A** (R301/R302 = 16.5k); the JST PH contacts are rated 2 A |
+| Motor connectors | JST B6B-PH-K-S (PH 2.0 mm, 6-pin vertical; SH 1.0 mm until 2026-11-23) | Same as the DG01D-E motor socket: 1 M+, 2 M−, 3 3.3 V, 4 Enc A, 5 Enc B, 6 GND. Straight PH-to-PH cable |
 | IMU | LSM6DSOXTR (LGA-14 2.5×3) | Same as XRP. Alternate: LSM6DSO32TR (same pins and registers). Mounted rotated 90°, so firmware remaps the axes (check with a tilt test) |
 | 3.3 V | TI TPS63001DRCR buck-boost (VSON-10 3×3) + Bourns SRN4018-2R2M 2.2 µH | Fixed 3.3 V, up to ~1.2 A from a 1S cell. Holds 3.3 V down to a flat cell (V1's LDO couldn't). Chosen over the TPS63802 because the TPS63802's 2×3 mm package has no stock KiCad footprint |
 | Motor/servo rail | TI TPS61089 boost (from V1), VMOT = 5.5 V, Bourns SRP5030CA-2R2M 2.2 µH | 5.5 V keeps SG90-type servos inside their 4.8–6 V range; one resistor change gives 6 V. Q102 (SI7655DN P-FET) disconnects the battery from the boost when the board is OFF |
@@ -46,6 +51,7 @@ USB-C ──ESD──► ESP32-S3 native USB (one-click upload, no CP2102N)
 | Power switch | C&K JS102011SAQN right-angle slide switch on the right edge (lever over the edge; slide towards the top edge = ON) | Grounds the gates of P-FETs Q101 (VSYS) and Q102 (boost input), as on the XRP. OFF draws ~0.03 mA |
 | USB-C | HRO TYPE-C-31-M-12 + USBLC6-2SC6 ESD (from V1) + SMF5.0A VBUS TVS | Charging and data |
 | Battery input protection | Q103/Q104 SI7655DN back to back + TPS3700 window comparator + AO3400A | Cuts the XT30 off if the pack is reversed or above 4.6 V (2S/3S RC packs). Off by default, conducts both ways when the pack is OK, so charging works. Survives up to 4S, reversed up to 3S |
+| Cell protection | XySemi XB8089D0 (U106, SOP-8 with 20 mΩ MOSFETs) in the minus lead | Over-discharge 2.90 V, overcharge 4.25 V, overcurrent 10 A, short 40 A: bare cells need no protection board (2026-11-23) |
 | RGB LED | Worldsemi WS2812B-2020-**V6** | V6 is rated for 3.3 V. The older WS2812B-2020 and most 2020 clones need ≥ 3.5 V, so don't substitute them |
 | LEDs | Lite-On LTST-C191 (0603): charging (red), charged (green), USB power (blue), 3.3 V (green), motor power (red) | 1 kΩ resistors (2.2 kΩ on the 5.5 V motor rail) |
 | Buzzer | Same Sky CMT-8504-100-SMT (8.5 mm magnetic) + MOSFET driver | Loud, PWM tones |
@@ -75,13 +81,13 @@ IO45 and IO46 are strapping pins and stay unconnected. All IR inputs use ADC1, w
 ## Connectors
 | Connector | Type | Pins |
 |---|---|---|
-| Motor 1, Motor 2 | JST SH 6-pin vertical | M+, M−, 3.3 V, Enc A, Enc B, GND (XRP order). V2.0: back to front for XRP cables (E-015); V2.1: SparkFun's arrangement |
+| Motor 1, Motor 2 | JST PH 2.0 6-pin vertical (B6B-PH-K-S, C131342) | M+, M−, 3.3 V, Enc A, Enc B, GND, the motor socket's order: straight PH-to-PH cable. V2.0 has JST SH sockets wired back to front (E-015: reversed SH-to-PH cable) |
 | Servo 1–4 | 2.54 mm 1×3 male (1 + 3 on the left, 2 + 4 on the right, as on the XRP) | Signal, VMOT (5.5 V), GND |
 | Ultrasonic | 2.54 mm pin header 1×4 (J403; header again since 2026-10-08) | 3V3, TRIG, ECHO, GND: the HC-SR04 pin order, so a straight cable works. Use a 3.3 V-capable module (HC-SR04+, RCWL-1601). hanxia HX PH254-01-04-Z-L11.5, C52016392 |
 | Line follower | 2.54 mm pin header 1×5 (J404; header again since 2026-10-08) | 3V3, GND, L, C, R. For a 3-channel TCRT5000-type module with analog outputs. Hong Cheng HC-PZ254-11.5L-1x5PZ, C27985190 |
 | Expansion | 2 × 2.54 mm 1×14 female | Spare GPIOs, I2C, UART, the signals above, 3.3 V, VMOT, VSYS_SW (switched battery), GND. Full list below |
 | Qwiic | JST SH 4-pin | GND, 3.3 V, SDA, SCL |
-| Battery | XT30 (from V1), protected input | 1S Li-ion pack only (silkscreen: "1S 4.2V MAX"). Any capacity: 1S2P / 1S3P / 1S4P packs (cells in parallel) need no board change, see "Battery and runtime" |
+| Battery | XT30 (from V1), protected input + on-board cell protection | 1S Li-ion pack only (back silkscreen: "1S 4.2V MAX", moved there for U106 on 2026-11-23). Bare cells in a holder are fine. Any capacity: 1S2P / 1S3P / 1S4P packs (cells in parallel) need no board change, see "Battery and runtime" |
 | USB-C | 16-pin (from V1) | Charging + programming |
 
 ### Expansion header pin order
@@ -148,11 +154,11 @@ Estimate with 3000 mAh 18650 cells (9.7 Wh usable each, down to 3.0 V), everythi
 | Class activity: driving half the time (~0.35 A per motor), arm moving now and then | 3.4 W | 2.8 h | 5.7 h | 8.5 h | 11.3 h |
 | Non-stop hard driving: both motors ~0.5 A, all four servos busy | 8.6 W | 1.1 h | 2.3 h | 3.4 h | 4.5 h |
 | Charge time at the charger's 1 A (USB-C) | | ~3.6 h | ~6.6 h | ~9.6 h | ~12.6 h |
-| Pack weight (cells + protection board) | | ~58 g | ~106 g | ~154 g | ~202 g |
+| Pack weight (cells + holder; no protection board since 2026-11-23) | | ~58 g | ~106 g | ~154 g | ~202 g |
 
 **Recommendation:** 1S2P for most classes (a school day of activity, charges overnight); 1S3P for long sessions or
-competitions. Buy a ready-made 1S pack with its own protection board (BMS, ≥5 A) and an XT30 lead, or build one from
-matched cells at the same charge; never parallel cells at different voltages. For comparison, the XRP's 4×AA NiMH
+competitions. Since 2026-11-23 the board protects the cell itself (U106), so the pack is just matched cells in a
+1S holder with an XT30 lead (a ready-made protected pack also works); never parallel cells at different voltages. For comparison, the XRP's 4×AA NiMH
 pack (~9.6 Wh) is about one 18650. The motor currents are estimates for XRP-type gear motors: measure them on the
 prototype (VBAT_SENSE on IO4 and the DRV8411A current outputs on IO5/IO6 make that easy) and update the table.
 
