@@ -9,7 +9,7 @@ TE tied straight to +5V_USB (safety timer off, as before), USBLC6 channel pins s
 """
 ROOT_UUID = "061529a6-e218-4bfa-b9b2-1c0a6368cc57"
 REV = "2.1"            # V2.1: errata fixes (2026-11-14); V2.0 = the boards made by PCBWay in Oct 2026
-DATE = "2026-11-14"
+DATE = "2026-11-23"     # 2026-11-23 (still V2.1): JST PH motor sockets + on-board cell protection (U106)
 
 R0603 = "Resistor_SMD:R_0603_1608Metric"
 C0603 = "Capacitor_SMD:C_0603_1608Metric"
@@ -234,12 +234,14 @@ boost = BLOCK(
 batprot = BLOCK(
     "BATTERY INPUT PROTECTION (REVERSE + OVER-VOLTAGE)", [
         "Q103/Q104 back to back: off by default, so a reversed or 2S/3S pack never reaches the board; both ways on when the pack is OK (charging).",
-        "Q105 switches them on only if XT30+ is positive (D107 blocks a reversed pack; R123/C121 delay ~40 ms so U105 starts first).",
-        "U105 (TPS3700) pulls the enable low above 4.6 V on the common source: 0.4 V x (1 + 1M / 95.3k). Rated to 4S (16.8 V), reversed to 3S."],
+        "Q105 switches them on only if XT30+ is positive: D107 feeds it from the common source, which only rises (through Q103's",
+        "body diode) when the pack is the right way round. R123/C121 delay ~40 ms so U105 starts first.",
+        "U105 (TPS3700) pulls the enable low above 4.6 V on the common source: 0.4 V x (1 + 1M / 95.3k). Rated to 4S (16.8 V), reversed to 3S.",
+        "These parts work from the cell's minus (BAT_N), not GND, so the board stays off the cell until U106 has started (see U106)."],
     (304.8, 198.12), (99.06, 83.82), [
         CONN("J102", 2, "XT30UPB-M", "RoboCoreV2:AMASS_XT30UPB-M_1x02_P5.0mm_Vertical", 10.16, 38.1,
-             {1: "GND", 2: "BAT_RAW"}, mirror="y", fields={"MF": "AMASS", "MP": "XT30UPB-M"},
-             description="1S Li-ion pack only (cells in parallel, protection board in the pack)"),
+             {1: "BAT_N", 2: "BAT_RAW"}, mirror="y", fields={"MF": "AMASS", "MP": "XT30UPB-M"},
+             description="1S Li-ion pack only (cells in parallel); bare cells are fine, U106 protects them"),
         dict(ref="Q103", lib_id="RoboCoreV2:SI7655DN", value="SI7655DN", footprint="Package_SO:Vishay_PowerPAK_1212-8_Single",
              x=33.02, y=40.64, rot=90, nets={5: "BAT_RAW", 1: "BATP_S", 2: "BATP_S", 3: "BATP_S", 4: "BATP_G"},
              fields={"MF": "Vishay", "MP": "SI7655DN-T1-GE3"}, description="Reverse/over-voltage switch, battery side"),
@@ -248,22 +250,43 @@ batprot = BLOCK(
              fields={"MF": "Vishay", "MP": "SI7655DN-T1-GE3"}, description="Reverse/over-voltage switch, board side"),
         R("R122", "100k", 66.04, 50.8, "BATP_S", "BATP_G", description="holds Q103/Q104 off"),
         dict(ref="Q105", lib_id="Transistor_FET:AO3400A", value="AO3400A", footprint="Package_TO_SOT_SMD:SOT-23",
-             x=44.45, y=60.96, nets={1: "BATP_EN", 2: "GND", 3: "BATP_G"}, fields={"MF": "Alpha & Omega", "MP": "AO3400A"}),
-        dict(ref="D107", lib_id="Diode:1N4148WS", value="1N4148WS", footprint="Diode_SMD:D_SOD-323", x=17.78, y=55.88, rot=90,
-             nets={2: "BAT_RAW", 1: "BATP_D"}, fields={"MF": "Vishay", "MP": "1N4148WS-E3-08", "ALT": "any 1N4148WS (SOD-323)"},
+             x=44.45, y=60.96, nets={1: "BATP_EN", 2: "BAT_N", 3: "BATP_G"}, fields={"MF": "Alpha & Omega", "MP": "AO3400A"}),
+        dict(ref="D107", lib_id="Diode:1N4148WT", value="1N4148WT", footprint="Diode_SMD:D_SOD-523", x=17.78, y=55.88, rot=90,
+             nets={2: "BATP_S", 1: "BATP_D"}, fields={"MF": "onsemi", "MP": "1N4148WT", "ALT": "any 1N4148WT (SOD-523)"},
              description="blocks a reversed pack from the enable"),
         R("R123", "100k", 27.94, 60.96, "BATP_D", "BATP_EN", rot=90),
-        R("R124", "330k", 35.56, 68.58, "BATP_EN", "GND"),
-        C("C121", "1uF", 25.4, 68.58, "BATP_EN", description="25 V X5R: turn-on delay"),
+        R("R124", "330k", 35.56, 68.58, "BATP_EN", "BAT_N"),
+        C("C121", "1uF", 25.4, 68.58, "BATP_EN", "BAT_N", description="25 V X5R: turn-on delay"),
         dict(ref="U105", lib_id="RoboCoreV2:TPS3700", value="TPS3700", footprint="Package_TO_SOT_SMD:TSOT-23-6", x=78.74, y=60.96,
-             nets={5: "BATP_S", 2: "GND", 4: "BATP_OV", 3: "BATP_OV", 6: "BATP_EN"},
+             nets={5: "BATP_S", 2: "BAT_N", 4: "BATP_OV", 3: "BATP_OV", 6: "BATP_EN"},
              fields={"MF": "Texas Instruments", "MP": "TPS3700DDCR"}, description="OUTB low when INB- > 0.4 V; OUTA/INA+ unused"),
         R("R125", "1M", 66.04, 63.5, "BATP_S", "BATP_OV", description="1%"),
-        R("R126", "95.3k", 66.04, 73.66, "BATP_OV", "GND", description="1%: trip at 4.6 V"),
-        C("C122", "0.1uF", 91.44, 58.42, "BATP_S", description="25 V"),
+        R("R126", "95.3k", 66.04, 73.66, "BATP_OV", "BAT_N", description="1%: trip at 4.6 V"),
+        C("C122", "0.1uF", 91.44, 58.42, "BATP_S", "BAT_N", description="25 V"),
         FLAG("#FLG107", 76.2, 45.72, "BATP_S"),
     ],
     notes=[("1S only", 7.62, 48.26), ("trip 4.6 V", 71.12, 78.74)])
+
+batpcm = BLOCK(
+    "CELL PROTECTION (XB8089D0, IN THE MINUS LEAD)", [
+        "U106 switches the cell's minus (BAT_N) to GND (20 mOhm) and cuts off",
+        "below 2.90 V (USB charging brings it back), above 4.25 V, above",
+        "10 A for 10 ms and at a short. Bare cells need no protection board.",
+        "After a short: unplug the pack for a second or plug in USB.",
+        "D108 keeps VDD under its 6 V limit if a 2S-4S pack is plugged in."],
+    (411.48, 198.12), (99.06, 83.82), [
+        dict(ref="U106", lib_id="RoboCoreV2:XB8089D0", value="XB8089D0",
+             footprint="Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm", x=60.96, y=50.8,
+             nets={6: "XB_VDD", 5: "BAT_N", 7: "BAT_N", 8: "BAT_N", 9: "BAT_N", 1: "GND", 2: "GND", 3: "GND", 4: "GND"},
+             fields={"MF": "XySemi", "MP": "XB8089D0"}, description="1S protection, 20 mOhm, 10 A overcurrent"),
+        R("R127", "2.2k", 20.32, 33.02, "BAT_RAW", "XB_VDD", description="VDD filter; limits D108 current on a 4S pack"),
+        C("C123", "0.1uF", 30.48, 53.34, "XB_VDD", "BAT_N", description="50 V"),
+        dict(ref="D108", lib_id="Device:D_Zener", value="5.6V", footprint="Diode_SMD:D_SOD-523", x=40.64, y=53.34, rot=270,
+             nets={1: "XB_VDD", 2: "BAT_N"}, fields={"MF": "Diodes Inc", "MP": "BZT52C5V6T-7"},
+             description="VDD clamp (IC abs. max 6 V)"),
+        FLAG("#FLG108", 76.2, 22.86, "BAT_N"), FLAG("#FLG109", 7.62, 45.72, "XB_VDD"),
+    ],
+    notes=[("trip 2.9 V / 10 A", 63.5, 63.5)], label_nets={"XB_VDD"})
 
 # =========================================================================== MCU
 GPIO = {1: "GND", 2: "+3V3", 3: "EN", 4: "VBAT_SENSE", 5: "MOTA_ISENSE", 6: "MOTB_ISENSE", 7: "IR_L", 8: "ENC1_A", 9: "ENC1_B",
@@ -377,27 +400,27 @@ driver = BLOCK(
     ],
     notes=[("ITRIP = VREF / (16.5k x 200 uA/A) = 3.3 / 3.3 = 1.0 A", 96.52, 88.9), ("bulk caps", 15.24, 58.42)])
 
-MOTOR_FP = "RoboCoreV2:JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vertical_XRP"   # V2.1 (E-015): SparkFun's pin-1 end
+MOTOR_FP = "Connector_JST:JST_PH_B6B-PH-K_1x06_P2.00mm_Vertical"   # 2026-11-23: same PH 2.0 as the motors' own socket
 
 motor1 = BLOCK(
-    "MOTOR 1 (XRP JST-SH 6-PIN)", [
-        "XRP motor plug: 1 M+, 2 M-, 3 3.3 V, 4 encoder A, 5 encoder B, 6 GND.",
-        "10k pull-ups on the encoder outputs. V2.1: pin 1 at SparkFun's end, so XRP motors and cables plug straight in (E-015)."],
+    "MOTOR 1 (JST PH 2.0 6-PIN)", [
+        "Motor plug: 1 M+, 2 M-, 3 3.3 V, 4 encoder A, 5 encoder B, 6 GND, the motor socket's own order (DG01D-E),",
+        "so a straight PH-to-PH cable (pin 1 to pin 1) fits. 10k pull-ups on the encoder outputs."],
     (210.82, 15.24), (91.44, 53.34), [
         CONN("J301", 6, "MOTOR_1", MOTOR_FP, 45.72, 27.94,
-             {1: "MOTA_P", 2: "MOTA_N", 3: "+3V3", 4: "ENC1_A", 5: "ENC1_B", 6: "GND"}, fields={"MF": "JST", "MP": "BM06B-SRSS-TB"}),
+             {1: "MOTA_P", 2: "MOTA_N", 3: "+3V3", 4: "ENC1_A", 5: "ENC1_B", 6: "GND"}, fields={"MF": "JST", "MP": "B6B-PH-K-S(LF)(SN)"}),
         R("R304", "10k", 66.04, 33.02, "+3V3", "ENC1_A"),
         R("R305", "10k", 78.74, 33.02, "+3V3", "ENC1_B"),
     ],
     label_nets={"ENC1_A", "ENC1_B"})
 
 motor2 = BLOCK(
-    "MOTOR 2 (XRP JST-SH 6-PIN)", [
+    "MOTOR 2 (JST PH 2.0 6-PIN)", [
         "Same plug as motor 1.",
         "10k pull-ups on the encoder outputs."],
     (210.82, 72.39), (91.44, 53.34), [
         CONN("J302", 6, "MOTOR_2", MOTOR_FP, 45.72, 27.94,
-             {1: "MOTB_P", 2: "MOTB_N", 3: "+3V3", 4: "ENC2_A", 5: "ENC2_B", 6: "GND"}, fields={"MF": "JST", "MP": "BM06B-SRSS-TB"}),
+             {1: "MOTB_P", 2: "MOTB_N", 3: "+3V3", 4: "ENC2_A", 5: "ENC2_B", 6: "GND"}, fields={"MF": "JST", "MP": "B6B-PH-K-S(LF)(SN)"}),
         R("R306", "10k", 66.04, 33.02, "+3V3", "ENC2_A"),
         R("R307", "10k", 78.74, 33.02, "+3V3", "ENC2_B"),
     ],
@@ -490,14 +513,14 @@ exp_protect = BLOCK(
 
 SHEETS = [
     dict(title="Power", file="power.kicad_sch", uuid="80f846ad-ef74-4e4c-a27b-799718835af2", paper="A2",
-         blocks=[usb_in, charger, chg_leds, pwr_switch, vbat_sense, pwr_leds, testpts, mech, buck_boost, boost, batprot],
-         summary=["USB-C in, 1 A Li-ion charger with power path,", "ON/OFF switch, 3.3 V buck-boost, 5.5 V boost (VMOT)."]),
+         blocks=[usb_in, charger, chg_leds, pwr_switch, vbat_sense, pwr_leds, testpts, mech, buck_boost, boost, batprot, batpcm],
+         summary=["USB-C in, 1 A Li-ion charger with power path, cell protection,", "ON/OFF switch, 3.3 V buck-boost, 5.5 V boost (VMOT)."]),
     dict(title="MCU", file="mcu.kicad_sch", uuid="c779f82d-ebf4-4734-a128-1a0a621acf25",
          blocks=[esp, buttons, i2c, rgb, buzzer, imu],
          summary=["ESP32-S3 module, buttons, RGB LED, buzzer,", "LSM6DSOX IMU, I2C pull-ups + Qwiic."]),
     dict(title="Motors", file="motors.kicad_sch", uuid="2b0301c1-476a-4367-9fe7-b5388e9f042f",
          blocks=[driver, motor1, motor2],
-         summary=["DRV8411A dual H-bridge with current sense,", "two XRP motor connectors with encoders."]),
+         summary=["DRV8411A dual H-bridge with current sense,", "two JST PH motor connectors with encoders."]),
     dict(title="IO connectors", file="io.kicad_sch", uuid="5fbebdb8-a863-42ce-9c70-c54585cc4446",
          blocks=[servos, ultra, linef, exp_a, exp_b, protect, exp_protect],
          summary=["Servos, ultrasonic, line follower,", "two 14-pin expansion headers."]),
@@ -513,6 +536,7 @@ LCSC_PN = {
     "SKQGADE010": "C116647", "JS102011SAQN": "C221660", "CMT-8504-100-SMT-TR": "C22359707", "SRN4018-2R2M": "C913207",
     "SRP5030CA-2R2M": "C2046809", "LTST-C191KRKT": "C125099", "LTST-C191KGKT": "C125098", "LTST-C191TBKT": "C99290",
     "WS2812B-2020-V6": "C52917434",
+    "B6B-PH-K-S(LF)(SN)": "C131342", "XB8089D0": "C2760005", "BZT52C5V6T-7": "C516598", "1N4148WT": "C232841",
 }
 # Generic parts pinned to exact, cheap, in-stock LCSC parts (checked 2026-10-07). PCBWay's V1 quote showed what happens
 # without them: it picked automotive / anti-surge parts at 10-100x the price, and bought an MPU-6050 for a capacitor
@@ -585,6 +609,8 @@ ROOT_NOTES = [("RoboCore V2.1 - ESP32-S3 robot controller (68 x 60 mm, same outl
               ("V2.1 (2026-11-14), fixes from docs/RoboCore_V2_errata.md: motor sockets numbered from SparkFun's end (E-015),", 25.4, 157.48, 1.5),
               ("1k header resistors (E-007), 1k on IMU INT1 / USER / buzzer / RGB out for the expansion headers (E-004),", 25.4, 160.91, 1.5),
               ("EN off the expansion header (E-003), IO numbers printed beside the parts (E-016).", 25.4, 164.34, 1.5),
+              ("2026-11-23: JST PH 2.0 motor sockets (same as the motors' own socket, straight PH cable) and on-board cell", 25.4, 167.77, 1.5),
+              ("protection (U106 XB8089D0: 2.9 V cut-off, 10 A, short circuit), so the pack is just cells + holder + lead.", 25.4, 171.2, 1.5),
               ("Parts follow the SparkFun XRP Controller where possible; circuit drawn independently.", 25.4, 36.83, 1.5),
               ("Power flow: USB-C 5 V -> charger -> VSYS -> ON/OFF -> VSYS_SW -> 3.3 V buck-boost and 5.5 V boost (VMOT).", 25.4, 182.88, 1.5),
-              ("Battery: 1S Li-ion (cells in parallel) on XT30. Programming: USB-C straight to the ESP32-S3.", 25.4, 187.96, 1.5)]
+              ("Battery: 1S Li-ion (cells in parallel) on XT30, protected on the board. Programming: USB-C straight to the ESP32-S3.", 25.4, 187.96, 1.5)]

@@ -20,7 +20,7 @@ BOARDS = [  # folder, project, label, copper layers
     ("sensors/line_sensor", "RoboCore_LineSensor", "RoboCore_LineSensor", 2),
     ("sensors/ultrasonic", "RoboCore_Ultrasonic", "RoboCore_Ultrasonic", 2),
 ]
-THT = ("PinHeader", "PinSocket", "XT30", "TCRT5000", "Ultrasonic_Transducer")
+THT = ("PinHeader", "PinSocket", "XT30", "TCRT5000", "Ultrasonic_Transducer", "JST_PH_B6B-PH-K")   # PH motor sockets: through-hole
 
 CAPS = {   # MPN -> rating text for the description
     "CL05B104KB5NNNC": "100nF 50V X7R ±10%", "CL05B103KB5NNNC": "10nF 50V X7R ±10%", "CL05B102KB5NNNC": "1nF 50V X7R ±10%",
@@ -39,6 +39,8 @@ DESC = {   # MPN -> clean description (function and package only)
     "1N4148W-7-F": "Switching diode", "MF-MSMF150/24X-2": "PTC resettable fuse 1.5 A", "TYPE-C-31-M-12": "USB-C receptacle, 16 pin",
     "XT30UPB-M": "Battery connector XT30, male, vertical", "BM04B-SRSS-TB": "JST SH 4-pin vertical header",
     "BM05B-SRSS-TB": "JST SH 5-pin vertical header", "BM06B-SRSS-TB": "JST SH 6-pin vertical header",
+    "B6B-PH-K-S(LF)(SN)": "JST PH 6-pin vertical header (motor)", "XB8089D0": "1-cell Li-ion protection IC with MOSFETs",
+    "BZT52C5V6T-7": "Zener diode 5.6 V", "1N4148WT": "Switching diode",
     "SKQGADE010": "Tactile switch 5.2 x 5.2 mm", "JS102011SAQN": "Slide switch SPDT, side-actuated",
     "CMT-8504-100-SMT-TR": "Magnetic buzzer 8.5 mm", "SRN4018-2R2M": "Power inductor 2.2 uH", "SRP5030CA-2R2M": "Power inductor 2.2 uH",
     "LTST-C191KRKT": "LED red 0603", "LTST-C191KGKT": "LED green 0603", "LTST-C191TBKT": "LED blue 0603",

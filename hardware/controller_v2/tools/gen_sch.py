@@ -29,6 +29,7 @@ VERSION = "20260306"
 PROJECT = os.environ.get("RC_PROJECT", "RoboCore_V2")
 DATE = getattr(spec, "DATE", "2026-10-04")
 TITLE = getattr(spec, "TITLE", "RoboCore V2")
+COMPANY = getattr(spec, "COMPANY", "RoboCore Zambia / Plastal-Bot Builders")
 REV = getattr(spec, "REV", "2.0")
 STUB = 2.54
 U = lambda: str(uuid.uuid4())
@@ -871,7 +872,7 @@ class Sheet:
 		(title "{TITLE} - {sh['title']}")
 		(date "{DATE}")
 		(rev "{REV}")
-		(company "RoboCore Zambia / Plastal-Bot Builders")
+		(company "{COMPANY}")
 	)
 	(lib_symbols
 {libsec}
@@ -913,7 +914,7 @@ def build_root(root_uuid, sheets):
 		(title "{TITLE}")
 		(date "{DATE}")
 		(rev "{REV}")
-		(company "RoboCore Zambia / Plastal-Bot Builders")
+		(company "{COMPANY}")
 	)
 	(lib_symbols)
 {chr(10).join(blocks)}
