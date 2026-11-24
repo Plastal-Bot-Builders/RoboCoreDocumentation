@@ -1,5 +1,7 @@
 # RoboCore V2.1 controller: order files (2026-11-15)
 
+**Superseded by `fab/PCBWay_V2.1_2026-11-24` (JST PH motor sockets, on-board cell protection, FET-link fix). Kept for history.**
+
 **Not ordered.** These are the files for the next controller run. Same outline, mounting holes, connector positions, PCB options and assembly options as the V2.0 order (`fab/PCBWay_V2_2026-10-08/ORDER_NOTES.md`, PCBWay YU1827457), so the robot chassis fits unchanged.
 
 ## What changed from V2.0 (errata in `docs/RoboCore_V2_errata.md`)

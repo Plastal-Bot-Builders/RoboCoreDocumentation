@@ -4,6 +4,10 @@
 
 **Paid 2026-10-14: PCBWay order YU1827457** (W836287AS1F11 + T-1F12W836287A), US$234.19, confirmed by PCBWay at 23:03 UTC+8. The card payment had failed on Airtel's limit, so Betsy sent an invoice and bank-transfer instructions. The quotation's ship date (6 November) moves with the payment date: expect about 11 November, then FedEx to Lusaka.
 
+**Sample photos reviewed 2026-10-29** (PCBWay feedback21, "Pictures for Assembly T-1F12W836287A"): every polarised part checked against the board file and our render. U201, U102, U103, U104, U301, U202, U101, U105, Q102-Q104 (Q103 turned 180 degrees on purpose), D106, D202, D101-D105 (anode right, as PCBWay marked), D201 (control chip toward the status LEDs, per the Worldsemi top view), BZ201 and J102 (bevelled side = pin 1 GND) are correct. D107's cathode band isn't visible in the photos; the reply drafted for Fred asks PCBWay to confirm it is on pad 1 (left). Fred sent that reply. PCBWay then sent updated photos the same day, with D107 marked K/A and side views of the XT30: the band is on pad 1 (K, left, toward the ultrasonic header), and the XT30's moulded "+" is on the BAT + side. Everything is correct; a go-ahead reply was drafted for Fred to send.
+
+**Received 2026-11-06:** both assembled boards are with Fred. Bring-up order in `docs/RoboCore_V2_bring-up.md`.
+
 **On PCBWay as PCB W836287AS1F11 + assembly T-1F12W836287A (submitted 2026-10-09, both "Subject to audit", all four files attached, Gerber = the labelled 18:42 export, MD5 d954248c…).** History: the 2026-10-07 items (W836287AS1F3 / T-1F4W836287A and the two sensor pairs) were removed on 2026-10-08 (reason "Change the data"); the 2026-10-08 resubmission W836287AS1F9 / T-1F10W836287A carried the unlabelled Gerber and could not be updated on the site, so it was removed on 2026-10-09 and submitted again. Nothing paid.
 
 ## What changed since the 2026-10-07 files
